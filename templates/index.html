@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Workspace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="logo-section">
+                <h1>AI Workspace</h1>
+                <p>Your intelligent assistant</p>
+            </div>
+
+            <form action="/chat" method="POST">
+
+                <!-- Model Selection -->
+                <div class="sidebar-section">
+
+                    <label for="model">
+                        Select Model
+                    </label>
+
+                    <select id="model" name="model">
+
+                        <option value="gemini-2.5-flash">
+                            Gemini Flash
+                        </option>
+
+                        <option value="gemini-pro">
+                            Gemini Pro
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- System Prompt -->
+                <div class="sidebar-section">
+
+                    <label for="system-prompt">
+                        System Prompt
+                    </label>
+
+                    <textarea
+                        id="system-prompt"
+                        name="system_prompt"
+                        placeholder="Define how the AI should behave..."
+                    >You are a helpful AI assistant.</textarea>
+
+                </div>
+
+                <!-- Prompt Templates -->
+                <div class="sidebar-section">
+
+                    <h3>Prompt Templates</h3>
+
+                    <div class="template-list">
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Summarize the following text:"
+                        >
+                            Summarize Text
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Explain the following code in simple words:"
+                        >
+                            Explain Code
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Generate creative ideas about:"
+                        >
+                            Generate Ideas
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Rewrite the following content professionally:"
+                        >
+                            Rewrite Content
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Translate the following text into English:"
+                        >
+                            Translate
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Create a professional email about:"
+                        >
+                            Create Email
+                        </button>
+
+                        <button
+                            type="button"
+                            class="template-button"
+                            data-template="Brainstorm creative ideas for:"
+                        >
+                            Brainstorm
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+            <a href="/clear" class="clear-button">
+                Clear Conversation
+            </a>
+
+        </aside>
+
+
+        <!-- Main Chat Area -->
+        <main class="chat-section">
+
+            <header class="chat-header">
+
+                <div>
+                    <h2>AI Assistant</h2>
+                    <p>Ask questions, generate ideas and explore.</p>
+                </div>
+
+                <span class="status">
+                    Online
+                </span>
+
+            </header>
+
+
+            <!-- Conversation Messages -->
+            <section class="chat-messages">
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="message {{ message.role }}">
+
+                            <div class="message-label">
+
+                                {% if message.role == "user" %}
+                                    You
+                                {% else %}
+                                    AI
+                                {% endif %}
+
+                            </div>
+
+                            <div class="message-content">
+                                {{ message.content | safe }}
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="welcome-message">
+
+                        <h2>Welcome to AI Workspace</h2>
+
+                        <p>
+                            Select a template or write your own
+                            question to start a conversation.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- Message Form -->
+            <form
+                action="/chat"
+                method="POST"
+                class="chat-form"
+            >
+
+                <!-- Hidden values will be updated later using JavaScript -->
+                <input
+                    type="hidden"
+                    id="hidden-model"
+                    name="model"
+                    value="gemini-2.5-flash"
+                >
+
+                <input
+                    type="hidden"
+                    id="hidden-system-prompt"
+                    name="system_prompt"
+                    value="You are a helpful AI assistant."
+                >
+
+                <textarea
+                    id="message-input"
+                    name="prompt"
+                    placeholder="Ask anything..."
+                    required
+                ></textarea>
+
+                <button type="submit" class="send-button">
+                    Send
+                </button>
+
+            </form>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        const messageInput =
+            document.getElementById("message-input");
+
+        const templateButtons =
+            document.querySelectorAll(".template-button");
+
+        templateButtons.forEach(function(button) {
+
+            button.addEventListener("click", function() {
+
+                const template =
+                    button.getAttribute("data-template");
+
+                messageInput.value = template + "\n\n";
+
+                messageInput.focus();
+
+            });
+
+        });
+
+
+        const modelSelect =
+            document.getElementById("model");
+
+        const hiddenModel =
+            document.getElementById("hidden-model");
+
+        modelSelect.addEventListener("change", function() {
+
+            hiddenModel.value = modelSelect.value;
+
+        });
+
+
+        const systemPrompt =
+            document.getElementById("system-prompt");
+
+        const hiddenSystemPrompt =
+            document.getElementById(
+                "hidden-system-prompt"
+            );
+
+        systemPrompt.addEventListener("input", function() {
+
+            hiddenSystemPrompt.value =
+                systemPrompt.value;
+
+        });
+
+    </script>
+
+</body>
+</html>
