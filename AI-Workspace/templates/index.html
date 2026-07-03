@@ -10,7 +10,11 @@
 
     <title>AI Workspace</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+<link
+    rel="icon"
+    href="{{ url_for('static', filename='favicon-32x32.png') }}"
+    type="image/png"
+>
 </head>
 
 <body>
@@ -24,6 +28,7 @@
                 <h1>AI Workspace</h1>
                 <p>Your intelligent assistant</p>
             </div>
+
 
             <form action="/chat" method="POST">
 
