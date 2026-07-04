@@ -67,11 +67,3 @@ For Week 1, I selected sage green as the main theme color because it represents 
   </li>
 </ul>
 
-<h2>Author</h2>
-
-<p>
-<strong>Maryam Fatima</strong><br>
-BS Artificial Intelligence, 2023–2027<br>
-AI Summer Internship 2026<br>
-Track: NLP &amp; AI Agents
-</p>
