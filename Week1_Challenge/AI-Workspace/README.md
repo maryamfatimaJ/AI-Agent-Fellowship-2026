@@ -79,6 +79,7 @@ Environment Variables
 ### Create a .env file inside the AI-Workspace folder:
 
 GEMINI_API_KEY=your_gemini_api_key
+
 SECRET_KEY=your_random_secret_key
 
 Do not upload the real .env file to GitHub.
