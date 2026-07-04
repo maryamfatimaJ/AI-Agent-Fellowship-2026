@@ -11,7 +11,7 @@ University: The University of Faisalabad
 
 Degree: BS Artificial Intelligence
 
-Fellowship Track: AI Agent Fellowship 2026
+Fellowship Track: NLP & AI Agents
 
 I am an Artificial Intelligence student interested in building practical AI solutions and understanding how modern AI applications are designed, developed, integrated, and deployed.
 
