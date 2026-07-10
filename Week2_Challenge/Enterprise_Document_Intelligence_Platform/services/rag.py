@@ -50,7 +50,7 @@ class GeminiUnavailableError(Exception):
 EMBEDDING_MODEL_NAME = "gemini-embedding-001"
 GENERATION_MODEL_NAME = "gemini-2.5-flash"
 
-CHROMA_DB_PATH = "chroma_db"
+CHROMA_DB_PATH = "/tmp/chroma_db"
 COLLECTION_NAME = "documents"
 UPLOAD_FOLDER = "uploads"
 
