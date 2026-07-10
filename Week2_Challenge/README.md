@@ -1,4 +1,4 @@
-<h1>Week 2 Challenge (Building Your First Production-Grade RAG Application)</h1>
+<h1>Week 2 Challenge</h1>
 
 <h2>Overview</h2>
 
