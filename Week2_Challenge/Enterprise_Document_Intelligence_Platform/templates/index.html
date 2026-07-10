@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enterprise Document Intelligence — RAG-powered answers grounded in your documents.">
+  <meta name="theme-color" content="#070B14">
+  <title>Enterprise Document Intelligence</title>
+
+  <!-- Typography: Sora (display) · Inter (UI/body) · JetBrains Mono (data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- ============================================================
+       ICON SPRITE — referenced app-wide via <use href="#i-*">
+       ============================================================ -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true" style="display:none">
+    <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 2v6h6"/>
+      <path d="M11.6 11.4l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z"/>
+    </symbol>
+    <symbol id="i-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/>
+      <rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>
+    </symbol>
+    <symbol id="i-documents" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+    </symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+      <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+      <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+    </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+    </symbol>
+    <symbol id="i-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/>
+    </symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+    </symbol>
+    <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+      <circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l2 5.2L19 10l-5 1.8L12 17l-2-5.2L5 10l5-1.8z"/>
+    </symbol>
+    <symbol id="i-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3 6 5 6 21 6"/>
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+    </symbol>
+    <symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
+    </symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/>
+    </symbol>
+  </svg>
+
+  <!-- Ambient canvas glows (fixed, behind the glass) -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__glow ambient__glow--indigo"></div>
+    <div class="ambient__glow ambient__glow--cyan"></div>
+  </div>
+
+  <a class="skip-link" href="#chatInput">Skip to chat</a>
+
+  <!-- ============================================================
+       APP SHELL — sidebar · main · insights panel
+       ============================================================ -->
+  <div class="app">
+
+    <!-- ─────────── LEFT SIDEBAR ─────────── -->
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+
+      <div class="sidebar__logo">
+        <div class="logo-mark">
+          <svg class="icon" aria-hidden="true"><use href="#i-logo"/></svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-text__eyebrow">Enterprise</span>
+          <span class="logo-text__name">Document Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Primary">
+        <a href="#" class="nav-item nav-item--active" data-view="dashboard" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-dashboard"/></svg>
+          <span class="nav-item__label">Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-view="documents">
+          <svg class="icon" aria-hidden="true"><use href="#i-documents"/></svg>
+          <span class="nav-item__label">Documents</span>
+        </a>
+        <a href="#" class="nav-item" data-view="conversations">
+          <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
+          <span class="nav-item__label">Conversations</span>
+        </a>
+        <a href="#" class="nav-item" data-view="settings">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg>
+          <span class="nav-item__label">Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="storage">
+          <div class="storage__head">
+            <span class="storage__label">Storage</span>
+            <span class="storage__value mono" id="storageValue">0 MB / 10 GB</span>
+          </div>
+          <div class="storage__bar" role="progressbar" aria-label="Storage used"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="storageBar">
+            <div class="storage__fill" id="storageFill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="true">
+          <svg class="icon theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <svg class="icon theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <span class="theme-toggle__label">Dark Mode</span>
+          <span class="theme-toggle__switch" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ─────────── CENTER COLUMN ─────────── -->
+    <main class="main">
+
+      <!-- Top navigation -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <span class="status-dot status-dot--ready" id="indexStatusDot" title="Index ready"></span>
+          <span class="topbar__project-name">Knowledge Base</span>
+        </div>
+
+        <div class="topbar__right">
+          <button class="btn btn--primary" id="uploadBtn">
+            <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>
+            <span id="uploadBtnLabel">Upload</span>
+          </button>
+
+          <button class="icon-btn topbar__panel-toggle" id="panelToggle"
+                  aria-label="Toggle insights panel" aria-expanded="false" aria-controls="panel">
+            <svg class="icon" aria-hidden="true"><use href="#i-panel"/></svg>
+          </button>
+        </div>
+
+        <!-- Signature: animates only while the AI is generating or indexing -->
+        <div class="topbar__pulse" id="pulseLine" aria-hidden="true"></div>
+      </header>
+
+      <!-- Workspace: stats → documents → chat (chat flexes to fill) -->
+      <div class="workspace" id="dashboardView">
+
+        <!-- Statistics cards -->
+        <section class="stats" aria-label="Statistics">
+          <article class="stat-card" data-stat="documents">
+            <div class="stat-card__icon stat-card__icon--indigo">
+              <svg class="icon" aria-hidden="true"><use href="#i-documents"/></svg>
+            </div>
+            <div class="stat-card__body">
+              <span class="stat-card__value mono">0</span>
+              <span class="stat-card__label">Total Documents</span>
+            </div>
+            <span class="stat-card__delta stat-card__delta--up" hidden></span>
+          </article>
+
+          <article class="stat-card" data-stat="chunks">
+            <div class="stat-card__icon stat-card__icon--cyan">
+              <svg class="icon" aria-hidden="true"><use href="#i-cpu"/></svg>
+            </div>
+            <div class="stat-card__body">
+              <span class="stat-card__value mono">0</span>
+              <span class="stat-card__label">Indexed Chunks</span>
+            </div>
+            <span class="stat-card__delta stat-card__delta--up" hidden></span>
+          </article>
+
+          <article class="stat-card" data-stat="conversations">
+            <div class="stat-card__icon stat-card__icon--violet">
+              <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
+            </div>
+            <div class="stat-card__body">
+              <span class="stat-card__value mono">0</span>
+              <span class="stat-card__label">Conversations</span>
+            </div>
+            <span class="stat-card__delta stat-card__delta--up" hidden></span>
+          </article>
+
+          <article class="stat-card" data-stat="storage">
+            <div class="stat-card__icon stat-card__icon--amber">
+              <svg class="icon" aria-hidden="true"><use href="#i-database"/></svg>
+            </div>
+            <div class="stat-card__body">
+              <span class="stat-card__value mono">0 MB</span>
+              <span class="stat-card__label">Storage Used</span>
+              <span class="stat-card__bar"><span class="stat-card__bar-fill" style="width: 0%"></span></span>
+            </div>
+          </article>
+        </section>
+
+        <!-- Documents -->
+        <section class="documents" id="documentsSection" aria-label="Documents">
+          <header class="section-head">
+            <button class="section-head__toggle" id="docsToggle" aria-expanded="true" aria-controls="docsBody">
+              <svg class="icon icon--sm section-head__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+              <h2 class="section-head__title">Documents</h2>
+              <span class="badge mono" id="docCount">0</span>
+            </button>
+
+            <div class="section-head__tools">
+              <div class="select">
+                <select id="docSort" aria-label="Sort documents">
+                  <option value="recent">Recent</option>
+                  <option value="name">Name</option>
+                  <option value="size">Size</option>
+                </select>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-chevron"/></svg>
+              </div>
+              <div class="seg" role="group" aria-label="View mode">
+                <button class="seg__btn seg__btn--active" id="viewGridBtn" aria-label="Grid view" aria-pressed="true">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-grid"/></svg>
+                </button>
+                <button class="seg__btn" id="viewListBtn" aria-label="List view" aria-pressed="false">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-list"/></svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <div class="documents__body" id="docsBody">
+            <div class="doc-grid" id="docGrid" hidden></div>
+
+            <!-- Empty state doubles as the drop zone -->
+            <div class="dropzone" id="dropzone">
+              <div class="dropzone__glyph" aria-hidden="true">
+                <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>
+              </div>
+              <p class="dropzone__title">
+                Drag &amp; drop files here, or
+                <button type="button" class="dropzone__browse" id="browseBtn">browse files</button>
+              </p>
+              <p class="dropzone__hint mono">PDF · DOCX · TXT · MD · up to 25 MB</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chat — the hero -->
+        <section class="chat" aria-label="Chat">
+          <div class="chat__messages" id="chatMessages" aria-live="polite">
+
+            <div class="chat__empty" id="chatEmpty">
+              <div class="chat__orb" aria-hidden="true"></div>
+              <h2 class="chat__empty-title">Ask anything about your documents</h2>
+              <p class="chat__empty-sub">Answers are grounded in your knowledge base, with cited sources.</p>
+
+              <div class="suggestions" id="suggestions" aria-label="Suggested questions">
+                <button class="chip" data-question="Summarize the key points from my latest upload">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+                  <span>Summarize the key points from my latest upload</span>
+                </button>
+                <button class="chip" data-question="What are the main risks mentioned across my documents?">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+                  <span>What are the main risks mentioned across my documents?</span>
+                </button>
+                <button class="chip" data-question="Compare the documents in my knowledge base">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+                  <span>Compare the documents in my knowledge base</span>
+                </button>
+                <button class="chip" data-question="Extract all important dates and deadlines">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+                  <span>Extract all important dates and deadlines</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <form class="chat-input" id="chatForm">
+            <button type="button" class="icon-btn" id="attachBtn" aria-label="Attach document">
+              <svg class="icon" aria-hidden="true"><use href="#i-paperclip"/></svg>
+            </button>
+            <textarea class="chat-input__field" id="chatInput" rows="1"
+                      placeholder="Ask about your documents…" aria-label="Message"></textarea>
+            <button type="submit" class="chat-input__send" id="sendBtn" aria-label="Send message" disabled>
+              <svg class="icon chat-input__send-icon" aria-hidden="true"><use href="#i-send"/></svg>
+              <span class="chat-input__stop" aria-hidden="true"></span>
+            </button>
+          </form>
+          <p class="chat__hint mono">Enter ↵ to send · Shift + Enter for new line</p>
+        </section>
+
+      </div>
+
+      <!-- Settings view — hidden by default, shown when "Settings" is clicked -->
+      <section class="workspace" id="settingsView" hidden>
+        <div class="settings-header">
+          <div>
+            <h1 class="settings-header__title">Settings</h1>
+            <p class="settings-header__sub">AI configuration and conversation export</p>
+          </div>
+        </div>
+
+        <section class="card settings-card">
+          <p class="settings-card__eyebrow">AI Models</p>
+
+          <div class="settings-row">
+            <span class="settings-row__label">Embedding Model</span>
+            <span class="tag" id="settingsEmbeddingModel">–</span>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row__label">LLM Provider</span>
+            <span class="tag" id="settingsLlmProvider">–</span>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row__label">Vector Database</span>
+            <span class="tag" id="settingsVectorDb">–</span>
+          </div>
+
+          <p class="settings-card__note">
+            These reflect the models actually configured in this app's backend — they're
+            read-only here, not editable switches.
+          </p>
+        </section>
+
+        <section class="card settings-card">
+          <p class="settings-card__eyebrow">Export</p>
+
+          <div class="settings-row">
+            <span class="settings-row__label">Download this session's conversation</span>
+            <button class="btn btn--ghost btn--sm" id="exportPdfBtn">Export Chat as PDF</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Conversations view — hidden by default, shown when "Conversations" is clicked -->
+      <section class="workspace" id="conversationsView" hidden>
+        <div class="settings-header">
+          <div>
+            <h1 class="settings-header__title">Conversations</h1>
+            <p class="settings-header__sub">Every chat thread from this browser</p>
+          </div>
+          <button class="btn btn--primary" id="newChatBtn">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+            New Chat
+          </button>
+        </div>
+
+        <ul class="conversation-list" id="conversationList"></ul>
+        <p class="card__empty" id="conversationsEmpty">
+          No conversations yet. Start a new chat to begin.
+        </p>
+      </section>
+
+    </main>
+
+    <!-- ─────────── RIGHT PANEL ─────────── -->
+    <aside class="panel" id="panel" aria-label="Insights">
+
+      <section class="card">
+        <header class="card__head">
+          <h3 class="card__title">Recent Uploads</h3>
+        </header>
+        <ul class="uploads" id="recentUploads"></ul>
+        <p class="card__empty" id="uploadsEmpty">No uploads yet. Add a document to begin.</p>
+      </section>
+
+      <section class="card">
+        <header class="card__head">
+          <h3 class="card__title">Knowledge Base</h3>
+          <svg class="icon icon--sm card__glyph" aria-hidden="true"><use href="#i-database"/></svg>
+        </header>
+        <dl class="kb">
+          <div class="kb__row"><dt>Vectors</dt><dd class="mono" id="kbVectors">0</dd></div>
+          <div class="kb__row"><dt>Collections</dt><dd class="mono" id="kbCollections">1</dd></div>
+          <div class="kb__row"><dt>Avg chunk size</dt><dd class="mono" id="kbChunkSize">–</dd></div>
+          <div class="kb__row"><dt>Embedding model</dt><dd><span class="tag" id="kbModel">gemini-embedding</span></dd></div>
+        </dl>
+        <svg class="kb__spark" id="kbSparkline" viewBox="0 0 240 48" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </section>
+
+      <section class="card">
+        <header class="card__head">
+          <h3 class="card__title">Conversation Memory</h3>
+          <span class="status-dot status-dot--ready" id="memoryStatusDot" title="Active session"></span>
+        </header>
+        <p class="memory__summary" id="memorySummary">Memory is empty. Start a conversation to build context.</p>
+        <div class="memory__chips" id="memoryChips"></div>
+        <div class="memory__meter">
+          <span class="memory__count mono" id="memoryCount">0 / 20 messages</span>
+          <div class="memory__bar" aria-hidden="true">
+            <div class="memory__fill" id="memoryFill" style="width: 0%"></div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" id="clearMemoryBtn">Clear memory</button>
+      </section>
+
+      <section class="card">
+        <header class="card__head">
+          <h3 class="card__title">Recent Activity</h3>
+          <svg class="icon icon--sm card__glyph" aria-hidden="true"><use href="#i-activity"/></svg>
+        </header>
+        <ul class="activity" id="activityList"></ul>
+        <p class="card__empty" id="activityEmpty">Nothing yet. Activity will appear here.</p>
+      </section>
+
+    </aside>
+  </div>
+
+  <!-- ============================================================
+       SINGLETON OVERLAYS
+       ============================================================ -->
+
+  <!-- Full-screen drop target (shown while dragging files over the app) -->
+  <div class="drag-overlay" id="dragOverlay" hidden aria-hidden="true">
+    <div class="drag-overlay__box">
+      <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>
+      <p class="drag-overlay__title">Drop to upload</p>
+      <p class="drag-overlay__hint mono">PDF · DOCX · TXT</p>
+    </div>
+  </div>
+
+  <!-- Confirm modal (delete document / clear memory) -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card">
+      <h3 class="modal__title" id="modalTitle">Are you sure?</h3>
+      <p class="modal__msg" id="modalMessage"></p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="modalCancel">Cancel</button>
+        <button class="btn btn--danger" id="modalConfirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast stack -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <!-- Hidden file input (Upload button · paperclip · browse · drop all route here) -->
+  <input type="file" id="fileInput" accept=".pdf,.docx,.txt,.md" multiple hidden>
+
+  <!-- ============================================================
+       TEMPLATES — cloned by app.js, filled via textContent only
+       ============================================================ -->
+
+  <template id="tplDocCard">
+    <article class="doc-card" tabindex="0">
+      <div class="doc-card__top">
+        <div class="doc-card__icon">
+          <svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>
+        </div>
+        <button class="icon-btn doc-card__menu-btn" aria-label="Document actions"
+                aria-haspopup="true" aria-expanded="false" data-action="menu">
+          <svg class="icon" aria-hidden="true"><use href="#i-more"/></svg>
+        </button>
+        <div class="doc-menu" hidden>
+          <button class="doc-menu__item" data-action="view">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-file"/></svg> View
+          </button>
+          <button class="doc-menu__item" data-action="reprocess">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"/></svg> Reprocess
+          </button>
+          <button class="doc-menu__item doc-menu__item--danger" data-action="delete">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-trash"/></svg> Delete
+          </button>
+        </div>
+      </div>
+      <h3 class="doc-card__name"></h3>
+      <p class="doc-card__meta mono"></p>
+      <div class="doc-card__foot">
+        <span class="status-chip">
+          <span class="status-chip__dot" aria-hidden="true"></span>
+          <span class="status-chip__label"></span>
+        </span>
+      </div>
+      <div class="doc-card__shimmer" aria-hidden="true"></div>
+    </article>
+  </template>
+
+  <template id="tplMessageUser">
+    <div class="msg msg--user">
+      <div class="msg__bubble"></div>
+    </div>
+  </template>
+
+  <template id="tplMessageAI">
+    <div class="msg msg--ai">
+      <div class="msg__avatar" aria-hidden="true">
+        <svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg>
+      </div>
+      <div class="msg__body">
+        <div class="msg__content"></div>
+        <div class="msg__sources" hidden>
+          <p class="msg__sources-label">Sources · <span class="msg__sources-count">0</span></p>
+          <div class="msg__sources-row"></div>
+        </div>
+        <div class="msg__followups"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="tplTyping">
+    <div class="typing" aria-label="Thinking">
+      <span></span><span></span><span></span>
+    </div>
+  </template>
+
+  <template id="tplSourceCard">
+    <button type="button" class="source-card" aria-expanded="false">
+      <div class="source-card__head">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-file"/></svg>
+        <span class="source-card__name"></span>
+        <span class="ring" aria-hidden="true">
+          <svg viewBox="0 0 32 32">
+            <circle class="ring__track" cx="16" cy="16" r="13"/>
+            <circle class="ring__value" cx="16" cy="16" r="13"/>
+          </svg>
+        </span>
+        <span class="source-card__score mono"></span>
+      </div>
+      <p class="source-card__meta mono"></p>
+      <blockquote class="source-card__snippet" hidden></blockquote>
+    </button>
+  </template>
+
+  <template id="tplFollowup">
+    <button type="button" class="chip chip--sm">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-spark"/></svg>
+      <span></span>
+    </button>
+  </template>
+
+  <template id="tplUploadItem">
+    <li class="upload-item">
+      <div class="upload-item__icon" aria-hidden="true">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-file"/></svg>
+      </div>
+      <div class="upload-item__info">
+        <span class="upload-item__name"></span>
+        <span class="upload-item__time mono"></span>
+      </div>
+      <span class="upload-item__dot" aria-hidden="true"></span>
+    </li>
+  </template>
+
+  <template id="tplConversationItem">
+    <li class="conversation-item">
+      <div class="conversation-item__info">
+        <span class="conversation-item__title"></span>
+        <span class="conversation-item__meta mono"></span>
+      </div>
+      <button class="conversation-item__delete" aria-label="Delete conversation" data-action="delete">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-trash"/></svg>
+      </button>
+    </li>
+  </template>
+
+  <template id="tplMemoryChip">
+    <span class="tag tag--memory"></span>
+  </template>
+
+  <template id="tplActivityItem">
+    <li class="activity__item">
+      <span class="activity__dot" aria-hidden="true"></span>
+      <div class="activity__body">
+        <p class="activity__text"></p>
+        <span class="activity__time mono"></span>
+      </div>
+      <button class="activity__delete" aria-label="Delete this activity entry" data-action="delete">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-trash"/></svg>
+      </button>
+    </li>
+  </template>
+
+  <template id="tplToast">
+    <div class="toast" role="status">
+      <svg class="icon toast__icon" aria-hidden="true"><use href="#i-info"/></svg>
+      <p class="toast__msg"></p>
+      <button class="icon-btn toast__close" aria-label="Dismiss notification">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+  </template>
+
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

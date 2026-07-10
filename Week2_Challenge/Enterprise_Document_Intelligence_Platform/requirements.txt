@@ -1,0 +1,8 @@
+flask
+python-dotenv
+chromadb
+google-genai
+PyPDF2
+python-docx
+werkzeug
+reportlab
