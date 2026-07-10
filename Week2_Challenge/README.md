@@ -1,4 +1,4 @@
-<h1>Week 2 Challenge (Building Your First Production-Grade RAG Application)</h1>
+<h1>Week 2 Challenge</h1>
 
 <h2>Overview</h2>
 
@@ -64,7 +64,6 @@ During this week, I designed and developed an AI-powered knowledge assistant tha
 <ul>
   <li>Python</li>
   <li>Flask</li>
-  <li>LangChain</li>
   <li>Google Gemini API</li>
   <li>Sentence Transformers</li>
   <li>ChromaDB / FAISS</li>
@@ -128,14 +127,14 @@ Response with Citations
 
   <li>
     <strong>Enterprise Document Intelligence Platform:</strong><br>
-    <a href="YOUR_GITHUB_REPOSITORY_LINK">
+    <a href="https://github.com/maryamfatimaJ/AI-Agent-Fellowship-2026/tree/c976a0ba94504e10af826bc243956d76b9167064/Week2_Challenge/Enterprise_Document_Intelligence_Platform">
       View Source Code
     </a>
   </li>
 
   <li>
     <strong>Live Application:</strong><br>
-    <a href="YOUR_DEPLOYMENT_LINK">
+    <a href="https://enterprise-platform-nu.vercel.app/">
       Open Live App
     </a>
   </li>
