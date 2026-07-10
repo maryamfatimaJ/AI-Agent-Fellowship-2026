@@ -56,7 +56,7 @@ from services.memory import (
     list_conversations_for_session,
     delete_conversation,
 )
-from services.activity import log_activity, get_recent_activity, delete_activity
+from services.activity import log_activity, get_recent_activity, delete_activity, clear_activity
 
 
 # ============================================================
@@ -70,7 +70,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
 
 # Where uploaded files get saved on disk.
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # Only these file types are allowed to be uploaded.
@@ -480,6 +480,17 @@ def remove_activity(activity_id):
         return jsonify({"error": "Activity entry not found."}), 404
 
     return jsonify({"message": "Activity entry deleted."}), 200
+
+
+# ============================================================
+# ROUTE: CLEAR ALL ACTIVITY
+# ============================================================
+
+@app.route("/activity", methods=["DELETE"])
+def clear_activity_route():
+    """Remove every entry from the Recent Activity feed at once."""
+    clear_activity()
+    return jsonify({"message": "Activity cleared."}), 200
 
 
 # ============================================================
