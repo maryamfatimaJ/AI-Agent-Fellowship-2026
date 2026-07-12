@@ -85,9 +85,9 @@
   --border: rgba(28, 25, 23, 0.10);
   --border-hover: rgba(28, 25, 23, 0.18);
 
-  --text-primary: #1C1917;
+  --text-primary: #0a0a0a;
   --text-secondary: #5C564C;
-  --text-muted: #928C7E;
+  --text-muted: #8b8578;
 
   --shadow-sm: 0 2px 8px rgba(28, 25, 23, 0.06);
   --shadow-md: 0 6px 20px rgba(28, 25, 23, 0.10);
