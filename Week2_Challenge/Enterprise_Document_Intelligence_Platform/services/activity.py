@@ -14,6 +14,7 @@ Public functions:
     log_activity()        -> records one event
     get_recent_activity() -> returns the most recent events, newest first
     delete_activity()     -> removes one event by its ID
+    clear_activity()      -> removes every event at once
 """
 
 import uuid
@@ -75,3 +76,12 @@ def delete_activity(activity_id):
             return True
 
     return False
+
+
+# ============================================================
+# PUBLIC FUNCTION: CLEAR THE WHOLE LOG
+# ============================================================
+
+def clear_activity():
+    """Remove every entry from the activity log at once."""
+    _activity_log.clear()

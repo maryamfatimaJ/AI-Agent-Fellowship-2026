@@ -31,6 +31,8 @@ var dropzone = document.getElementById("dropzone");
 var fileInput = document.getElementById("fileInput");
 var browseBtn = document.getElementById("browseBtn");
 var uploadBtn = document.getElementById("uploadBtn");
+var docsToggle = document.getElementById("docsToggle");
+var docsBody = document.getElementById("docsBody");
 var uploadBtnLabel = document.getElementById("uploadBtnLabel");
 var attachBtn = document.getElementById("attachBtn");
 var dragOverlay = document.getElementById("dragOverlay");
@@ -145,6 +147,27 @@ document.addEventListener("click", function (event) {
     sidebar.classList.remove("sidebar--open");
   }
 });
+
+
+/* ============================================================
+   SECTION 2B: COLLAPSE/EXPAND THE DOCUMENTS SECTION
+   Clicking the "Documents" header (or its chevron arrow) hides
+   or shows the document grid below it. The arrow rotates to
+   match, using the aria-expanded attribute the CSS already
+   watches for.
+   ============================================================ */
+
+function toggleDocumentsSection() {
+  var isCurrentlyExpanded = docsToggle.getAttribute("aria-expanded") === "true";
+  var willBeExpanded = !isCurrentlyExpanded;
+
+  docsToggle.setAttribute("aria-expanded", String(willBeExpanded));
+  docsBody.hidden = !willBeExpanded;
+}
+
+if (docsToggle) {
+  docsToggle.addEventListener("click", toggleDocumentsSection);
+}
 
 
 /* ============================================================
@@ -1000,6 +1023,7 @@ if (clearMemoryBtn) {
     );
   });
 }
+
 
 
 /* ============================================================
