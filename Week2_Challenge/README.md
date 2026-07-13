@@ -141,7 +141,7 @@ Response with Citations
 
   <li>
     <strong>Demo Video:</strong><br>
-    <a href="YOUR_DEMO_VIDEO_LINK">
+    <a href="https://screenrec.com/share/LBVqertsb0">
       Watch Demo
     </a>
   </li>
