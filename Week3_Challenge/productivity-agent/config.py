@@ -17,7 +17,7 @@ class Settings:
 
     # --- LLM provider ---
     GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
-    GENERATION_MODEL: str = os.environ.get("GENERATION_MODEL", "gemini-2.5-flash-lite")
+    GENERATION_MODEL: str = os.environ.get("GENERATION_MODEL", "gemini-2.5-flash")
 
     # --- Flask ---
     SECRET_KEY: str = os.environ.get("SECRET_KEY", "")

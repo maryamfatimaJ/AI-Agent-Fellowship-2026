@@ -79,6 +79,72 @@ function hideStatus() {
 // CHAT MESSAGES
 // ============================================================
 
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Minimal markdown-to-HTML for the agent's replies only. Everything from
+// the model is escaped first (escapeHtml, below) so no raw tag or on*
+// attribute it emits can ever reach the DOM as real markup — only the
+// handful of tags *this* function builds (strong/em/code/pre/ul/ol/li/
+// h1-3/br) ever get inserted. No CDN/markdown library is pulled in since
+// this app has no existing JS dependency loading pattern to match.
+function formatAgentMessage(rawText) {
+  var codeBlocks = [];
+  // "@@CB0@@" etc. stand in for each code block while the rest of the
+  // text goes through escaping/formatting below, then get swapped back
+  // for real <pre><code> blocks at the very end.
+  var withPlaceholders = rawText.replace(/```([\s\S]*?)```/g, function (match, code) {
+    codeBlocks.push(code.replace(/^\n/, "").replace(/\n$/, ""));
+    return "@@CB" + (codeBlocks.length - 1) + "@@";
+  });
+
+  var html = escapeHtml(withPlaceholders);
+
+  // Headings
+  html = html
+    .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+    .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+    .replace(/^# (.+)$/gm, "<h1>$1</h1>");
+
+  // Bullet and numbered lists — group consecutive matching lines into one
+  // <ul>/<ol> rather than wrapping each line individually.
+  html = html.replace(/(^(?:[-*] .+\n?)+)/gm, function (block) {
+    var items = block.trim().split("\n").map(function (line) {
+      return "<li>" + line.replace(/^[-*]\s+/, "") + "</li>";
+    }).join("");
+    return "<ul>" + items + "</ul>\n";
+  });
+  html = html.replace(/(^(?:\d+\. .+\n?)+)/gm, function (block) {
+    var items = block.trim().split("\n").map(function (line) {
+      return "<li>" + line.replace(/^\d+\.\s+/, "") + "</li>";
+    }).join("");
+    return "<ol>" + items + "</ol>\n";
+  });
+
+  // Inline code, bold, italic
+  html = html
+    .replace(/`([^`\n]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+
+  // Remaining line breaks -> <br>, except right after a block-level tag
+  html = html.replace(/\n/g, "<br>").replace(/(<\/(?:ul|ol|h1|h2|h3)>)<br>/g, "$1");
+
+  // Restore fenced code blocks last, escaping their content on the way in
+  // (it was pulled out above, before the general escapeHtml call).
+  html = html.replace(/@@CB(\d+)@@/g, function (match, index) {
+    return "<pre><code>" + escapeHtml(codeBlocks[Number(index)]) + "</code></pre>";
+  });
+
+  return html;
+}
+
 function addMessage(role, text) {
   var emptyState = document.getElementById("chatEmpty");
   if (emptyState) {
@@ -87,7 +153,14 @@ function addMessage(role, text) {
 
   var bubble = document.createElement("div");
   bubble.className = "msg " + (role === "user" ? "msg--user" : "msg--agent");
-  bubble.textContent = text;
+  // Raw text is kept on the element (used by chat export) since innerHTML
+  // for agent messages no longer round-trips back to the original text.
+  bubble.dataset.raw = text;
+  if (role === "user") {
+    bubble.textContent = text;
+  } else {
+    bubble.innerHTML = formatAgentMessage(text);
+  }
   chatMessages.appendChild(bubble);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -1157,7 +1230,7 @@ exportChatBtn.addEventListener("click", function () {
   document.querySelectorAll("#chatMessages .msg").forEach(function (bubble) {
     messages.push({
       role: bubble.classList.contains("msg--user") ? "user" : "agent",
-      content: bubble.textContent,
+      content: bubble.dataset.raw !== undefined ? bubble.dataset.raw : bubble.textContent,
     });
   });
 

@@ -432,6 +432,50 @@ input, textarea { font-family: inherit; }
   border-bottom-left-radius: 4px;
 }
 
+/* Rendered markdown inside an agent bubble (see formatAgentMessage in app.js) */
+.msg--agent h1,
+.msg--agent h2,
+.msg--agent h3 {
+  color: var(--text-1);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 4px 0 6px;
+}
+.msg--agent h1 { font-size: 17px; }
+.msg--agent h2 { font-size: 15.5px; }
+.msg--agent h3 { font-size: 14.5px; }
+.msg--agent strong { color: var(--text-1); font-weight: 650; }
+.msg--agent em { color: var(--text-2); font-style: italic; }
+.msg--agent ul,
+.msg--agent ol {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+.msg--agent li { margin: 3px 0; }
+.msg--agent li::marker { color: var(--accent); }
+.msg--agent code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: var(--bg-active);
+  border: 1px solid var(--border-soft);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+.msg--agent pre {
+  background: var(--bg-active);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+}
+.msg--agent pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-1);
+}
+
 
 /* ============================================================
    ERROR BANNER
