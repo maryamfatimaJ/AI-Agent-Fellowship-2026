@@ -1,93 +1,40 @@
-# Productivity Agent
+# Trace
 
-A tool-using AI agent that helps organize work: creating tasks, analyzing meeting notes, and preparing daily/weekly plans — built for the AI Agent Fellowship Week 3 project.
+Trace is a personal productivity agent you talk to in plain English. It manages your tasks and notes, plans out your day, and can take real action for you — creating tasks, saving notes, setting reminders — but it always shows you an approval card first for anything that writes or can't easily be undone.
 
-## Tech stack
+## What it does
 
-- Python 3.11+
-- Flask (UI)
-- LangGraph (agent controller)
-- Google Gemini API (LLM)
-- Pydantic (schemas)
-- SQLite + SQLAlchemy (storage)
+- Chat with an AI agent to manage tasks and notes in plain English
+- Create, list, update, and complete tasks with priority, status, due date, and tags
+- Save and search your notes by keyword, category, or date range
+- Paste in meeting notes and have it pull out action items as proposed tasks
+- Ask it to build you a work plan for the day from your open tasks and free hours
+- Set reminders and draft follow-up emails
+- Riskier actions — creating several tasks at once, updating or completing a task, setting a reminder, or drafting an email — show you an approval card first, where you can approve, reject, or edit before anything actually happens. Quick, low-risk actions (adding one task, saving a note, listing or searching, generating a plan) go through right away.
+- You can also manage tasks and notes directly from the Tasks and Notes boards, without going through chat at all
+- Review a full Execution Logs history of every agent run — what you asked, which tools it used, whether it was approved, and how it turned out
 
-## Setup
+## How it works
 
-```bash
-pip install -r requirements.txt
-cp .env.example .env
-# then edit .env and paste in your real GEMINI_API_KEY and a SECRET_KEY
-python app.py
-```
+1. You type a request in the chat.
+2. The agent decides whether it can just answer directly, or whether it needs to use a tool (like creating a task or searching your notes).
+3. If the action would change or create data and is risky enough to need sign-off, it shows you exactly what it's about to do and waits for your approval.
+4. Once approved (or if no approval was needed), it carries out the action, saves the result, and logs the whole run so you can review it later in Execution Logs.
 
-Open **http://127.0.0.1:5000**
+## Tech used
 
-## Build status — all phases complete
+- Flask, LangGraph, Google Gemini API, SQLite (via SQLAlchemy), Pydantic, HTML/CSS/JS
 
-- [x] Phase 0 — UI direction and color system
-- [x] Phase 1 — Project scaffolding, config, Flask + HTML/CSS/JS shell
-- [x] Phase 2 — Task and Notes data models (SQLAlchemy + Pydantic, persisted)
-- [x] Phase 3 — Tools (8 required + 2 bonus: Detect Overdue Tasks, Estimate Task Effort)
-- [x] Phase 4 — Agent decision logic, prompts, and the real agent controller
-- [x] Phase 5 — Approval flow and execution limits (landed inside Phase 4's controller)
-- [x] Phase 6 — Execution logging, with a real reviewable history page
-- [x] Phase 7 — Session memory (recent messages, last shown tasks, preferences)
-- [x] Phase 8 — All 3 required multi-step workflows, tested end-to-end
-- [x] Phase 9 — Resilience fixes, execution-limits documentation, final polish
+## How to run it
 
-45 automated tests, all passing (`pytest tests/ -v`). Every phase above
-was verified by actually running the code — the full server, real
-requests, and mocked-LLM-decision test sequences — not just written
-and assumed to work.
+1. Install the requirements: `pip install -r requirements.txt`
+2. Copy `.env.example` to `.env` and fill in real values. At minimum you need a `GEMINI_API_KEY` (get one at https://aistudio.google.com/app/apikey) and a `SECRET_KEY` (any long random string) — the app won't start without these two. The other variables (`GENERATION_MODEL`, `DATABASE_URL`, `MAX_AGENT_STEPS`, `MAX_TOOL_RETRIES`, `TOOL_TIMEOUT_SECONDS`, `LOG_LEVEL`, `LOG_DIRECTORY`) already have sensible defaults.
+3. Run it: `python app.py`
+4. Open **http://127.0.0.1:5000** in your browser — don't open `templates/index.html` directly, it won't work without the Flask server running.
 
-## Requirements coverage
+## Things to know
 
-| Requirement | Where it's implemented |
-|---|---|
-| 1. Professional UI | `templates/index.html`, `static/css/style.css`, `static/js/app.js` |
-| 2. Task data model | `database/models.py` (`Task`), `schemas.py` |
-| 3. Notes data model | `database/models.py` (`Note`), `schemas.py` |
-| 4. Minimum tool set (8 + 2 bonus) | `tools/task_tools.py`, `tools/note_tools.py`, `tools/planning_tools.py`, `tools/registry.py` |
-| 5. Agent decision logic | `agent/nodes.py` (`decide_next_action`), `agent/graph.py` |
-| 6. Multi-step workflows | `agent/graph.py`'s loop; proven in `tests/test_workflows.py` |
-| 7. Human approval | `tools/registry.py` (`requires_approval`), `agent/graph.py`'s approval gate, `app.py`'s `/approve` and `/reject` routes |
-| 8. Error handling | `agent/nodes.py`, `services/llm_service.py`, `app.py`'s top-level safety nets |
-| 9. Execution limits | `config.py`, `agent/graph.py`; documented in `docs/execution_limits.md` |
-| 10. Execution logging | `database/models.py` (`ExecutionLog`), `logging_/run_logger.py`, `app.py`'s `/logs` route |
-| 11. Session memory | `agent/memory.py`, wired into `agent/graph.py` and `agent/prompts.py` |
-| 12. Prompt design | `agent/prompts.py` (documented inline, section by section) |
-
-## Project structure
-
-```
-productivity-agent/
-├── app.py              # Flask routes only — no agent logic here
-├── config.py            # Environment-based settings, no hard-coded secrets
-├── templates/
-│   └── index.html       # Chat, status indicator, approval card, panels
-├── static/
-│   ├── css/style.css
-│   └── js/app.js
-├── agent/               # Controller, state, prompts, decision nodes
-├── tools/                # Task, note, and planning tools
-├── database/             # SQLAlchemy models + repository functions
-├── services/              # LLM client wrapper
-├── logging_/               # Execution run logger (named logging_ to avoid
-│                            shadowing Python's built-in logging module)
-├── tests/
-├── docs/
-├── screenshots/
-├── .env.example
-├── requirements.txt
-└── Dockerfile
-```
-
-## Note on live status updates
-
-Flask handles one request at a time and returns once — it doesn't naturally
-"stream" the agent's state live the way a tool like Streamlit does. This
-project instead has each agent run record its full step-by-step history
-(intent analysis, tool selection, execution, validation) and shows that
-history in the Execution History panel after the run finishes, plus the
-final state clearly in the status bar. True live mid-run updates would
-need polling or websockets, which isn't required by the assignment.
+- Tasks and notes are saved in a real database file (`productivity_agent.db`), so they survive a restart. Chat memory (recent messages, the last list of tasks shown to you) is kept in memory only and resets whenever the server restarts.
+- There's no login system — everyone using the app shares the same tasks and notes. Only the short-term chat memory is kept separate per browser session.
+- The "draft follow-up email" tool only drafts and simulates sending — there's no real email account wired up, so nothing actually gets sent.
+- It runs on Gemini's free tier by default, which has a daily quota. If you hit it, Trace will tell you to try again once the quota resets rather than failing silently.
