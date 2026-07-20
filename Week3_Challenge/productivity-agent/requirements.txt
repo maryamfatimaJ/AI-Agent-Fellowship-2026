@@ -1,0 +1,8 @@
+flask
+python-dotenv
+langgraph
+google-genai
+pydantic
+sqlalchemy
+pytest
+reportlab

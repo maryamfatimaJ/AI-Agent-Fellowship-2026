@@ -1,0 +1,1104 @@
+2026-07-18 02:12:57,426 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None
+2026-07-18 02:12:57,433 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-18 02:12:58,963 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-18 02:12:58,967 | INFO | tools.task_tools | detect_overdue_tasks found 0 overdue task(s)
+2026-07-18 02:13:01,192 | INFO | tools.planning_tools | generate_work_plan called: available_hours=6.0 date=today
+2026-07-18 02:13:01,193 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 0 deferred
+2026-07-19 15:40:18,793 | INFO | tools.task_tools | create_task called: title='Test Task' priority=High
+2026-07-19 15:40:18,897 | INFO | tools.task_tools | create_task succeeded: task_id=91538ee9-503e-422f-ba14-d861f5742d4f
+2026-07-19 15:57:58,778 | INFO | tools.note_tools | save_note called: title='Test Note' category=general
+2026-07-19 15:57:58,803 | INFO | tools.note_tools | save_note succeeded: note_id=984be207-d0c4-4473-8b52-4be5ebe53c54
+2026-07-19 15:58:52,845 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-19 15:58:52,871 | INFO | tools.task_tools | create_task succeeded: task_id=479526eb-6e14-4b0b-a0ff-350f760c3ee8
+2026-07-19 17:05:46,699 | INFO | tools.task_tools | create_task called: title='Assignment Task' priority=High
+2026-07-19 17:05:46,715 | INFO | tools.task_tools | create_task succeeded: task_id=2aa06f03-2e4a-487c-b871-21060f43b75f
+2026-07-19 18:07:59,119 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 18:07:59,123 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 18:09:38,379 | INFO | tools.task_tools | update_task called: task_id=479526eb-6e14-4b0b-a0ff-350f760c3ee8
+2026-07-19 18:09:38,527 | INFO | tools.task_tools | update_task succeeded: task_id=479526eb-6e14-4b0b-a0ff-350f760c3ee8
+2026-07-19 18:09:52,711 | INFO | tools.note_tools | search_notes called: query='test' category=None
+2026-07-19 18:09:52,757 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-19 18:10:49,837 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None
+2026-07-19 18:10:49,847 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 18:10:52,089 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 18:10:52,092 | INFO | tools.task_tools | detect_overdue_tasks found 0 overdue task(s)
+2026-07-19 18:12:46,581 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 18:12:46,586 | INFO | tools.task_tools | detect_overdue_tasks found 0 overdue task(s)
+2026-07-19 18:13:00,066 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 18:13:00,070 | INFO | tools.task_tools | detect_overdue_tasks found 0 overdue task(s)
+2026-07-19 19:31:20,532 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None
+2026-07-19 19:31:20,538 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:31:20,730 | INFO | tools.task_tools | complete_task called: task_id=981d0596-6be5-4fac-abb6-6966bd7065fc
+2026-07-19 19:31:20,749 | INFO | tools.task_tools | complete_task succeeded: task_id=981d0596-6be5-4fac-abb6-6966bd7065fc
+2026-07-19 19:31:20,821 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:31:20,825 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,899 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0
+2026-07-19 19:31:20,904 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,906 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1
+2026-07-19 19:31:20,910 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,912 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2
+2026-07-19 19:31:20,914 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,916 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3
+2026-07-19 19:31:20,919 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,920 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4
+2026-07-19 19:31:20,922 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,924 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5
+2026-07-19 19:31:20,926 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,928 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6
+2026-07-19 19:31:20,931 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:20,933 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7
+2026-07-19 19:31:20,935 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:31:21,086 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-19 19:31:21,098 | INFO | tools.task_tools | create_task succeeded: task_id=32985514-95b9-40ce-b66c-52cc2ace29b5
+2026-07-19 19:31:21,265 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:31:21,268 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:31:21,489 | INFO | tools.task_tools | complete_task called: task_id=54097861-0414-4b93-840d-52e00e35d6a8
+2026-07-19 19:31:21,501 | INFO | tools.task_tools | complete_task succeeded: task_id=54097861-0414-4b93-840d-52e00e35d6a8
+2026-07-19 19:31:21,756 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:31:21,759 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:31:22,939 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-19 19:31:22,953 | INFO | tools.task_tools | create_task succeeded: task_id=3586260c-33d5-4cac-b5c2-537a3b9d4f03
+2026-07-19 19:31:23,014 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 19:31:23,016 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 19:31:23,076 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-19 19:31:23,080 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-19 19:31:23,148 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-19 19:31:23,168 | INFO | tools.task_tools | create_task succeeded: task_id=8b983736-0254-4079-b84b-5820e99cbdaf
+2026-07-19 19:31:23,170 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-19 19:31:23,186 | INFO | tools.task_tools | create_task succeeded: task_id=594d557a-a750-40df-9afd-d274e94b97d4
+2026-07-19 19:31:23,187 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:31:23,190 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:31:23,259 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-19 19:31:23,271 | INFO | tools.note_tools | save_note succeeded: note_id=38fdbc17-3858-432c-81e9-86d58620e0f1
+2026-07-19 19:31:23,320 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 19:31:23,331 | INFO | tools.note_tools | save_note succeeded: note_id=9438b617-8b5f-42f0-8171-c16eae2ad745
+2026-07-19 19:31:23,332 | INFO | tools.note_tools | search_notes called: query='marketing' category=None
+2026-07-19 19:31:23,334 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-19 19:31:23,398 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-19 19:31:23,412 | INFO | tools.task_tools | create_task succeeded: task_id=6e8af18d-d794-4310-a95b-0fd2acf6e837
+2026-07-19 19:31:23,415 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 19:31:23,415 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-19 19:31:23,487 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-19 19:31:23,488 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-19 19:31:23,554 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-19 19:31:23,570 | INFO | tools.task_tools | create_task succeeded: task_id=0ae952e6-a0d6-41f9-bd2f-efa6514c97c6
+2026-07-19 19:31:23,641 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-19 19:31:23,673 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['d42664ce-cafe-4bcf-b1fa-caf2505c91df', '8ee62133-b145-4bd1-aa0f-a28375b57cdc']
+2026-07-19 19:31:23,741 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-19 19:31:23,753 | INFO | tools.task_tools | create_task succeeded: task_id=687db162-6750-4775-8f1d-21adb621e9b7
+2026-07-19 19:31:23,754 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-19 19:31:23,769 | INFO | tools.task_tools | create_task succeeded: task_id=2c5bdc11-c666-45b5-8ccb-ab518915a778
+2026-07-19 19:31:23,770 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None
+2026-07-19 19:31:23,773 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:31:23,848 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 19:31:23,851 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 19:31:23,919 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-19 19:31:23,932 | INFO | tools.task_tools | create_task succeeded: task_id=2053bb9c-6a2a-4d97-9e41-043c48860b4e
+2026-07-19 19:31:23,932 | INFO | tools.task_tools | complete_task called: task_id=2053bb9c-6a2a-4d97-9e41-043c48860b4e
+2026-07-19 19:31:23,946 | INFO | tools.task_tools | complete_task succeeded: task_id=2053bb9c-6a2a-4d97-9e41-043c48860b4e
+2026-07-19 19:31:24,006 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-19 19:31:24,018 | INFO | tools.task_tools | create_task succeeded: task_id=fc1a5f6c-18a9-4466-9f72-e5926aa6b4b4
+2026-07-19 19:31:24,018 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-19 19:31:24,029 | INFO | tools.task_tools | create_task succeeded: task_id=78cd6e9c-7531-4210-8c84-7ee09991d463
+2026-07-19 19:31:24,030 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-19 19:31:24,041 | INFO | tools.task_tools | create_task succeeded: task_id=37078435-ff89-44dc-a25a-b1245f8077c3
+2026-07-19 19:31:24,042 | INFO | tools.task_tools | complete_task called: task_id=37078435-ff89-44dc-a25a-b1245f8077c3
+2026-07-19 19:31:24,056 | INFO | tools.task_tools | complete_task succeeded: task_id=37078435-ff89-44dc-a25a-b1245f8077c3
+2026-07-19 19:31:24,056 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:31:24,059 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 19:31:24,134 | INFO | tools.task_tools | create_task called: title='Small thing' priority=Low
+2026-07-19 19:31:24,148 | INFO | tools.task_tools | create_task succeeded: task_id=ec05006a-c2f6-45ee-9379-a931a812d7a3
+2026-07-19 19:31:24,149 | INFO | tools.task_tools | create_task called: title='Big thing' priority=Critical
+2026-07-19 19:31:24,160 | INFO | tools.task_tools | create_task succeeded: task_id=c6191a94-0d3d-4081-ada1-838814ef7229
+2026-07-19 19:31:24,161 | INFO | tools.task_tools | estimate_task_effort called: task_id=ec05006a-c2f6-45ee-9379-a931a812d7a3
+2026-07-19 19:31:24,163 | INFO | tools.task_tools | estimate_task_effort succeeded: task_id=ec05006a-c2f6-45ee-9379-a931a812d7a3 estimated_hours=1.0
+2026-07-19 19:31:24,164 | INFO | tools.task_tools | estimate_task_effort called: task_id=c6191a94-0d3d-4081-ada1-838814ef7229
+2026-07-19 19:31:24,166 | INFO | tools.task_tools | estimate_task_effort succeeded: task_id=c6191a94-0d3d-4081-ada1-838814ef7229 estimated_hours=6.0
+2026-07-19 19:31:24,224 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-19 19:31:24,236 | INFO | tools.note_tools | save_note succeeded: note_id=b291a67f-78bd-4639-b5fc-2f39d025f0d4
+2026-07-19 19:31:24,299 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 19:31:24,315 | INFO | tools.note_tools | save_note succeeded: note_id=355021ba-a2fb-4a27-8cba-bdb808f6905f
+2026-07-19 19:31:24,316 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-19 19:31:24,330 | INFO | tools.note_tools | save_note succeeded: note_id=a7834783-fca8-40d9-812f-f981deedfb27
+2026-07-19 19:31:24,330 | INFO | tools.note_tools | search_notes called: query='marketing' category=None
+2026-07-19 19:31:24,333 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-19 19:31:24,406 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-19 19:31:24,407 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-19 19:31:24,490 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-19 19:31:24,491 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-19 19:31:24,565 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-19 19:31:24,578 | INFO | tools.task_tools | create_task succeeded: task_id=3060c7ab-1316-48ac-ba61-f4e8965227cc
+2026-07-19 19:31:24,579 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-19 19:31:24,591 | INFO | tools.task_tools | create_task succeeded: task_id=4d6d62ab-2bbb-4a67-a37b-821ff986f55b
+2026-07-19 19:31:24,594 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 19:31:24,594 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 19:31:24,656 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-19 19:31:24,667 | INFO | tools.task_tools | create_task succeeded: task_id=9e3ac0d8-89d6-4701-b5b1-5eca4e4b9eaa
+2026-07-19 19:31:24,669 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-19 19:31:24,670 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 19:31:24,735 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-19 19:31:24,748 | INFO | tools.task_tools | create_task succeeded: task_id=00b4492f-adeb-4390-bc21-edd87d98e2b3
+2026-07-19 19:31:24,749 | INFO | tools.task_tools | update_task called: task_id=00b4492f-adeb-4390-bc21-edd87d98e2b3
+2026-07-19 19:31:24,763 | INFO | tools.task_tools | update_task succeeded: task_id=00b4492f-adeb-4390-bc21-edd87d98e2b3
+2026-07-19 19:31:24,765 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 19:31:24,765 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 19:31:24,830 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-19 19:31:24,831 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-19 19:31:25,611 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None
+2026-07-19 19:31:25,614 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:31:25,616 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:31:25,619 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 19:31:25,622 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 19:31:25,623 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 19:31:25,764 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:31:25,767 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 19:31:25,769 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:31:25,773 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 19:40:08,068 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None
+2026-07-19 19:40:08,075 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:40:08,229 | INFO | tools.task_tools | complete_task called: task_id=2f8c4284-8d36-4c7f-857d-e17e3aad7f7e
+2026-07-19 19:40:08,244 | INFO | tools.task_tools | complete_task succeeded: task_id=2f8c4284-8d36-4c7f-857d-e17e3aad7f7e
+2026-07-19 19:40:08,316 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:40:08,320 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,386 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0
+2026-07-19 19:40:08,391 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,393 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1
+2026-07-19 19:40:08,395 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,396 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2
+2026-07-19 19:40:08,398 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,400 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3
+2026-07-19 19:40:08,403 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,404 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4
+2026-07-19 19:40:08,406 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,408 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5
+2026-07-19 19:40:08,410 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,411 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6
+2026-07-19 19:40:08,413 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,415 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7
+2026-07-19 19:40:08,416 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 19:40:08,567 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-19 19:40:08,578 | INFO | tools.task_tools | create_task succeeded: task_id=c445df24-3bb4-4a5d-8fb1-0208d2131876
+2026-07-19 19:40:08,745 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:40:08,748 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:40:08,987 | INFO | tools.task_tools | complete_task called: task_id=638a2b84-a897-4660-9a00-bb6da40c9ca8
+2026-07-19 19:40:09,000 | INFO | tools.task_tools | complete_task succeeded: task_id=638a2b84-a897-4660-9a00-bb6da40c9ca8
+2026-07-19 19:40:09,245 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:40:09,249 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:40:10,346 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-19 19:40:10,359 | INFO | tools.task_tools | create_task succeeded: task_id=e99e9a54-2d0c-42e9-a163-d9418e002420
+2026-07-19 19:40:10,418 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 19:40:10,420 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 19:40:10,476 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-19 19:40:10,479 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-19 19:40:10,535 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-19 19:40:10,547 | INFO | tools.task_tools | create_task succeeded: task_id=57e1f205-2fc8-41ab-8c85-545f2f230682
+2026-07-19 19:40:10,548 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-19 19:40:10,559 | INFO | tools.task_tools | create_task succeeded: task_id=f7b3bc5b-8000-4c74-80da-d609c068a83b
+2026-07-19 19:40:10,559 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:40:10,561 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:40:10,620 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-19 19:40:10,631 | INFO | tools.note_tools | save_note succeeded: note_id=92f9b8fd-bc95-4b6e-94c6-7f6961858528
+2026-07-19 19:40:10,690 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 19:40:10,702 | INFO | tools.note_tools | save_note succeeded: note_id=53748de3-70c0-46c6-8df4-61cb9839a2c7
+2026-07-19 19:40:10,702 | INFO | tools.note_tools | search_notes called: query='marketing' category=None
+2026-07-19 19:40:10,705 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-19 19:40:10,761 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-19 19:40:10,772 | INFO | tools.task_tools | create_task succeeded: task_id=c8f8244c-a657-4190-8595-0c3ea3c1e8a5
+2026-07-19 19:40:10,775 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 19:40:10,776 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-19 19:40:10,847 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-19 19:40:10,848 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-19 19:40:10,906 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-19 19:40:10,918 | INFO | tools.task_tools | create_task succeeded: task_id=88999e3f-d4b0-46eb-b399-9a76807093a4
+2026-07-19 19:40:10,975 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-19 19:40:10,998 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['54fba5b5-d5bf-4fa2-a52a-a267a6942d33', '45fe6824-2c78-45cf-acf9-ff928480234a']
+2026-07-19 19:40:11,055 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-19 19:40:11,069 | INFO | tools.task_tools | create_task succeeded: task_id=5ca5ddc1-c700-43fb-9ba5-bc1f105761d3
+2026-07-19 19:40:11,069 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-19 19:40:11,080 | INFO | tools.task_tools | create_task succeeded: task_id=1108e694-d1ed-4358-9430-e06586b1c43c
+2026-07-19 19:40:11,080 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None
+2026-07-19 19:40:11,083 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 19:40:11,139 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 19:40:11,142 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 19:40:11,204 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-19 19:40:11,216 | INFO | tools.task_tools | create_task succeeded: task_id=1f6fd3e8-ffba-48ad-8213-9d3c79305471
+2026-07-19 19:40:11,217 | INFO | tools.task_tools | complete_task called: task_id=1f6fd3e8-ffba-48ad-8213-9d3c79305471
+2026-07-19 19:40:11,230 | INFO | tools.task_tools | complete_task succeeded: task_id=1f6fd3e8-ffba-48ad-8213-9d3c79305471
+2026-07-19 19:40:11,287 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-19 19:40:11,299 | INFO | tools.task_tools | create_task succeeded: task_id=08a950a7-bd3b-429e-b3f0-20adac5be04d
+2026-07-19 19:40:11,299 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-19 19:40:11,311 | INFO | tools.task_tools | create_task succeeded: task_id=23200b80-640e-4cd4-966a-d0085817c3c8
+2026-07-19 19:40:11,311 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-19 19:40:11,322 | INFO | tools.task_tools | create_task succeeded: task_id=6e5e8003-e144-43cd-99dc-a4ecece250b0
+2026-07-19 19:40:11,323 | INFO | tools.task_tools | complete_task called: task_id=6e5e8003-e144-43cd-99dc-a4ecece250b0
+2026-07-19 19:40:11,336 | INFO | tools.task_tools | complete_task succeeded: task_id=6e5e8003-e144-43cd-99dc-a4ecece250b0
+2026-07-19 19:40:11,337 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:40:11,339 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 19:40:11,396 | INFO | tools.task_tools | create_task called: title='Small thing' priority=Low
+2026-07-19 19:40:11,408 | INFO | tools.task_tools | create_task succeeded: task_id=4712a214-d1b7-481f-845d-766db0cd0091
+2026-07-19 19:40:11,408 | INFO | tools.task_tools | create_task called: title='Big thing' priority=Critical
+2026-07-19 19:40:11,418 | INFO | tools.task_tools | create_task succeeded: task_id=61407feb-568c-420c-9015-75652d1a1f22
+2026-07-19 19:40:11,419 | INFO | tools.task_tools | estimate_task_effort called: task_id=4712a214-d1b7-481f-845d-766db0cd0091
+2026-07-19 19:40:11,420 | INFO | tools.task_tools | estimate_task_effort succeeded: task_id=4712a214-d1b7-481f-845d-766db0cd0091 estimated_hours=1.0
+2026-07-19 19:40:11,421 | INFO | tools.task_tools | estimate_task_effort called: task_id=61407feb-568c-420c-9015-75652d1a1f22
+2026-07-19 19:40:11,422 | INFO | tools.task_tools | estimate_task_effort succeeded: task_id=61407feb-568c-420c-9015-75652d1a1f22 estimated_hours=6.0
+2026-07-19 19:40:11,471 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-19 19:40:11,484 | INFO | tools.note_tools | save_note succeeded: note_id=da47e997-3e22-4dd1-b666-773fe536dbdf
+2026-07-19 19:40:11,541 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 19:40:11,552 | INFO | tools.note_tools | save_note succeeded: note_id=7b6d56b4-6e9c-4b3d-bdec-993f7c9b32cf
+2026-07-19 19:40:11,553 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-19 19:40:11,564 | INFO | tools.note_tools | save_note succeeded: note_id=7ce7c749-f251-4a90-b688-3bcbddecaee7
+2026-07-19 19:40:11,564 | INFO | tools.note_tools | search_notes called: query='marketing' category=None
+2026-07-19 19:40:11,567 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-19 19:40:11,623 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-19 19:40:11,624 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-19 19:40:11,681 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-19 19:40:11,682 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-19 19:40:11,739 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-19 19:40:11,751 | INFO | tools.task_tools | create_task succeeded: task_id=c37c3ab8-7837-4b59-8abb-4d9051db11b0
+2026-07-19 19:40:11,752 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-19 19:40:11,763 | INFO | tools.task_tools | create_task succeeded: task_id=3d7ba534-ed1e-4fff-8c7f-ffda47afd8c0
+2026-07-19 19:40:11,765 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 19:40:11,766 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 19:40:11,819 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-19 19:40:11,831 | INFO | tools.task_tools | create_task succeeded: task_id=8783f97e-18a1-4fc5-8545-d12eef14a015
+2026-07-19 19:40:11,834 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-19 19:40:11,834 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 19:40:11,891 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-19 19:40:11,903 | INFO | tools.task_tools | create_task succeeded: task_id=1f02112f-0438-4029-8cc2-443c85518864
+2026-07-19 19:40:11,904 | INFO | tools.task_tools | update_task called: task_id=1f02112f-0438-4029-8cc2-443c85518864
+2026-07-19 19:40:11,916 | INFO | tools.task_tools | update_task succeeded: task_id=1f02112f-0438-4029-8cc2-443c85518864
+2026-07-19 19:40:11,918 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 19:40:11,919 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 19:40:11,981 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-19 19:40:11,982 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-19 19:40:12,596 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None
+2026-07-19 19:40:12,599 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 19:40:12,601 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:40:12,603 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 19:40:12,608 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 19:40:12,608 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 19:40:12,735 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None
+2026-07-19 19:40:12,738 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 19:40:12,740 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 19:40:12,743 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 20:09:50,223 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None due_before=None
+2026-07-19 20:09:50,227 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 20:09:50,381 | INFO | tools.task_tools | complete_task called: task_id=1f6623ee-4270-42b0-bdbc-c7adb82e85e2
+2026-07-19 20:09:50,390 | INFO | tools.task_tools | complete_task succeeded: task_id=1f6623ee-4270-42b0-bdbc-c7adb82e85e2
+2026-07-19 20:09:50,455 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-19 20:09:50,457 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,518 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0 due_before=None
+2026-07-19 20:09:50,521 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,523 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1 due_before=None
+2026-07-19 20:09:50,524 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,525 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2 due_before=None
+2026-07-19 20:09:50,526 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,528 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3 due_before=None
+2026-07-19 20:09:50,530 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,531 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4 due_before=None
+2026-07-19 20:09:50,533 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,534 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5 due_before=None
+2026-07-19 20:09:50,536 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,537 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6 due_before=None
+2026-07-19 20:09:50,538 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,539 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7 due_before=None
+2026-07-19 20:09:50,540 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-19 20:09:50,667 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-19 20:09:50,674 | INFO | tools.task_tools | create_task succeeded: task_id=029c6a8d-0f8c-4e59-9ca4-7037774160c2
+2026-07-19 20:09:50,814 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-19 20:09:50,816 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 20:09:51,063 | INFO | tools.task_tools | complete_task called: task_id=8e148d95-30eb-4433-a7cf-87dd13c24297
+2026-07-19 20:09:51,075 | INFO | tools.task_tools | complete_task succeeded: task_id=8e148d95-30eb-4433-a7cf-87dd13c24297
+2026-07-19 20:09:51,286 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-19 20:09:51,288 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 20:09:51,454 | INFO | tools.note_tools | search_notes called: query='Q3 launch' category=None date_from=None date_to=None
+2026-07-19 20:09:51,458 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-19 20:09:52,345 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-19 20:09:52,352 | INFO | tools.task_tools | create_task succeeded: task_id=a6e26d12-f2ec-4f49-837a-9f5088ef6f35
+2026-07-19 20:09:52,400 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 20:09:52,402 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 20:09:52,475 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-19 20:09:52,479 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-19 20:09:52,548 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-19 20:09:52,559 | INFO | tools.task_tools | create_task succeeded: task_id=0aee27b2-ec00-4293-a2e7-ccfc3b89bc3b
+2026-07-19 20:09:52,560 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-19 20:09:52,574 | INFO | tools.task_tools | create_task succeeded: task_id=a8e87d2b-2325-469c-a3fd-7a4abed0c3c4
+2026-07-19 20:09:52,575 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-19 20:09:52,578 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 20:09:52,652 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-19 20:09:52,664 | INFO | tools.note_tools | save_note succeeded: note_id=6b2b1c53-a327-4a41-a43a-c27d534fa201
+2026-07-19 20:09:52,739 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 20:09:52,750 | INFO | tools.note_tools | save_note succeeded: note_id=13937183-1ed8-4782-bbc2-f365c4ddfdeb
+2026-07-19 20:09:52,750 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-19 20:09:52,753 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-19 20:09:52,822 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-19 20:09:52,835 | INFO | tools.task_tools | create_task succeeded: task_id=0d1f578f-70f8-4a0f-a913-3cb7802c43a8
+2026-07-19 20:09:52,837 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 20:09:52,837 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-19 20:09:52,912 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-19 20:09:52,913 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-19 20:09:52,992 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-19 20:09:53,004 | INFO | tools.task_tools | create_task succeeded: task_id=f8de4045-5270-4322-a3b1-a160a50245f9
+2026-07-19 20:09:53,057 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-19 20:09:53,074 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['de5a7e1b-a5b3-4ec2-8d4c-61f99efec673', '76af72a9-a683-4174-82f4-98cb4c960a36']
+2026-07-19 20:09:53,135 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-19 20:09:53,145 | INFO | tools.task_tools | create_task succeeded: task_id=d6a322af-3053-4ce4-828e-21aa6307e4da
+2026-07-19 20:09:53,145 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-19 20:09:53,154 | INFO | tools.task_tools | create_task succeeded: task_id=d9c011d3-254e-4b86-a3ea-b48906319401
+2026-07-19 20:09:53,154 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None due_before=None
+2026-07-19 20:09:53,156 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 20:09:53,237 | INFO | tools.task_tools | create_task called: title='Due soon' priority=Medium
+2026-07-19 20:09:53,248 | INFO | tools.task_tools | create_task succeeded: task_id=9e7b30da-3037-4e87-b663-4acebeb5b358
+2026-07-19 20:09:53,249 | INFO | tools.task_tools | create_task called: title='Due later' priority=Medium
+2026-07-19 20:09:53,260 | INFO | tools.task_tools | create_task succeeded: task_id=a5c68257-8385-4e53-83be-1881fab623ce
+2026-07-19 20:09:53,260 | INFO | tools.task_tools | create_task called: title='No due date' priority=Medium
+2026-07-19 20:09:53,272 | INFO | tools.task_tools | create_task succeeded: task_id=33219eb9-d484-4088-829b-54347a3d06ec
+2026-07-19 20:09:53,273 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=2026-07-26 15:09:53.272996+00:00
+2026-07-19 20:09:53,277 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-19 20:09:53,360 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-19 20:09:53,362 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-19 20:09:53,445 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-19 20:09:53,457 | INFO | tools.task_tools | create_task succeeded: task_id=4a4eabc4-bf86-4c51-a05b-1b5229654809
+2026-07-19 20:09:53,457 | INFO | tools.task_tools | complete_task called: task_id=4a4eabc4-bf86-4c51-a05b-1b5229654809
+2026-07-19 20:09:53,469 | INFO | tools.task_tools | complete_task succeeded: task_id=4a4eabc4-bf86-4c51-a05b-1b5229654809
+2026-07-19 20:09:53,536 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-19 20:09:53,548 | INFO | tools.task_tools | create_task succeeded: task_id=943815de-0d5e-484f-bb90-a52e21812466
+2026-07-19 20:09:53,549 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-19 20:09:53,559 | INFO | tools.task_tools | create_task succeeded: task_id=ce4e946f-a4a3-42b6-9003-38567bf7417d
+2026-07-19 20:09:53,560 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-19 20:09:53,570 | INFO | tools.task_tools | create_task succeeded: task_id=7ca706a3-b036-45db-96c7-9ba01d58a3c5
+2026-07-19 20:09:53,570 | INFO | tools.task_tools | complete_task called: task_id=7ca706a3-b036-45db-96c7-9ba01d58a3c5
+2026-07-19 20:09:53,581 | INFO | tools.task_tools | complete_task succeeded: task_id=7ca706a3-b036-45db-96c7-9ba01d58a3c5
+2026-07-19 20:09:53,582 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 20:09:53,584 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 20:09:53,652 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-19 20:09:53,663 | INFO | tools.note_tools | save_note succeeded: note_id=6d1d77f2-d217-4a5c-8fba-176ce783b1e0
+2026-07-19 20:09:53,731 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-19 20:09:53,741 | INFO | tools.note_tools | save_note succeeded: note_id=508d10dc-9e60-4da3-9bf4-0c53f4b81db8
+2026-07-19 20:09:53,742 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-19 20:09:53,752 | INFO | tools.note_tools | save_note succeeded: note_id=bc77205b-6432-49c3-bbca-345622ab5b9a
+2026-07-19 20:09:53,752 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-19 20:09:53,754 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-19 20:09:53,813 | INFO | tools.note_tools | save_note called: title='Marketing plan A' category=general
+2026-07-19 20:09:53,822 | INFO | tools.note_tools | save_note succeeded: note_id=92ed5021-4bec-41c9-ba08-b918928c9d50
+2026-07-19 20:09:53,822 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=2026-07-20 15:09:53.822386+00:00 date_to=None
+2026-07-19 20:09:53,825 | INFO | tools.note_tools | search_notes returned 0 result(s)
+2026-07-19 20:09:53,871 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-19 20:09:53,871 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-19 20:09:53,918 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-19 20:09:53,919 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-19 20:09:53,967 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-19 20:09:53,975 | INFO | tools.task_tools | create_task succeeded: task_id=d09de42e-ca5d-4854-8451-27530e86c1c0
+2026-07-19 20:09:53,976 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-19 20:09:53,983 | INFO | tools.task_tools | create_task succeeded: task_id=d3170029-16da-4657-b7ce-b60cfe7f5627
+2026-07-19 20:09:53,984 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 20:09:53,985 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 20:09:54,035 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-19 20:09:54,043 | INFO | tools.task_tools | create_task succeeded: task_id=348e5d87-45e2-4888-a7cd-5a309fa4d08e
+2026-07-19 20:09:54,045 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-19 20:09:54,045 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 20:09:54,094 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-19 20:09:54,102 | INFO | tools.task_tools | create_task succeeded: task_id=90149e98-697d-4b96-9de6-7dbee3634163
+2026-07-19 20:09:54,102 | INFO | tools.task_tools | update_task called: task_id=90149e98-697d-4b96-9de6-7dbee3634163
+2026-07-19 20:09:54,109 | INFO | tools.task_tools | update_task succeeded: task_id=90149e98-697d-4b96-9de6-7dbee3634163
+2026-07-19 20:09:54,110 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-19 20:09:54,111 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-19 20:09:54,158 | INFO | tools.reminder_tools | create_reminder called: message='Follow up with Sara' remind_at=2026-07-20 15:09:54.158213+00:00 task_id=None
+2026-07-19 20:09:54,167 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=70ac462a-ec1c-4f83-af13-d128e2d6c155
+2026-07-19 20:09:54,212 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-19 20:09:54,220 | INFO | tools.task_tools | create_task succeeded: task_id=1181eade-ed55-40e7-9998-12fbb5bbc142
+2026-07-19 20:09:54,220 | INFO | tools.reminder_tools | create_reminder called: message='Check on the draft report' remind_at=2026-07-19 17:09:54.220513+00:00 task_id=1181eade-ed55-40e7-9998-12fbb5bbc142
+2026-07-19 20:09:54,227 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=eaf98c99-bfb3-425d-bf65-88aacc561ace
+2026-07-19 20:09:54,280 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-19 20:09:54,280 | INFO | tools.email_tools | draft_follow_up_email succeeded: recipient=sara@example.com subject='Following up on the Q3 launch'
+2026-07-19 20:09:54,331 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-19 20:09:54,332 | ERROR | tools.email_tools | draft_follow_up_email failed: invalid model response: 1 validation error for DraftFollowUpEmailOutput
+body
+  Field required [type=missing, input_value={'subject': 'only this', ...nt': 'sara@example.com'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-19 20:09:54,388 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-19 20:09:54,388 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-19 20:09:54,400 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-19 20:09:54,418 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['d48462e5-6295-4b8f-8737-4ea8ec801168', '7a5bdd8d-7557-41ab-a43d-30031b083782']
+2026-07-19 20:09:54,527 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-19 20:09:54,530 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-19 20:09:54,532 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 20:09:54,534 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 20:09:54,538 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-19 20:09:54,538 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-19 20:09:54,679 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-19 20:09:54,682 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 20:09:54,684 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-19 20:09:54,687 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-19 20:11:04,978 | INFO | tools.reminder_tools | create_reminder called: message='Live DB persistence check' remind_at=2026-07-20 15:11:04.978681+00:00 task_id=None
+2026-07-19 20:11:05,017 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=4ce5ce92-3c66-48df-bafd-71085082e9da
+2026-07-19 23:08:12,088 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-19 23:08:12,110 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-19 23:36:36,795 | INFO | tools.task_tools | create_task called: title='finish report' priority=High
+2026-07-19 23:36:36,852 | INFO | tools.task_tools | create_task succeeded: task_id=68c6dda2-b444-444a-869a-bb118240d40f
+2026-07-20 00:14:46,354 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None due_before=None
+2026-07-20 00:14:46,359 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:14:46,621 | INFO | tools.task_tools | complete_task called: task_id=50e69bf1-4d85-4b45-93a2-9e6374ee2880
+2026-07-20 00:14:46,639 | INFO | tools.task_tools | complete_task succeeded: task_id=50e69bf1-4d85-4b45-93a2-9e6374ee2880
+2026-07-20 00:14:46,765 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:14:46,769 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,905 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0 due_before=None
+2026-07-20 00:14:46,911 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,913 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1 due_before=None
+2026-07-20 00:14:46,917 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,919 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2 due_before=None
+2026-07-20 00:14:46,922 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,924 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3 due_before=None
+2026-07-20 00:14:46,930 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,932 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4 due_before=None
+2026-07-20 00:14:46,935 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,936 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5 due_before=None
+2026-07-20 00:14:46,939 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,941 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6 due_before=None
+2026-07-20 00:14:46,944 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:46,946 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7 due_before=None
+2026-07-20 00:14:46,948 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:14:47,205 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-20 00:14:47,223 | INFO | tools.task_tools | create_task succeeded: task_id=d8abb8bd-379f-48a1-aec0-09916497798a
+2026-07-20 00:14:47,451 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:14:47,454 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:14:47,912 | INFO | tools.task_tools | complete_task called: task_id=c752c96d-3a3c-4767-912b-f5129f15b27c
+2026-07-20 00:14:47,929 | INFO | tools.task_tools | complete_task succeeded: task_id=c752c96d-3a3c-4767-912b-f5129f15b27c
+2026-07-20 00:14:48,292 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:14:48,295 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:14:48,574 | INFO | tools.note_tools | search_notes called: query='Q3 launch' category=None date_from=None date_to=None
+2026-07-20 00:14:48,581 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:14:50,060 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-20 00:14:50,076 | INFO | tools.task_tools | create_task succeeded: task_id=5992504e-e4da-4f0e-92d6-da1d941dfc2e
+2026-07-20 00:14:50,174 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:14:50,179 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:14:50,288 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-20 00:14:50,292 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-20 00:14:50,416 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-20 00:14:50,431 | INFO | tools.task_tools | create_task succeeded: task_id=6f59fdee-1fb7-40cb-9c1a-b3a27635d156
+2026-07-20 00:14:50,432 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-20 00:14:50,447 | INFO | tools.task_tools | create_task succeeded: task_id=9fe49f23-6e14-4afd-bb6d-29ecb922292f
+2026-07-20 00:14:50,447 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:14:50,449 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:14:50,535 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-20 00:14:50,548 | INFO | tools.note_tools | save_note succeeded: note_id=3d54d608-7770-44ff-824d-ebe716e8c9b8
+2026-07-20 00:14:50,669 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:14:50,683 | INFO | tools.note_tools | save_note succeeded: note_id=3a0fd5ee-4e9a-4d90-8a10-091eeda882a5
+2026-07-20 00:14:50,684 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:14:50,687 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:14:50,787 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-20 00:14:50,802 | INFO | tools.task_tools | create_task succeeded: task_id=13482228-a876-4764-9394-c74a39d52bf7
+2026-07-20 00:14:50,805 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:14:50,805 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-20 00:14:50,891 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-20 00:14:50,892 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-20 00:14:51,007 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-20 00:14:51,019 | INFO | tools.task_tools | create_task succeeded: task_id=158482b1-c6be-4baf-b160-48ea97696fbc
+2026-07-20 00:14:51,094 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:14:51,117 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['3897d8f4-af15-43d2-a232-2d90bd0d8569', '11a5ae33-6fcc-432e-8153-a53dd94323ed']
+2026-07-20 00:14:51,231 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-20 00:14:51,246 | INFO | tools.task_tools | create_task succeeded: task_id=36a1ef09-30e6-44ed-84af-4ae266f532b0
+2026-07-20 00:14:51,247 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-20 00:14:51,265 | INFO | tools.task_tools | create_task succeeded: task_id=08f7e6dd-45c4-4054-915e-40d8ad98d141
+2026-07-20 00:14:51,266 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None due_before=None
+2026-07-20 00:14:51,268 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:14:51,386 | INFO | tools.task_tools | create_task called: title='Due soon' priority=Medium
+2026-07-20 00:14:51,403 | INFO | tools.task_tools | create_task succeeded: task_id=e54175a8-20a5-4101-9473-b1d89dd0d852
+2026-07-20 00:14:51,404 | INFO | tools.task_tools | create_task called: title='Due later' priority=Medium
+2026-07-20 00:14:51,418 | INFO | tools.task_tools | create_task succeeded: task_id=5effaecb-e193-476e-b50a-77f044465b02
+2026-07-20 00:14:51,419 | INFO | tools.task_tools | create_task called: title='No due date' priority=Medium
+2026-07-20 00:14:51,433 | INFO | tools.task_tools | create_task succeeded: task_id=8b2575d8-31bb-4950-8b82-2c8ecc9dac03
+2026-07-20 00:14:51,434 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=2026-07-26 19:14:51.433958+00:00
+2026-07-20 00:14:51,438 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:14:51,526 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:14:51,529 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:14:51,616 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-20 00:14:51,629 | INFO | tools.task_tools | create_task succeeded: task_id=97b2e7b2-ed90-431d-80d3-3dd149b9bcd3
+2026-07-20 00:14:51,629 | INFO | tools.task_tools | complete_task called: task_id=97b2e7b2-ed90-431d-80d3-3dd149b9bcd3
+2026-07-20 00:14:51,642 | INFO | tools.task_tools | complete_task succeeded: task_id=97b2e7b2-ed90-431d-80d3-3dd149b9bcd3
+2026-07-20 00:14:51,728 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-20 00:14:51,740 | INFO | tools.task_tools | create_task succeeded: task_id=2043568a-b2d9-477f-b0fb-8e3d1d116e77
+2026-07-20 00:14:51,741 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-20 00:14:51,752 | INFO | tools.task_tools | create_task succeeded: task_id=5f58c032-1116-4909-aa6a-53cc46843861
+2026-07-20 00:14:51,752 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-20 00:14:51,763 | INFO | tools.task_tools | create_task succeeded: task_id=f4c3c00d-5b0e-46af-b281-616b18b162e7
+2026-07-20 00:14:51,764 | INFO | tools.task_tools | complete_task called: task_id=f4c3c00d-5b0e-46af-b281-616b18b162e7
+2026-07-20 00:14:51,776 | INFO | tools.task_tools | complete_task succeeded: task_id=f4c3c00d-5b0e-46af-b281-616b18b162e7
+2026-07-20 00:14:51,777 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:14:51,779 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:14:51,860 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-20 00:14:51,880 | INFO | tools.note_tools | save_note succeeded: note_id=c12d1a9c-baa8-48b2-b971-3c721fa1458b
+2026-07-20 00:14:51,987 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:14:52,003 | INFO | tools.note_tools | save_note succeeded: note_id=7e48d5fa-858d-4a39-a23e-04d233f8d438
+2026-07-20 00:14:52,004 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-20 00:14:52,019 | INFO | tools.note_tools | save_note succeeded: note_id=46e27ecf-e319-4cfd-a52d-be6dfaac5b65
+2026-07-20 00:14:52,020 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:14:52,023 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-20 00:14:52,142 | INFO | tools.note_tools | save_note called: title='Marketing plan A' category=general
+2026-07-20 00:14:52,157 | INFO | tools.note_tools | save_note succeeded: note_id=d7e499a9-e626-4ee4-9272-976b0a486d26
+2026-07-20 00:14:52,159 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=2026-07-20 19:14:52.158469+00:00 date_to=None
+2026-07-20 00:14:52,163 | INFO | tools.note_tools | search_notes returned 0 result(s)
+2026-07-20 00:14:52,266 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-20 00:14:52,266 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-20 00:14:52,371 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-20 00:14:52,374 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:14:52,506 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-20 00:14:52,524 | INFO | tools.task_tools | create_task succeeded: task_id=99914432-dfb9-401c-a3f6-421dc3b6b8b1
+2026-07-20 00:14:52,524 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-20 00:14:52,538 | INFO | tools.task_tools | create_task succeeded: task_id=43778c67-1f93-4b36-bf24-bd2dc57c2489
+2026-07-20 00:14:52,543 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:14:52,544 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:14:52,656 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-20 00:14:52,673 | INFO | tools.task_tools | create_task succeeded: task_id=824d3ec7-084d-444c-bf15-e639dbd252b0
+2026-07-20 00:14:52,676 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-20 00:14:52,676 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:14:52,797 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-20 00:14:52,810 | INFO | tools.task_tools | create_task succeeded: task_id=11e72d1e-9b3b-425d-b0bf-8346da60699e
+2026-07-20 00:14:52,811 | INFO | tools.task_tools | update_task called: task_id=11e72d1e-9b3b-425d-b0bf-8346da60699e
+2026-07-20 00:14:52,828 | INFO | tools.task_tools | update_task succeeded: task_id=11e72d1e-9b3b-425d-b0bf-8346da60699e
+2026-07-20 00:14:52,830 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:14:52,831 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:14:52,915 | INFO | tools.reminder_tools | create_reminder called: message='Follow up with Sara' remind_at=2026-07-20 19:14:52.915764+00:00 task_id=None
+2026-07-20 00:14:52,939 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=fa9297fb-8373-4048-a37e-3fb017c4bc8a
+2026-07-20 00:14:53,041 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-20 00:14:53,056 | INFO | tools.task_tools | create_task succeeded: task_id=d52cf364-8fe0-4222-b890-e593189a7ef3
+2026-07-20 00:14:53,057 | INFO | tools.reminder_tools | create_reminder called: message='Check on the draft report' remind_at=2026-07-19 21:14:53.057252+00:00 task_id=d52cf364-8fe0-4222-b890-e593189a7ef3
+2026-07-20 00:14:53,074 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=0a54ef02-569a-419a-9bc1-eb19410647af
+2026-07-20 00:14:53,161 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:14:53,161 | INFO | tools.email_tools | draft_follow_up_email succeeded: recipient=sara@example.com subject='Following up on the Q3 launch'
+2026-07-20 00:14:53,242 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:14:53,243 | ERROR | tools.email_tools | draft_follow_up_email failed: invalid model response: 1 validation error for DraftFollowUpEmailOutput
+body
+  Field required [type=missing, input_value={'subject': 'only this', ...nt': 'sara@example.com'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:14:53,321 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-20 00:14:53,321 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-20 00:14:53,336 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:14:53,359 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['7768107d-4ed5-42b2-a84d-2a27b5f72bc8', '8c452ad5-dd4f-468f-ab19-176e4f4de3f4']
+2026-07-20 00:14:53,493 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-20 00:14:53,496 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:14:53,498 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:14:53,500 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:14:53,503 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:14:53,503 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:14:53,680 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:14:53,683 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-20 00:14:53,685 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:14:53,687 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:16:01,965 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=11
+2026-07-20 00:16:01,966 | ERROR | tools.planning_tools | extract_meeting_actions failed: Gemini quota exceeded
+2026-07-20 00:16:37,059 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None due_before=None
+2026-07-20 00:16:37,064 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:16:37,367 | INFO | tools.task_tools | complete_task called: task_id=1b14fe8f-7dc3-4e25-974e-e016a22cfb60
+2026-07-20 00:16:37,384 | INFO | tools.task_tools | complete_task succeeded: task_id=1b14fe8f-7dc3-4e25-974e-e016a22cfb60
+2026-07-20 00:16:37,491 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:16:37,494 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,645 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0 due_before=None
+2026-07-20 00:16:37,652 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,655 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1 due_before=None
+2026-07-20 00:16:37,658 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,661 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2 due_before=None
+2026-07-20 00:16:37,664 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,667 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3 due_before=None
+2026-07-20 00:16:37,671 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,673 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4 due_before=None
+2026-07-20 00:16:37,676 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,679 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5 due_before=None
+2026-07-20 00:16:37,681 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,683 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6 due_before=None
+2026-07-20 00:16:37,685 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,687 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7 due_before=None
+2026-07-20 00:16:37,689 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:16:37,897 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-20 00:16:37,911 | INFO | tools.task_tools | create_task succeeded: task_id=56c70545-68b9-4000-9918-ca633995e342
+2026-07-20 00:16:38,111 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:16:38,113 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:16:38,409 | INFO | tools.task_tools | complete_task called: task_id=9e068700-e97a-4aad-9da7-e62f2ceff3fe
+2026-07-20 00:16:38,424 | INFO | tools.task_tools | complete_task succeeded: task_id=9e068700-e97a-4aad-9da7-e62f2ceff3fe
+2026-07-20 00:16:38,723 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:16:38,726 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:16:38,955 | INFO | tools.note_tools | search_notes called: query='Q3 launch' category=None date_from=None date_to=None
+2026-07-20 00:16:38,962 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:16:40,410 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-20 00:16:40,424 | INFO | tools.task_tools | create_task succeeded: task_id=fbbf1cc8-49d7-4259-b0c7-4233afadd7ee
+2026-07-20 00:16:40,521 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:16:40,526 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:16:40,611 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-20 00:16:40,614 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-20 00:16:40,710 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-20 00:16:40,725 | INFO | tools.task_tools | create_task succeeded: task_id=1b4dcd6f-d714-4ba0-b774-18e74133784f
+2026-07-20 00:16:40,725 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-20 00:16:40,738 | INFO | tools.task_tools | create_task succeeded: task_id=f27f553b-8b22-497f-8366-998581c93fc4
+2026-07-20 00:16:40,739 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:16:40,743 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:16:40,839 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-20 00:16:40,855 | INFO | tools.note_tools | save_note succeeded: note_id=5ba44f8f-9477-4df3-823a-04d1efa24c2d
+2026-07-20 00:16:40,958 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:16:40,974 | INFO | tools.note_tools | save_note succeeded: note_id=2f55b2bd-448d-49c4-b4a0-a2ef25ce6815
+2026-07-20 00:16:40,975 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:16:40,978 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:16:41,077 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-20 00:16:41,091 | INFO | tools.task_tools | create_task succeeded: task_id=e65c7860-0cd5-4dc5-b345-46eb489c9b8d
+2026-07-20 00:16:41,094 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:16:41,094 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-20 00:16:41,190 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-20 00:16:41,191 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-20 00:16:41,312 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-20 00:16:41,324 | INFO | tools.task_tools | create_task succeeded: task_id=db76c664-5ef0-4ed2-b960-9d82e7e60132
+2026-07-20 00:16:41,401 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:16:41,438 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['728fb0b5-67f8-4c6b-b898-febaa2c9779b', '31eea785-ae82-4cd6-b070-2087ad5da07b']
+2026-07-20 00:16:41,512 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-20 00:16:41,529 | INFO | tools.task_tools | create_task succeeded: task_id=2cdaa50a-b525-4894-8953-099f9bbef061
+2026-07-20 00:16:41,530 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-20 00:16:41,541 | INFO | tools.task_tools | create_task succeeded: task_id=23c49777-3c92-4349-a173-3daa00cc34ea
+2026-07-20 00:16:41,541 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None due_before=None
+2026-07-20 00:16:41,543 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:16:41,624 | INFO | tools.task_tools | create_task called: title='Due soon' priority=Medium
+2026-07-20 00:16:41,635 | INFO | tools.task_tools | create_task succeeded: task_id=e2251bdd-6310-4c27-8a02-f9a98dae9575
+2026-07-20 00:16:41,635 | INFO | tools.task_tools | create_task called: title='Due later' priority=Medium
+2026-07-20 00:16:41,654 | INFO | tools.task_tools | create_task succeeded: task_id=a0cba486-5eb7-45d2-afc2-71114b75de9b
+2026-07-20 00:16:41,655 | INFO | tools.task_tools | create_task called: title='No due date' priority=Medium
+2026-07-20 00:16:41,667 | INFO | tools.task_tools | create_task succeeded: task_id=a4ad1f5f-f085-49f9-ae1b-2a67cfbce598
+2026-07-20 00:16:41,667 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=2026-07-26 19:16:41.667601+00:00
+2026-07-20 00:16:41,671 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:16:41,751 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:16:41,754 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:16:41,828 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-20 00:16:41,838 | INFO | tools.task_tools | create_task succeeded: task_id=5b9e0cf0-df2c-4bd7-b3fd-d0e90230dddf
+2026-07-20 00:16:41,838 | INFO | tools.task_tools | complete_task called: task_id=5b9e0cf0-df2c-4bd7-b3fd-d0e90230dddf
+2026-07-20 00:16:41,848 | INFO | tools.task_tools | complete_task succeeded: task_id=5b9e0cf0-df2c-4bd7-b3fd-d0e90230dddf
+2026-07-20 00:16:41,938 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-20 00:16:41,957 | INFO | tools.task_tools | create_task succeeded: task_id=0742a535-b580-4cae-a67e-6157941a3988
+2026-07-20 00:16:41,958 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-20 00:16:41,975 | INFO | tools.task_tools | create_task succeeded: task_id=2bc121d2-95f4-4c7a-9de4-be57e9573b28
+2026-07-20 00:16:41,976 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-20 00:16:41,992 | INFO | tools.task_tools | create_task succeeded: task_id=53130e76-be2d-4153-81ad-bbbd60c4707c
+2026-07-20 00:16:41,992 | INFO | tools.task_tools | complete_task called: task_id=53130e76-be2d-4153-81ad-bbbd60c4707c
+2026-07-20 00:16:42,010 | INFO | tools.task_tools | complete_task succeeded: task_id=53130e76-be2d-4153-81ad-bbbd60c4707c
+2026-07-20 00:16:42,011 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:16:42,014 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:16:42,121 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-20 00:16:42,138 | INFO | tools.note_tools | save_note succeeded: note_id=78a5c080-a907-45b1-8a85-5b9a007c3196
+2026-07-20 00:16:42,250 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:16:42,265 | INFO | tools.note_tools | save_note succeeded: note_id=e29f1dc4-05a5-4a78-ae48-2ef0b3a52e59
+2026-07-20 00:16:42,265 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-20 00:16:42,278 | INFO | tools.note_tools | save_note succeeded: note_id=c8d88b65-9f09-4556-906c-6c07b73d0a65
+2026-07-20 00:16:42,279 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:16:42,284 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-20 00:16:42,407 | INFO | tools.note_tools | save_note called: title='Marketing plan A' category=general
+2026-07-20 00:16:42,424 | INFO | tools.note_tools | save_note succeeded: note_id=c0cc9afd-a67b-4fde-8524-a55ecd9db658
+2026-07-20 00:16:42,425 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=2026-07-20 19:16:42.425521+00:00 date_to=None
+2026-07-20 00:16:42,433 | INFO | tools.note_tools | search_notes returned 0 result(s)
+2026-07-20 00:16:42,541 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-20 00:16:42,541 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-20 00:16:42,633 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-20 00:16:42,634 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:16:42,726 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-20 00:16:42,740 | INFO | tools.task_tools | create_task succeeded: task_id=e5ec9c3f-c997-4036-b97d-039ab4e71d2a
+2026-07-20 00:16:42,741 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-20 00:16:42,753 | INFO | tools.task_tools | create_task succeeded: task_id=5c4f47b3-9a7b-4bd5-b39c-d5e1bd92fabb
+2026-07-20 00:16:42,756 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:16:42,756 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:16:42,840 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-20 00:16:42,862 | INFO | tools.task_tools | create_task succeeded: task_id=87492cb0-1a6e-4f7a-8992-ab9bac8eaf96
+2026-07-20 00:16:42,865 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-20 00:16:42,866 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:16:42,959 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-20 00:16:42,973 | INFO | tools.task_tools | create_task succeeded: task_id=0cfa49ef-b89b-4968-ab41-5332b36587a8
+2026-07-20 00:16:42,974 | INFO | tools.task_tools | update_task called: task_id=0cfa49ef-b89b-4968-ab41-5332b36587a8
+2026-07-20 00:16:42,987 | INFO | tools.task_tools | update_task succeeded: task_id=0cfa49ef-b89b-4968-ab41-5332b36587a8
+2026-07-20 00:16:42,990 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:16:42,990 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:16:43,075 | INFO | tools.reminder_tools | create_reminder called: message='Follow up with Sara' remind_at=2026-07-20 19:16:43.075549+00:00 task_id=None
+2026-07-20 00:16:43,094 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=b9b5a151-5650-47a5-b641-8870b066f2c7
+2026-07-20 00:16:43,173 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-20 00:16:43,184 | INFO | tools.task_tools | create_task succeeded: task_id=4fce3f51-d12b-4ca9-a544-dfb4375a0d4a
+2026-07-20 00:16:43,184 | INFO | tools.reminder_tools | create_reminder called: message='Check on the draft report' remind_at=2026-07-19 21:16:43.184547+00:00 task_id=4fce3f51-d12b-4ca9-a544-dfb4375a0d4a
+2026-07-20 00:16:43,194 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=65c54b23-15b8-4ab4-ac22-81e42f8ef149
+2026-07-20 00:16:43,272 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:16:43,273 | INFO | tools.email_tools | draft_follow_up_email succeeded: recipient=sara@example.com subject='Following up on the Q3 launch'
+2026-07-20 00:16:43,374 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:16:43,375 | ERROR | tools.email_tools | draft_follow_up_email failed: invalid model response: 1 validation error for DraftFollowUpEmailOutput
+body
+  Field required [type=missing, input_value={'subject': 'only this', ...nt': 'sara@example.com'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:16:43,469 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-20 00:16:43,470 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-20 00:16:43,484 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:16:43,510 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['c613fd22-45cc-4841-a349-d1eb02b116f0', '65fe9234-cd08-4cf9-a550-f2b0b4cd2a01']
+2026-07-20 00:16:43,644 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-20 00:16:43,648 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:16:43,650 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:16:43,653 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:16:43,656 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:16:43,657 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:16:43,850 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:16:43,852 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-20 00:16:43,854 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:16:43,856 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:16:58,532 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=11
+2026-07-20 00:16:58,532 | ERROR | tools.planning_tools | extract_meeting_actions failed: Gemini quota exceeded
+2026-07-20 00:27:42,230 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None due_before=None
+2026-07-20 00:27:42,243 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:27:42,623 | INFO | tools.task_tools | complete_task called: task_id=915b7ccf-c212-42b3-ba56-1e9c0ef8a4fe
+2026-07-20 00:27:42,660 | INFO | tools.task_tools | complete_task succeeded: task_id=915b7ccf-c212-42b3-ba56-1e9c0ef8a4fe
+2026-07-20 00:27:42,797 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:27:42,801 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,934 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0 due_before=None
+2026-07-20 00:27:42,943 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,946 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1 due_before=None
+2026-07-20 00:27:42,949 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,951 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2 due_before=None
+2026-07-20 00:27:42,953 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,955 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3 due_before=None
+2026-07-20 00:27:42,958 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,960 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4 due_before=None
+2026-07-20 00:27:42,963 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,964 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5 due_before=None
+2026-07-20 00:27:42,966 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,968 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6 due_before=None
+2026-07-20 00:27:42,970 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:42,971 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7 due_before=None
+2026-07-20 00:27:42,973 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 00:27:43,231 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-20 00:27:43,252 | INFO | tools.task_tools | create_task succeeded: task_id=126724fd-7e88-473c-ac4d-a63db3ca64de
+2026-07-20 00:27:43,643 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:27:43,646 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:27:44,199 | INFO | tools.task_tools | complete_task called: task_id=aba9e638-39ca-4a40-9f2e-14d4acfdb77d
+2026-07-20 00:27:44,221 | INFO | tools.task_tools | complete_task succeeded: task_id=aba9e638-39ca-4a40-9f2e-14d4acfdb77d
+2026-07-20 00:27:44,575 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:27:44,577 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:27:44,869 | INFO | tools.note_tools | search_notes called: query='Q3 launch' category=None date_from=None date_to=None
+2026-07-20 00:27:44,876 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:27:46,595 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-20 00:27:46,612 | INFO | tools.task_tools | create_task succeeded: task_id=b025f022-4471-48df-b658-b64ba6dc5dc9
+2026-07-20 00:27:46,710 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:27:46,712 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:27:46,812 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-20 00:27:46,816 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-20 00:27:46,946 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-20 00:27:46,967 | INFO | tools.task_tools | create_task succeeded: task_id=a569a290-2431-4e5a-bb40-f6d57b83200f
+2026-07-20 00:27:46,967 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-20 00:27:46,985 | INFO | tools.task_tools | create_task succeeded: task_id=d4219694-0f44-42f6-ba6a-0cc99bfc542b
+2026-07-20 00:27:46,986 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:27:46,989 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:27:47,104 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-20 00:27:47,121 | INFO | tools.note_tools | save_note succeeded: note_id=4c51d132-dad3-48c1-864b-9beddee96b5c
+2026-07-20 00:27:47,242 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:27:47,259 | INFO | tools.note_tools | save_note succeeded: note_id=9774f00f-5104-4480-a3a6-646321446254
+2026-07-20 00:27:47,260 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:27:47,266 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 00:27:47,387 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-20 00:27:47,406 | INFO | tools.task_tools | create_task succeeded: task_id=e92a1f49-e130-4a3a-abfc-7953260d8762
+2026-07-20 00:27:47,408 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:27:47,409 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-20 00:27:47,525 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-20 00:27:47,526 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-20 00:27:47,665 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-20 00:27:47,689 | INFO | tools.task_tools | create_task succeeded: task_id=e9a5598d-9953-4e1f-a8e3-6da205e6b511
+2026-07-20 00:27:47,820 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:27:47,859 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['497d8810-5e50-4a00-bb81-5e3db87bb18f', '643ee30c-9428-4649-9f33-ba1538205f96']
+2026-07-20 00:27:47,993 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-20 00:27:48,013 | INFO | tools.task_tools | create_task succeeded: task_id=f9ed7422-311c-4bbc-9adc-ed7d8364699b
+2026-07-20 00:27:48,014 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-20 00:27:48,036 | INFO | tools.task_tools | create_task succeeded: task_id=8e5cf816-db65-4785-b5e6-c1756ac7c033
+2026-07-20 00:27:48,037 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None due_before=None
+2026-07-20 00:27:48,041 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:27:48,184 | INFO | tools.task_tools | create_task called: title='Due soon' priority=Medium
+2026-07-20 00:27:48,201 | INFO | tools.task_tools | create_task succeeded: task_id=9b52db73-0559-4696-80e5-4c754069d65f
+2026-07-20 00:27:48,201 | INFO | tools.task_tools | create_task called: title='Due later' priority=Medium
+2026-07-20 00:27:48,218 | INFO | tools.task_tools | create_task succeeded: task_id=33b1c344-aeb4-41fb-bf5d-13f546f12f0f
+2026-07-20 00:27:48,219 | INFO | tools.task_tools | create_task called: title='No due date' priority=Medium
+2026-07-20 00:27:48,236 | INFO | tools.task_tools | create_task succeeded: task_id=ab7eae4f-75cf-4538-8735-a41ae046bc5b
+2026-07-20 00:27:48,237 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=2026-07-26 19:27:48.237567+00:00
+2026-07-20 00:27:48,242 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 00:27:48,364 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 00:27:48,369 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 00:27:48,527 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-20 00:27:48,552 | INFO | tools.task_tools | create_task succeeded: task_id=f38726cb-a2de-417b-8636-9292b1be2cb1
+2026-07-20 00:27:48,553 | INFO | tools.task_tools | complete_task called: task_id=f38726cb-a2de-417b-8636-9292b1be2cb1
+2026-07-20 00:27:48,581 | INFO | tools.task_tools | complete_task succeeded: task_id=f38726cb-a2de-417b-8636-9292b1be2cb1
+2026-07-20 00:27:48,735 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-20 00:27:48,759 | INFO | tools.task_tools | create_task succeeded: task_id=b3f2085f-08a2-4697-9299-ee16920919d9
+2026-07-20 00:27:48,760 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-20 00:27:48,782 | INFO | tools.task_tools | create_task succeeded: task_id=6464ac47-7901-4142-91e0-3d6ac95efcba
+2026-07-20 00:27:48,783 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-20 00:27:48,804 | INFO | tools.task_tools | create_task succeeded: task_id=b9b91e35-4225-4fa7-b864-c20d275d4c57
+2026-07-20 00:27:48,805 | INFO | tools.task_tools | complete_task called: task_id=b9b91e35-4225-4fa7-b864-c20d275d4c57
+2026-07-20 00:27:48,830 | INFO | tools.task_tools | complete_task succeeded: task_id=b9b91e35-4225-4fa7-b864-c20d275d4c57
+2026-07-20 00:27:48,831 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:27:48,836 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:27:48,982 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-20 00:27:49,003 | INFO | tools.note_tools | save_note succeeded: note_id=c6a342ca-c95b-44fe-a397-7e6faa135c93
+2026-07-20 00:27:49,143 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 00:27:49,162 | INFO | tools.note_tools | save_note succeeded: note_id=81eaed10-4d40-4587-b561-cf0a38d726c8
+2026-07-20 00:27:49,163 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-20 00:27:49,183 | INFO | tools.note_tools | save_note succeeded: note_id=f17a76d4-27cd-40c5-8815-6c1d0d425270
+2026-07-20 00:27:49,184 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 00:27:49,188 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-20 00:27:49,310 | INFO | tools.note_tools | save_note called: title='Marketing plan A' category=general
+2026-07-20 00:27:49,331 | INFO | tools.note_tools | save_note succeeded: note_id=49349c03-3fbb-424e-8b2a-8ad6955305eb
+2026-07-20 00:27:49,331 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=2026-07-20 19:27:49.331699+00:00 date_to=None
+2026-07-20 00:27:49,337 | INFO | tools.note_tools | search_notes returned 0 result(s)
+2026-07-20 00:27:49,471 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-20 00:27:49,472 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-20 00:27:49,601 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-20 00:27:49,602 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:27:49,699 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-20 00:27:49,717 | INFO | tools.task_tools | create_task succeeded: task_id=e3f65b47-be7d-4bd1-a74f-59fb97f8166b
+2026-07-20 00:27:49,717 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-20 00:27:49,731 | INFO | tools.task_tools | create_task succeeded: task_id=baae5047-d995-48e7-b467-c5bc922575e6
+2026-07-20 00:27:49,733 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:27:49,734 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:27:49,823 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-20 00:27:49,833 | INFO | tools.task_tools | create_task succeeded: task_id=18a58110-7d91-4e76-9f64-a9c03d534399
+2026-07-20 00:27:49,836 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-20 00:27:49,837 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:27:49,926 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-20 00:27:49,939 | INFO | tools.task_tools | create_task succeeded: task_id=2a2583e3-d458-4517-9e01-b1a15c7972e5
+2026-07-20 00:27:49,939 | INFO | tools.task_tools | update_task called: task_id=2a2583e3-d458-4517-9e01-b1a15c7972e5
+2026-07-20 00:27:49,953 | INFO | tools.task_tools | update_task succeeded: task_id=2a2583e3-d458-4517-9e01-b1a15c7972e5
+2026-07-20 00:27:49,956 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 00:27:49,957 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 00:27:50,047 | INFO | tools.reminder_tools | create_reminder called: message='Follow up with Sara' remind_at=2026-07-20 19:27:50.047728+00:00 task_id=None
+2026-07-20 00:27:50,069 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=8d6d5a41-b5f5-481c-bf59-db4b0f14ae28
+2026-07-20 00:27:50,197 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-20 00:27:50,216 | INFO | tools.task_tools | create_task succeeded: task_id=37cd961e-9b99-47ff-bd60-172724138048
+2026-07-20 00:27:50,216 | INFO | tools.reminder_tools | create_reminder called: message='Check on the draft report' remind_at=2026-07-19 21:27:50.216761+00:00 task_id=37cd961e-9b99-47ff-bd60-172724138048
+2026-07-20 00:27:50,231 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=009879e5-fc73-4800-81fb-0ae7deb8e9c3
+2026-07-20 00:27:50,337 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:27:50,338 | INFO | tools.email_tools | draft_follow_up_email succeeded: recipient=sara@example.com subject='Following up on the Q3 launch'
+2026-07-20 00:27:50,422 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 00:27:50,423 | ERROR | tools.email_tools | draft_follow_up_email failed: invalid model response: 1 validation error for DraftFollowUpEmailOutput
+body
+  Field required [type=missing, input_value={'subject': 'only this', ...nt': 'sara@example.com'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 00:27:50,501 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-20 00:27:50,502 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-20 00:27:50,518 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 00:27:50,543 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['d2c09062-cabc-41e8-b674-858b057925fd', 'beab098f-168c-4851-bc01-3fc373024832']
+2026-07-20 00:27:50,670 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-20 00:27:50,674 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 00:27:50,677 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:27:50,680 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 00:27:50,684 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 00:27:50,685 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 00:27:50,904 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 00:27:50,907 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-20 00:27:50,910 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 00:27:50,913 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 09:44:21,140 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.CRITICAL tag=None due_before=None
+2026-07-20 09:44:21,143 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 09:44:21,267 | INFO | tools.task_tools | complete_task called: task_id=ec9a9fca-fbcc-4a40-8342-9047c5d9b841
+2026-07-20 09:44:21,276 | INFO | tools.task_tools | complete_task succeeded: task_id=ec9a9fca-fbcc-4a40-8342-9047c5d9b841
+2026-07-20 09:44:21,330 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 09:44:21,332 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,385 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=0 due_before=None
+2026-07-20 09:44:21,389 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,390 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=1 due_before=None
+2026-07-20 09:44:21,391 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,393 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=2 due_before=None
+2026-07-20 09:44:21,395 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,397 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=3 due_before=None
+2026-07-20 09:44:21,399 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,400 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=4 due_before=None
+2026-07-20 09:44:21,402 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,403 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=5 due_before=None
+2026-07-20 09:44:21,404 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,406 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=6 due_before=None
+2026-07-20 09:44:21,407 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,409 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=7 due_before=None
+2026-07-20 09:44:21,410 | INFO | tools.task_tools | list_tasks returned 0 task(s)
+2026-07-20 09:44:21,571 | INFO | tools.task_tools | create_task called: title='First task' priority=Medium
+2026-07-20 09:44:21,582 | INFO | tools.task_tools | create_task succeeded: task_id=91b81bf2-b592-4851-8520-20b36bffe35a
+2026-07-20 09:44:21,753 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 09:44:21,755 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 09:44:21,981 | INFO | tools.task_tools | complete_task called: task_id=d4a4ab4f-36f3-4205-bdd0-82c30a47ceb9
+2026-07-20 09:44:21,993 | INFO | tools.task_tools | complete_task succeeded: task_id=d4a4ab4f-36f3-4205-bdd0-82c30a47ceb9
+2026-07-20 09:44:22,207 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 09:44:22,209 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 09:44:22,391 | INFO | tools.note_tools | search_notes called: query='Q3 launch' category=None date_from=None date_to=None
+2026-07-20 09:44:22,395 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 09:44:23,467 | INFO | tools.task_tools | create_task called: title='Logged task' priority=Medium
+2026-07-20 09:44:23,477 | INFO | tools.task_tools | create_task succeeded: task_id=41fd15d3-cb54-4c7b-9305-618c44c732c6
+2026-07-20 09:44:23,542 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 09:44:23,544 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 09:44:23,619 | INFO | tools.task_tools | complete_task called: task_id=does-not-exist
+2026-07-20 09:44:23,621 | ERROR | tools.task_tools | complete_task failed: no task found with ID does-not-exist
+2026-07-20 09:44:23,687 | INFO | tools.task_tools | create_task called: title='A' priority=Medium
+2026-07-20 09:44:23,697 | INFO | tools.task_tools | create_task succeeded: task_id=f62e22bf-399d-4355-89b9-20879bb721cf
+2026-07-20 09:44:23,698 | INFO | tools.task_tools | create_task called: title='B' priority=Medium
+2026-07-20 09:44:23,707 | INFO | tools.task_tools | create_task succeeded: task_id=54fded8f-a776-4e87-89b2-c5086b55e58c
+2026-07-20 09:44:23,708 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 09:44:23,711 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 09:44:23,770 | INFO | tools.note_tools | save_note called: title='Logged note' category=general
+2026-07-20 09:44:23,780 | INFO | tools.note_tools | save_note succeeded: note_id=737017f8-1ee8-4c34-9e1b-65122da8ba89
+2026-07-20 09:44:23,839 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 09:44:23,847 | INFO | tools.note_tools | save_note succeeded: note_id=fcc180e1-2f92-44d9-b73c-4dcfb88fb12b
+2026-07-20 09:44:23,848 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 09:44:23,850 | INFO | tools.note_tools | search_notes returned 1 result(s)
+2026-07-20 09:44:23,901 | INFO | tools.task_tools | create_task called: title='Some task' priority=Medium
+2026-07-20 09:44:23,908 | INFO | tools.task_tools | create_task succeeded: task_id=b62085d3-6f82-431a-8bd8-d9c79bb1ea2a
+2026-07-20 09:44:23,910 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 09:44:23,911 | INFO | tools.planning_tools | generate_work_plan succeeded: 1 task(s) scheduled, 0 deferred
+2026-07-20 09:44:23,975 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=9
+2026-07-20 09:44:23,976 | ERROR | tools.planning_tools | extract_meeting_actions failed: LLM error: simulated LLM failure
+2026-07-20 09:44:24,029 | INFO | tools.task_tools | create_task called: title='Write tests' priority=Medium
+2026-07-20 09:44:24,037 | INFO | tools.task_tools | create_task succeeded: task_id=175018eb-af26-4d99-a89a-e39b89f4c1b8
+2026-07-20 09:44:24,086 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 09:44:24,106 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['0244db71-7f25-49a2-b233-39a79f4602a5', 'b238530d-6693-4194-b39f-bc03fd7763f4']
+2026-07-20 09:44:24,170 | INFO | tools.task_tools | create_task called: title='A' priority=High
+2026-07-20 09:44:24,180 | INFO | tools.task_tools | create_task succeeded: task_id=13ee7834-7842-444e-b48b-b00ac27ff100
+2026-07-20 09:44:24,180 | INFO | tools.task_tools | create_task called: title='B' priority=Low
+2026-07-20 09:44:24,188 | INFO | tools.task_tools | create_task succeeded: task_id=43c77de4-9564-4f9a-87f8-1a45c2590e2c
+2026-07-20 09:44:24,188 | INFO | tools.task_tools | list_tasks called: status=None priority=Priority.HIGH tag=None due_before=None
+2026-07-20 09:44:24,190 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 09:44:24,240 | INFO | tools.task_tools | create_task called: title='Due soon' priority=Medium
+2026-07-20 09:44:24,248 | INFO | tools.task_tools | create_task succeeded: task_id=65780bd4-d3c4-445c-b5a0-0f27e34cd06e
+2026-07-20 09:44:24,248 | INFO | tools.task_tools | create_task called: title='Due later' priority=Medium
+2026-07-20 09:44:24,256 | INFO | tools.task_tools | create_task succeeded: task_id=949e9b37-d51b-481f-9ac9-c71b12c26ce1
+2026-07-20 09:44:24,256 | INFO | tools.task_tools | create_task called: title='No due date' priority=Medium
+2026-07-20 09:44:24,263 | INFO | tools.task_tools | create_task succeeded: task_id=10ba792a-4dc9-45fb-909a-e156da86094a
+2026-07-20 09:44:24,263 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=2026-07-27 04:44:24.263272+00:00
+2026-07-20 09:44:24,265 | INFO | tools.task_tools | list_tasks returned 1 task(s)
+2026-07-20 09:44:24,310 | INFO | tools.task_tools | update_task called: task_id=does-not-exist
+2026-07-20 09:44:24,311 | ERROR | tools.task_tools | update_task failed: no task found with ID does-not-exist
+2026-07-20 09:44:24,357 | INFO | tools.task_tools | create_task called: title='Finish this' priority=Medium
+2026-07-20 09:44:24,363 | INFO | tools.task_tools | create_task succeeded: task_id=06c563a3-7cef-4bf8-b87e-8cff1f2ca0b0
+2026-07-20 09:44:24,364 | INFO | tools.task_tools | complete_task called: task_id=06c563a3-7cef-4bf8-b87e-8cff1f2ca0b0
+2026-07-20 09:44:24,370 | INFO | tools.task_tools | complete_task succeeded: task_id=06c563a3-7cef-4bf8-b87e-8cff1f2ca0b0
+2026-07-20 09:44:24,418 | INFO | tools.task_tools | create_task called: title='Late task' priority=Medium
+2026-07-20 09:44:24,426 | INFO | tools.task_tools | create_task succeeded: task_id=162be41a-0ac3-4c1a-8cf0-107fd1a42393
+2026-07-20 09:44:24,426 | INFO | tools.task_tools | create_task called: title='Future task' priority=Medium
+2026-07-20 09:44:24,433 | INFO | tools.task_tools | create_task succeeded: task_id=c4cc1ae3-b445-42d0-b694-6a647bc281c3
+2026-07-20 09:44:24,433 | INFO | tools.task_tools | create_task called: title='Late but done' priority=Medium
+2026-07-20 09:44:24,440 | INFO | tools.task_tools | create_task succeeded: task_id=96de4155-d330-4c60-bd37-d40286e12d88
+2026-07-20 09:44:24,440 | INFO | tools.task_tools | complete_task called: task_id=96de4155-d330-4c60-bd37-d40286e12d88
+2026-07-20 09:44:24,449 | INFO | tools.task_tools | complete_task succeeded: task_id=96de4155-d330-4c60-bd37-d40286e12d88
+2026-07-20 09:44:24,449 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 09:44:24,450 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 09:44:24,502 | INFO | tools.note_tools | save_note called: title='Idea' category=general
+2026-07-20 09:44:24,509 | INFO | tools.note_tools | save_note succeeded: note_id=bdf097e6-4e80-4497-8f54-b10b475ac3c1
+2026-07-20 09:44:24,555 | INFO | tools.note_tools | save_note called: title='Marketing plan' category=general
+2026-07-20 09:44:24,562 | INFO | tools.note_tools | save_note succeeded: note_id=c660f2f3-5241-47f2-a51f-73c90d37de9f
+2026-07-20 09:44:24,563 | INFO | tools.note_tools | save_note called: title='Random note' category=general
+2026-07-20 09:44:24,569 | INFO | tools.note_tools | save_note succeeded: note_id=e7e31f04-10d1-440a-a8fc-c15c9b17664a
+2026-07-20 09:44:24,569 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=None date_to=None
+2026-07-20 09:44:24,570 | INFO | tools.note_tools | search_notes returned 2 result(s)
+2026-07-20 09:44:24,617 | INFO | tools.note_tools | save_note called: title='Marketing plan A' category=general
+2026-07-20 09:44:24,624 | INFO | tools.note_tools | save_note succeeded: note_id=030d04f0-cb46-4fb5-89dc-0c314f2caa5d
+2026-07-20 09:44:24,625 | INFO | tools.note_tools | search_notes called: query='marketing' category=None date_from=2026-07-21 04:44:24.625046+00:00 date_to=None
+2026-07-20 09:44:24,627 | INFO | tools.note_tools | search_notes returned 0 result(s)
+2026-07-20 09:44:24,670 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=29
+2026-07-20 09:44:24,670 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 1 action item(s), 1 decision(s)
+2026-07-20 09:44:24,717 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=10
+2026-07-20 09:44:24,718 | ERROR | tools.planning_tools | extract_meeting_actions failed: invalid model response: 3 validation errors for ExtractMeetingActionsOutput
+decisions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+action_items
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+unresolved_questions
+  Field required [type=missing, input_value={'summary': 'only this'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 09:44:24,767 | INFO | tools.task_tools | create_task called: title='Overdue thing' priority=Low
+2026-07-20 09:44:24,774 | INFO | tools.task_tools | create_task succeeded: task_id=2a7da96c-3790-4734-9db3-d81d8597f225
+2026-07-20 09:44:24,774 | INFO | tools.task_tools | create_task called: title='Future thing' priority=Critical
+2026-07-20 09:44:24,780 | INFO | tools.task_tools | create_task succeeded: task_id=a989df1c-7f61-49bc-9aba-1b66412ca1b7
+2026-07-20 09:44:24,781 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 09:44:24,781 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 09:44:24,870 | INFO | tools.task_tools | create_task called: title='Big task' priority=Critical
+2026-07-20 09:44:24,881 | INFO | tools.task_tools | create_task succeeded: task_id=5725a7b1-1f05-42b2-9720-72bd28e82d08
+2026-07-20 09:44:24,883 | INFO | tools.planning_tools | generate_work_plan called: available_hours=1.0 date=2026-07-20
+2026-07-20 09:44:24,883 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 09:44:24,934 | INFO | tools.task_tools | create_task called: title='Blocked thing' priority=Medium
+2026-07-20 09:44:24,941 | INFO | tools.task_tools | create_task succeeded: task_id=718d0e02-17ec-478a-be19-290fd56ca441
+2026-07-20 09:44:24,942 | INFO | tools.task_tools | update_task called: task_id=718d0e02-17ec-478a-be19-290fd56ca441
+2026-07-20 09:44:24,949 | INFO | tools.task_tools | update_task succeeded: task_id=718d0e02-17ec-478a-be19-290fd56ca441
+2026-07-20 09:44:24,950 | INFO | tools.planning_tools | generate_work_plan called: available_hours=20.0 date=2026-07-20
+2026-07-20 09:44:24,950 | INFO | tools.planning_tools | generate_work_plan succeeded: 0 task(s) scheduled, 1 deferred
+2026-07-20 09:44:25,002 | INFO | tools.reminder_tools | create_reminder called: message='Follow up with Sara' remind_at=2026-07-21 04:44:25.002886+00:00 task_id=None
+2026-07-20 09:44:25,016 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=fffc7f28-ae18-43f9-97bc-d7afc827520a
+2026-07-20 09:44:25,086 | INFO | tools.task_tools | create_task called: title='Draft report' priority=Medium
+2026-07-20 09:44:25,097 | INFO | tools.task_tools | create_task succeeded: task_id=8e338caa-6930-4e32-9afe-7ae042f2f422
+2026-07-20 09:44:25,097 | INFO | tools.reminder_tools | create_reminder called: message='Check on the draft report' remind_at=2026-07-20 06:44:25.097367+00:00 task_id=8e338caa-6930-4e32-9afe-7ae042f2f422
+2026-07-20 09:44:25,106 | INFO | tools.reminder_tools | create_reminder succeeded: reminder_id=eeaca627-c528-4b5e-b667-c96f829e2523
+2026-07-20 09:44:25,159 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 09:44:25,160 | INFO | tools.email_tools | draft_follow_up_email succeeded: recipient=sara@example.com subject='Following up on the Q3 launch'
+2026-07-20 09:44:25,210 | INFO | tools.email_tools | draft_follow_up_email called: recipient='sara@example.com' task_id=None
+2026-07-20 09:44:25,211 | ERROR | tools.email_tools | draft_follow_up_email failed: invalid model response: 1 validation error for DraftFollowUpEmailOutput
+body
+  Field required [type=missing, input_value={'subject': 'only this', ...nt': 'sara@example.com'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-07-20 09:44:25,261 | INFO | tools.planning_tools | extract_meeting_actions called: transcript_length=26
+2026-07-20 09:44:25,262 | INFO | tools.planning_tools | extract_meeting_actions succeeded: 2 action item(s), 1 decision(s)
+2026-07-20 09:44:25,271 | INFO | tools.task_tools | create_tasks_bulk called: count=2
+2026-07-20 09:44:25,288 | INFO | tools.task_tools | create_tasks_bulk succeeded: task_ids=['9c5d8345-7f3d-48fb-a00f-d0b633bde175', '8f513136-51ce-4c8c-9f72-bb8af1d985fe']
+2026-07-20 09:44:25,404 | INFO | tools.task_tools | list_tasks called: status=Status.PENDING priority=None tag=None due_before=None
+2026-07-20 09:44:25,407 | INFO | tools.task_tools | list_tasks returned 2 task(s)
+2026-07-20 09:44:25,409 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 09:44:25,410 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 09:44:25,415 | INFO | tools.planning_tools | generate_work_plan called: available_hours=8.0 date=2026-07-20
+2026-07-20 09:44:25,415 | INFO | tools.planning_tools | generate_work_plan succeeded: 2 task(s) scheduled, 0 deferred
+2026-07-20 09:44:25,561 | INFO | tools.task_tools | list_tasks called: status=None priority=None tag=None due_before=None
+2026-07-20 09:44:25,563 | INFO | tools.task_tools | list_tasks returned 3 task(s)
+2026-07-20 09:44:25,565 | INFO | tools.task_tools | detect_overdue_tasks called
+2026-07-20 09:44:25,567 | INFO | tools.task_tools | detect_overdue_tasks found 1 overdue task(s)
+2026-07-20 10:03:37,429 | INFO | tools.note_tools | save_note called: title='Assignment Note' category=general
+2026-07-20 10:03:37,449 | INFO | tools.note_tools | save_note succeeded: note_id=660a331b-0f26-4728-a1a2-0afcb7625afb

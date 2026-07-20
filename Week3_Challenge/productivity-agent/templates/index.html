@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trace</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+  <script>
+    // Applied before anything renders, so there's no flash of the wrong theme.
+    (function () {
+      var savedTheme = localStorage.getItem("trace-theme");
+      if (savedTheme === "dark" || savedTheme === "light") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- SPLASH SCREEN: the logo's bars draw in one at a time, then fades out -->
+  <div class="splash-screen" id="splashScreen">
+    <svg class="splash-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect class="splash-bar" x="12" y="14" width="76" height="10" rx="5" style="animation-delay: 0.1s"></rect>
+      <rect class="splash-bar" x="12" y="34" width="42" height="10" rx="5" style="animation-delay: 0.35s"></rect>
+      <rect class="splash-bar" x="58" y="34" width="30" height="10" rx="5" style="animation-delay: 0.6s"></rect>
+      <rect class="splash-bar" x="40" y="34" width="10" height="52" rx="5" style="animation-delay: 0.85s"></rect>
+    </svg>
+    <div class="splash-name">Trace</div>
+  </div>
+
+  <div class="app" id="appRoot" hidden>
+
+    <!-- LEFT: logo + nav -->
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img class="sidebar__logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Trace logo">
+        <span class="sidebar__name">Trace</span>
+      </div>
+
+      <nav class="nav-list">
+        <div class="nav-section-label">Workspace</div>
+        <button class="nav-item nav-item--active" data-view="workspace">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z"></path></svg>
+          <span>AI Workspace</span>
+        </button>
+        <button class="nav-item" data-view="tasks">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 12l2.5 2.5L16 9"></path></svg>
+          <span>Tasks</span>
+        </button>
+        <button class="nav-item" data-view="notes">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M9 13h6M9 17h6"></path></svg>
+          <span>Notes</span>
+        </button>
+
+        <div class="nav-section-label">Automation</div>
+        <button class="nav-item" data-view="history">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+          <span>Execution Logs</span>
+        </button>
+        <button class="nav-item" data-view="analytics">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"></path></svg>
+          <span>Analytics</span>
+        </button>
+      </nav>
+
+      <div class="sidebar__bottom">
+        <button class="nav-item" data-view="settings">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Settings</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER: top bar + whichever view is active -->
+    <main class="main">
+
+      <div class="topbar">
+        <div class="topbar__left">
+          <h1 class="topbar__title">AI Workspace</h1>
+          <span class="badge-pill">Personal</span>
+        </div>
+        <div class="topbar__center">
+          <div class="search-input">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <input type="text" id="searchInput" placeholder="Search tasks, notes, runs..." autocomplete="off">
+            <span class="kbd-hint">&#8984;K</span>
+          </div>
+        </div>
+        <div class="topbar__right">
+          <span class="agent-online-pill"><span class="agent-online-pill__dot"></span>Agent online</span>
+        </div>
+      </div>
+
+      <div class="view-container">
+
+        <!-- AI WORKSPACE VIEW (chat) -->
+        <section class="view view--workspace" id="workspaceView">
+
+          <div class="workspace-scroll">
+
+            <div class="status-bar" id="statusBar" hidden>
+              <span class="status-dot" id="statusDot"></span>
+              <span class="status-text" id="statusText"></span>
+            </div>
+
+            <div class="exec-timeline" id="execTimeline" hidden></div>
+
+            <div class="approval-card" id="approvalCard" hidden>
+              <div class="approval-card__head">
+                <span class="approval-card__badge">Approval needed</span>
+                <span class="approval-card__tool mono" id="approvalTool"></span>
+              </div>
+              <p class="approval-card__title" id="approvalTitle"></p>
+              <p class="approval-card__desc" id="approvalDesc"></p>
+              <dl class="approval-card__args" id="approvalArgs"></dl>
+              <div class="approval-card__actions">
+                <button class="btn btn--approve" id="approveBtn">Approve</button>
+                <button class="btn btn--reject" id="rejectBtn">Reject</button>
+                <button class="btn btn--ghost" id="editBtn">Edit</button>
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+              <div class="chat-empty" id="chatEmpty">
+                <div class="chat-empty__glow">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.5 13.8 9l6.7 1.5-6.7 1.5L12 18.5 10.2 12 3.5 10.5 10.2 9z" fill="currentColor"></path>
+                  </svg>
+                </div>
+                <h2 class="chat-empty__title" id="chatGreeting">Good morning</h2>
+                <p class="chat-empty__sub">Trace plans, picks the right tools, and executes — always with your approval before anything writes or sends data.</p>
+                <div class="suggestion-grid">
+                  <button type="button" class="suggestion-chip suggestion-card" data-fill="Draft a prioritized plan from my open tasks">
+                    <span class="suggestion-card__icon">
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2.5"></rect><path d="M3 9h18M8 2.5v4M16 2.5v4"></path></svg>
+                    </span>
+                    <span class="suggestion-card__title">Plan my week</span>
+                    <span class="suggestion-card__desc">Draft a prioritized plan from my open tasks</span>
+                  </button>
+                  <button type="button" class="suggestion-chip suggestion-card" data-fill="Condense this week's meeting notes into actions">
+                    <span class="suggestion-card__icon">
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M9 13h6M9 17h6"></path></svg>
+                    </span>
+                    <span class="suggestion-card__title">Summarize notes</span>
+                    <span class="suggestion-card__desc">Condense this week's meeting notes into actions</span>
+                  </button>
+                  <button type="button" class="suggestion-chip suggestion-card" data-fill="Report velocity and blockers for Q3 launch">
+                    <span class="suggestion-card__icon">
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"></path></svg>
+                    </span>
+                    <span class="suggestion-card__title">Analyze progress</span>
+                    <span class="suggestion-card__desc">Report velocity and blockers for Q3 launch</span>
+                  </button>
+                  <button type="button" class="suggestion-chip suggestion-card" data-fill="Create a workflow to chase pending approvals">
+                    <span class="suggestion-card__icon">
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="12" r="2.5"></circle><path d="M6 8.5v7M8.3 17 15.7 13M8.3 7l7.4 4"></path></svg>
+                    </span>
+                    <span class="suggestion-card__title">Automate follow-ups</span>
+                    <span class="suggestion-card__desc">Create a workflow to chase pending approvals</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="error-banner" id="errorBanner" hidden></div>
+
+          </div>
+
+          <form class="composer" id="chatForm">
+            <textarea id="chatInput" class="composer__input" rows="1" placeholder="Ask Trace to plan, organize, analyze or execute..." autocomplete="off"></textarea>
+            <div class="composer__row">
+              <span class="agent-tag">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2.5 13.8 9l6.7 1.5-6.7 1.5L12 18.5 10.2 12 3.5 10.5 10.2 9z"></path></svg>
+                Trace Agent
+              </span>
+              <button type="submit" id="sendBtn" class="send-btn" aria-label="Send">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </button>
+            </div>
+          </form>
+          <p class="composer-caption">Trace asks for approval before any action that writes or sends data.</p>
+        </section>
+
+        <!-- TASKS VIEW -->
+        <section class="view" id="tasksView" hidden>
+          <div class="view-header">
+            <h1 class="view__title">Tasks</h1>
+            <button type="button" class="btn-primary" id="newTaskBtn">+ New Task</button>
+          </div>
+          <p class="view__empty" id="tasksEmpty" hidden>No tasks yet. Create one to get started.</p>
+          <div class="tasks-board" id="tasksBoard">
+            <div class="tasks-column" data-status="Pending">
+              <div class="tasks-column__header">
+                <span class="tasks-column__title">Pending</span>
+                <span class="tasks-column__count" id="taskCount-pending">0</span>
+              </div>
+              <div class="tasks-column__list" id="taskCol-pending"></div>
+            </div>
+            <div class="tasks-column" data-status="In Progress">
+              <div class="tasks-column__header">
+                <span class="tasks-column__title">In Progress</span>
+                <span class="tasks-column__count" id="taskCount-in_progress">0</span>
+              </div>
+              <div class="tasks-column__list" id="taskCol-in_progress"></div>
+            </div>
+            <div class="tasks-column" data-status="Blocked">
+              <div class="tasks-column__header">
+                <span class="tasks-column__title">Blocked</span>
+                <span class="tasks-column__count" id="taskCount-blocked">0</span>
+              </div>
+              <div class="tasks-column__list" id="taskCol-blocked"></div>
+            </div>
+            <div class="tasks-column" data-status="Completed">
+              <div class="tasks-column__header">
+                <span class="tasks-column__title">Completed</span>
+                <span class="tasks-column__count" id="taskCount-completed">0</span>
+              </div>
+              <div class="tasks-column__list" id="taskCol-completed"></div>
+            </div>
+            <div class="tasks-column" data-status="Cancelled">
+              <div class="tasks-column__header">
+                <span class="tasks-column__title">Cancelled</span>
+                <span class="tasks-column__count" id="taskCount-cancelled">0</span>
+              </div>
+              <div class="tasks-column__list" id="taskCol-cancelled"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOTES VIEW -->
+        <section class="view view--notes" id="notesView" hidden>
+          <div class="notes-layout">
+            <div class="notes-sidebar">
+              <div class="notes-search">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <input type="text" id="notesSearchInput" placeholder="Search notes..." autocomplete="off">
+              </div>
+              <button type="button" class="btn-primary btn-primary--block" id="newNoteBtn">+ New Note</button>
+              <p class="view__empty" id="notesEmpty" hidden>No notes yet.</p>
+              <div class="notes-list" id="notesList"></div>
+            </div>
+            <div class="notes-detail" id="notesDetail">
+              <div class="notes-detail__empty" id="notesDetailEmpty">
+                <p class="view__empty">Select a note to view it, or create a new one.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXECUTION LOGS VIEW -->
+        <section class="view" id="historyView" hidden>
+          <h1 class="view__title">Execution Logs</h1>
+
+          <div class="logs-summary">
+            <div class="logs-filter-tabs">
+              <button type="button" class="logs-filter-tab active" data-filter="all">All</button>
+              <button type="button" class="logs-filter-tab" data-filter="answered">Success</button>
+              <button type="button" class="logs-filter-tab" data-filter="error">Failed</button>
+              <button type="button" class="logs-filter-tab" data-filter="awaiting_approval">Awaiting approval</button>
+            </div>
+            <span class="logs-count" id="logsCount"></span>
+          </div>
+
+          <p class="view__empty" id="historyEmpty">Past agent runs will appear here.</p>
+
+          <div class="logs-table-wrap">
+            <table class="logs-table" id="logsTable" hidden>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Request</th>
+                  <th>Tools called</th>
+                  <th>Approval</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="logsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ANALYTICS (placeholder) -->
+        <section class="view" id="analyticsView" hidden>
+          <h1 class="view__title">Analytics</h1>
+          <div class="placeholder-empty">
+            <p class="view__empty">Velocity, throughput and blocker trends are coming soon.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal-overlay" id="settingsModal" hidden>
+      <div class="modal">
+        <div class="modal__header">
+          <span class="modal__title">Settings</span>
+          <button type="button" class="modal__close" id="settingsCloseBtn">&times;</button>
+        </div>
+        <div class="modal__body">
+
+          <div class="settings-section-label">Appearance</div>
+          <div class="settings-row">
+            <span class="settings-row__label">Theme</span>
+            <div class="theme-toggle" id="themeToggle">
+              <button type="button" data-theme-choice="light">Light</button>
+              <button type="button" data-theme-choice="dark">Dark</button>
+            </div>
+          </div>
+
+          <div class="settings-section-label">Model &amp; execution limits</div>
+          <div id="settingsConfigRows"></div>
+
+          <div class="settings-section-label">Export</div>
+          <button type="button" class="btn-export" id="exportChatBtn">Export this chat as PDF</button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TASK DETAIL / EDIT MODAL -->
+    <div class="modal-overlay" id="taskModal" hidden>
+      <div class="modal modal--wide">
+        <div class="modal__header">
+          <span class="modal__title" id="taskModalTitle">New Task</span>
+          <button type="button" class="modal__close" id="taskModalCloseBtn">&times;</button>
+        </div>
+        <div class="modal__body">
+          <form id="taskForm">
+            <div class="form-field">
+              <label for="taskFieldTitle">Title</label>
+              <input type="text" id="taskFieldTitle" required>
+            </div>
+            <div class="form-field">
+              <label for="taskFieldDescription">Description</label>
+              <textarea id="taskFieldDescription" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="taskFieldPriority">Priority</label>
+                <select id="taskFieldPriority">
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="taskFieldStatus">Status</label>
+                <select id="taskFieldStatus">
+                  <option value="Pending">Pending</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Blocked">Blocked</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="taskFieldDueDate">Due date</label>
+                <input type="date" id="taskFieldDueDate">
+              </div>
+              <div class="form-field">
+                <label for="taskFieldSource">Source</label>
+                <input type="text" id="taskFieldSource" placeholder="user">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="taskFieldTags">Tags <span class="form-field__hint">(comma-separated)</span></label>
+              <input type="text" id="taskFieldTags" placeholder="e.g. launch, design">
+            </div>
+            <div class="form-field">
+              <label for="taskFieldNotes">Notes</label>
+              <textarea id="taskFieldNotes" rows="3" placeholder="Free-text notes on this task"></textarea>
+            </div>
+            <p class="modal-meta" id="taskModalMeta"></p>
+            <div class="modal-actions">
+              <button type="button" class="btn btn--reject" id="taskDeleteBtn" hidden>Delete</button>
+              <button type="submit" class="btn btn--approve" id="taskSaveBtn">Save Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
