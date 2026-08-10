@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 5%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 7%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 8%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 178 80% 45%;
+    --primary-foreground: 220 30% 6%;
+
+    --secondary: 220 15% 13%;
+    --secondary-foreground: 210 20% 92%;
+
+    --muted: 220 15% 12%;
+    --muted-foreground: 215 12% 60%;
+
+    --accent: 178 70% 14%;
+    --accent-foreground: 178 80% 75%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 20% 96%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 152 60% 96%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 38 60% 10%;
+
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 178 80% 45%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+    margin: 0;
+    font-feature-settings: 'cv11', 'ss01';
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(var(--primary) / 0.08), transparent),
+      linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 100% 100%, 56px 56px, 56px 56px;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .skeleton-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0px,
+      hsl(var(--secondary)) 40px,
+      hsl(var(--muted)) 80px
+    );
+    background-size: 700px 100%;
+  }
+}
