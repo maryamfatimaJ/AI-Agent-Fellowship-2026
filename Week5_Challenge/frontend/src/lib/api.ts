@@ -192,6 +192,15 @@ export const api = {
 
   getWorkspace: (workspaceId: string) => request<Workspace>(`/api/workspaces/${workspaceId}`),
 
+  renameWorkspace: (workspaceId: string, name: string) =>
+    request<Workspace>(`/api/workspaces/${workspaceId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ name }),
+    }),
+
+  deleteWorkspace: (workspaceId: string) =>
+    request<void>(`/api/workspaces/${workspaceId}`, { method: 'DELETE' }),
+
   getAssistant: (workspaceId: string) => request<Assistant>(`/api/workspaces/${workspaceId}/assistant`),
 
   updateAssistant: (workspaceId: string, payload: AssistantUpdate) =>

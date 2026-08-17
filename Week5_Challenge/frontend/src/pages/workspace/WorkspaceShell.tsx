@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
-import { api, type Conversation, type Workspace } from '../../lib/api'
+import { api, ApiError, type Conversation, type Workspace } from '../../lib/api'
 import { useAuth } from '../../lib/AuthContext'
 import { ThemeToggle } from '../../components/ThemeToggle'
+import { ConfirmDialog } from '../../components/ConfirmDialog'
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `block rounded-md px-2.5 py-1.5 text-sm ${
@@ -20,6 +21,16 @@ export function WorkspaceShell() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  const [isEditingName, setIsEditingName] = useState(false)
+  const [nameDraft, setNameDraft] = useState('')
+  const [renameError, setRenameError] = useState<string | null>(null)
+  const [isSavingName, setIsSavingName] = useState(false)
+  const nameInputRef = useRef<HTMLInputElement>(null)
+
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+
   async function refreshConversations(query?: string) {
     const list = await api.listConversations(workspaceId, query)
     setConversations(list)
@@ -27,6 +38,9 @@ export function WorkspaceShell() {
 
   useEffect(() => {
     setIsLoading(true)
+    setIsEditingName(false)
+    setIsConfirmingDelete(false)
+    setDeleteError(null)
     Promise.all([api.getWorkspace(workspaceId), api.listConversations(workspaceId)])
       .then(([ws, convos]) => {
         setWorkspace(ws)
@@ -50,6 +64,57 @@ export function WorkspaceShell() {
     navigate(`/workspaces/${workspaceId}/c/${conversation.id}`)
   }
 
+  useEffect(() => {
+    if (isEditingName) nameInputRef.current?.focus()
+  }, [isEditingName])
+
+  function startRename() {
+    setNameDraft(workspace?.name ?? '')
+    setRenameError(null)
+    setIsEditingName(true)
+  }
+
+  async function saveRename() {
+    const trimmed = nameDraft.trim()
+    if (!trimmed) {
+      setRenameError('Workspace name cannot be empty.')
+      return
+    }
+    setIsSavingName(true)
+    setRenameError(null)
+    try {
+      const updated = await api.renameWorkspace(workspaceId, trimmed)
+      setWorkspace(updated)
+      setIsEditingName(false)
+    } catch (err) {
+      setRenameError(err instanceof ApiError ? err.message : 'Could not rename workspace.')
+    } finally {
+      setIsSavingName(false)
+    }
+  }
+
+  function handleNameKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      saveRename()
+    } else if (event.key === 'Escape') {
+      setIsEditingName(false)
+    }
+  }
+
+  async function confirmDeleteWorkspace() {
+    setIsDeleting(true)
+    setDeleteError(null)
+    try {
+      await api.deleteWorkspace(workspaceId)
+      const remaining = await api.listWorkspaces()
+      navigate(remaining.length > 0 ? `/workspaces/${remaining[0].id}` : '/workspaces', { replace: true })
+    } catch (err) {
+      setDeleteError(err instanceof ApiError ? err.message : 'Could not delete workspace.')
+      setIsDeleting(false)
+    }
+  }
+
   return (
     <div className="flex h-screen bg-canvas">
       {isSidebarOpen && (
@@ -69,9 +134,53 @@ export function WorkspaceShell() {
           <NavLink to="/workspaces" className="text-xs text-ink-muted hover:text-ink">
             &larr; All workspaces
           </NavLink>
-          <p className="mt-1 truncate text-sm font-medium text-ink">
-            {isLoading ? 'Loading…' : workspace?.name}
-          </p>
+
+          {isEditingName ? (
+            <div className="mt-1.5 space-y-1">
+              <div className="flex gap-1.5">
+                <input
+                  ref={nameInputRef}
+                  type="text"
+                  value={nameDraft}
+                  onChange={(e) => setNameDraft(e.target.value)}
+                  onKeyDown={handleNameKeyDown}
+                  className="w-full min-w-0 rounded-md border border-line bg-surface px-2 py-1 text-sm text-ink focus:border-accent focus:outline-none"
+                />
+                <button
+                  onClick={saveRename}
+                  disabled={isSavingName}
+                  className="flex-shrink-0 rounded-md bg-accent px-2.5 py-1 text-xs font-medium text-white hover:bg-accent-hover disabled:opacity-50"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditingName(false)}
+                  className="flex-shrink-0 rounded-md border border-line px-2.5 py-1 text-xs text-ink"
+                >
+                  Cancel
+                </button>
+              </div>
+              {renameError && <p className="text-xs text-danger">{renameError}</p>}
+            </div>
+          ) : (
+            <div className="mt-1 flex items-center justify-between gap-2">
+              <p className="truncate text-sm font-medium text-ink">{isLoading ? 'Loading…' : workspace?.name}</p>
+              {!isLoading && (
+                <div className="flex flex-shrink-0 items-center gap-1">
+                  <button onClick={startRename} className="text-xs text-ink-muted hover:text-ink">
+                    Rename
+                  </button>
+                  <button
+                    onClick={() => setIsConfirmingDelete(true)}
+                    className="text-xs text-ink-muted hover:text-danger"
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          {deleteError && <p className="mt-1 text-xs text-danger">{deleteError}</p>}
         </div>
 
         <div className="space-y-0.5 border-b border-line p-2">
@@ -163,6 +272,17 @@ export function WorkspaceShell() {
           <Outlet context={{ workspace, refreshConversations }} />
         </main>
       </div>
+
+      {isConfirmingDelete && (
+        <ConfirmDialog
+          title={`Delete "${workspace?.name}"?`}
+          description="This permanently deletes the workspace and everything in it — conversations, messages, documents, memory, prompts, and skills. This cannot be undone."
+          confirmLabel="Delete workspace"
+          isConfirming={isDeleting}
+          onConfirm={confirmDeleteWorkspace}
+          onCancel={() => setIsConfirmingDelete(false)}
+        />
+      )}
     </div>
   )
 }
