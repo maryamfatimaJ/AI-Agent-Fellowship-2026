@@ -3,6 +3,9 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 from app.api.routers import (
     assistants,
@@ -19,6 +22,7 @@ from app.api.routers import (
 )
 from app.core.config import get_settings
 from app.core.logging_config import configure_logging
+from app.core.rate_limit import limiter
 from app.database.base import Base
 from app.database.session import engine
 
@@ -32,6 +36,10 @@ settings = get_settings()
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="AI Workspace Platform", version="0.1.0")
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

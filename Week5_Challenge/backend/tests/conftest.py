@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
+from app.core.rate_limit import limiter
 from app.database.base import Base
 from app.database.deps import get_db
 from app.main import app
@@ -49,6 +50,18 @@ def mock_llm(monkeypatch):
         lambda *args, **kwargs: GenerationResult(text="[]", input_tokens=5, output_tokens=2),
     )
     return calls
+
+
+@pytest.fixture(autouse=True)
+def _reset_rate_limiter():
+    """The auth rate limiter is disabled by default for every test — the suite legitimately
+    registers/logs in far more than a real user would in a minute (many isolated test
+    users per file). A dedicated test re-enables it explicitly to prove it actually works;
+    see tests/unit/test_rate_limit.py."""
+    limiter.reset()
+    limiter.enabled = False
+    yield
+    limiter.enabled = False
 
 
 @pytest.fixture()
