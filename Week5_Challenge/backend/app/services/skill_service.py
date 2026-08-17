@@ -6,7 +6,7 @@ from app.core.config import get_settings
 from app.models.assistant import Assistant
 from app.models.conversation import Conversation, Message, MessageRole
 from app.models.skill import Skill
-from app.services.llm_service import LLMError, generate_reply
+from app.services.llm_service import LLMError, generate_reply, user_facing_error
 from app.services.usage_service import record_usage
 
 logger = logging.getLogger("app.skills")
@@ -73,7 +73,7 @@ def run_skill(
         )
     except LLMError as exc:
         logger.warning("Skill execution failed: %s", exc)
-        output = f"I couldn't run this skill just now ({exc})."
+        output = user_facing_error(exc)
 
     if conversation is not None:
         assistant_message = Message(conversation_id=conversation.id, role=MessageRole.ASSISTANT, content=output)

@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.memory import MemoryType
 
 
 class MemoryCreate(BaseModel):
-    key: str
-    value: str
+    key: str = Field(min_length=1, max_length=255)
+    value: str = Field(min_length=1)
     pinned: bool = True
 
 

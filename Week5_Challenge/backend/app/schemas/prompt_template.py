@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 PROMPT_CATEGORIES = ["writing", "programming", "research", "business", "education", "custom"]
 
 
 class PromptTemplateCreate(BaseModel):
-    name: str
-    content: str
+    name: str = Field(min_length=1, max_length=255)
+    content: str = Field(min_length=1)
     category: str = "custom"
 
 

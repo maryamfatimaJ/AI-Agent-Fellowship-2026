@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.schemas.conversation import MessageRead
 
@@ -15,7 +15,7 @@ class SkillRead(BaseModel):
 
 
 class SkillRunRequest(BaseModel):
-    input: str
+    input: str = Field(min_length=1)
     conversation_id: str | None = None
 
 

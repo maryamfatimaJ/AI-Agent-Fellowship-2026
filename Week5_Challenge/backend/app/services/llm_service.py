@@ -26,6 +26,15 @@ def _require_key(key: str, provider: str) -> None:
         raise LLMError(f"No API key configured for provider '{provider}'. Set it in backend/.env.")
 
 
+def user_facing_error(exc: Exception) -> str:
+    """Never surface raw provider error text (quota internals, URLs, model
+    identifiers) to the end user — full detail is logged server-side by the caller."""
+    text = str(exc)
+    if "RESOURCE_EXHAUSTED" in text or "429" in text or "rate limit" in text.lower():
+        return "The assistant is temporarily rate-limited by the model provider. Please wait a moment and try again."
+    return "I couldn't reach the language model just now. Please try again in a moment."
+
+
 def generate_reply(
     system_prompt: str,
     history: list[dict[str, str]],

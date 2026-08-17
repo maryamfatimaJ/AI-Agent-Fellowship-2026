@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.conversation import MessageRole
 
@@ -10,7 +10,7 @@ class ConversationCreate(BaseModel):
 
 
 class ConversationUpdate(BaseModel):
-    title: str
+    title: str = Field(min_length=1, max_length=255)
 
 
 class ConversationRead(BaseModel):
@@ -41,7 +41,7 @@ class ConversationDetailRead(ConversationRead):
 
 
 class SendMessageRequest(BaseModel):
-    content: str
+    content: str = Field(min_length=1)
 
 
 class SendMessageResponse(BaseModel):
