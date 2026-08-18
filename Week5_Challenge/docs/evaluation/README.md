@@ -162,7 +162,7 @@ The 4 implemented features: **Markdown conversation export**, **pinned messages*
 |---|---|---|---|
 | 01 | Frontend/backend separation coherent | PASS | Two independent processes/codebases, clean REST boundary, verified via CORS testing |
 | 02 | Modules have clear responsibilities | PASS | `routers/services/models/schemas/rag/memory` cleanly separated |
-| 03 | Type hints used appropriately | PASS | Spot-checked across services/routers |
+| 03 | Type hints used appropriately | **PASS (fixed 2026-08-18)** | Was PARTIAL: `chat_service._build_system_prompt`'s `memories` parameter had no type hint. Re-inspected the full `services/`, `rag/`, `memory/`, and all 11 `api/routers/` files this session — that was the only genuine miss found; fixed to `list[Memory]`. Everything else spot-checked was already fully typed. |
 | 04 | Pydantic validation used appropriately | PASS | 11 schema files; this session added missing `min_length` constraints on 6 fields |
 | 05 | Env vars used for secrets/config | PASS | `pydantic-settings` reads `.env` |
 | 06 | API keys/secrets not committed | PASS | Verified `.env` is git-ignored and untracked |
@@ -194,20 +194,22 @@ The 4 implemented features: **Markdown conversation export**, **pinned messages*
 
 ## 13. Automated Testing
 
+Full category-by-category breakdown in [docs/testing/README.md](../testing/README.md).
+
 | ID | Requirement | Status | Evidence |
 |---|---|---|---|
-| 01 | At least 20 automated tests exist | PASS | **48 tests** exist (more than double the requirement) — 46 as of 2026-08-12, +2 rate-limiting tests added 2026-08-17 |
-| 02 | Authentication tests | PASS | `tests/api/test_auth.py` (3 tests) |
-| 03 | Workspace tests | PASS | `tests/integration/test_workspace_isolation.py` (3 tests) |
-| 04 | Conversation tests | PASS | `tests/api/test_conversations.py` (5 tests) |
-| 05 | Memory tests | PASS | `tests/api/test_memory.py` (5 tests) |
-| 06 | Prompt library tests | PASS | `tests/api/test_prompts.py` (4 tests) |
-| 07 | Document upload tests | PASS | `tests/integration/test_documents_rag.py` (part of 5 tests) |
-| 08 | Semantic search/RAG tests | PASS | Same file — includes citation-accuracy assertions |
-| 09 | Skill execution tests | PASS | `tests/api/test_skills.py` (4 tests) |
-| 10 | Database tests | PASS | Implicit across all API tests (real SQLite-backed session per test) |
-| 11 | API tests | PASS | All 40 tests are API-level (via `TestClient`) |
-| 12 | Run the complete suite, record pass/fail | PASS | **48 passed, 0 failed**, run fresh on 2026-08-17 (after the rate-limiting fix) in ~52s |
+| 01 | At least 20 automated tests exist | PASS | **55 tests** exist (more than double the requirement) — 48 as of 2026-08-17, +2 logout/revocation +5 coverage-gap tests added 2026-08-18 (see below) |
+| 02 | Authentication tests | PASS | `tests/api/test_auth.py` (5: register/login/me, wrong password, duplicate email, logout revokes token, logout doesn't affect other sessions) + `tests/unit/test_security.py` (3) + `tests/unit/test_rate_limit.py` (2) |
+| 03 | Workspace tests | PASS | `tests/integration/test_workspace_isolation.py` (3) + `tests/integration/test_workspace_rename_delete.py` (6, including full cascade-delete verification across 8 related tables) |
+| 04 | Conversation tests | PASS | `tests/api/test_conversations.py` (5) |
+| 05 | Memory tests | PASS | `tests/api/test_memory.py` (5) |
+| 06 | Prompt library tests | PASS | `tests/api/test_prompts.py` (4) |
+| 07 | Document upload tests | PASS | `tests/integration/test_documents_rag.py` (part of 6) |
+| 08 | Semantic search/RAG tests | PASS | Same file — includes citation-accuracy assertions plus (added 2026-08-18) a "zero relevant documents → no citations" case that was previously untested |
+| 09 | Skill execution tests | PASS | `tests/api/test_skills.py` (6: seeded defaults, standalone run, conversation-attached run, cross-user list isolation, plus (added 2026-08-18) invalid-skill-id → 404 and cross-user run-endpoint → 404, which were previously untested gaps) |
+| 10 | Database tests | PASS | Cascade-delete integration test queries the DB directly across 8 tables; every API test also runs against a real (in-memory) SQLAlchemy session, not a mock |
+| 11 | API tests | PASS | All 55 tests are API-level (via `TestClient`); (added 2026-08-18) `tests/api/test_health.py` now also covers an unknown-route 404 and a protected-route-without-token 401, previously untested cross-cutting cases |
+| 12 | Run the complete suite, record pass/fail | PASS | **55 passed, 0 failed**, run fresh on 2026-08-18 after this session's fixes and additions, in ~96s |
 
 ## 14. Security Review
 
@@ -227,6 +229,8 @@ Full detail in [docs/security/README.md](../security/README.md). Summary:
 | 10 | CORS/production config appropriate | PARTIAL (correct for dev; not yet verified in an actual production deployment) |
 | 11 | User input validated | **PASS (fixed + retested live during this review)** — was PARTIAL: several schemas accepted empty strings |
 | 12 | No obvious IDOR vulnerability | PASS |
+| 13 | Logout / session revocation | **PASS (fixed 2026-08-18)** — `jti` claim + `revoked_tokens` table + revocation check in `get_current_user`; 2 new automated tests + live retest confirm a token is rejected immediately after its own logout |
+| 14 | Data privacy | **PARTIAL** — cross-user isolation is solid, but no encryption at rest, no TLS in dev, no account-deletion/export endpoint, and third-party LLM data transmission was previously undocumented (now disclosed in the architecture doc) |
 
 ## 15. Performance & Observability
 
@@ -236,7 +240,11 @@ Full detail in [docs/performance/README.md](../performance/README.md). Headline 
 per-minute throttle. This session's own testing exhausted that quota, which is itself the
 most important production-readiness finding of this review. Embeddings were not
 similarly capped. Real latencies measured for health check (~130ms), login (~760ms,
-intentional bcrypt cost), and chat generation (~3-6s typical).
+intentional bcrypt cost), and chat generation (~3-6s typical). Component-level metrics
+that were previously only estimated at the end-to-end level (embedding time, search time,
+memory retrieval, DB query time, startup time) were isolated and measured directly against
+the live app on 2026-08-18 — see the "Isolated component timings" section of the
+performance doc for the real per-call numbers.
 
 ## 16. Deployment
 

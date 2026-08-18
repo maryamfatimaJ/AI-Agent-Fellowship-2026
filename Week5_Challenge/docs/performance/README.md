@@ -16,6 +16,24 @@ process — not production numbers.
 | Semantic search / retrieval | Sub-second | Cosine similarity over chunk embeddings runs in-process with `numpy`; not a separate network call — the network-bound part is only the query embedding request |
 | Memory retrieval (`get_context_memories`) | Sub-second | Plain indexed SQL query, no network call |
 
+## Isolated component timings (real, measured 2026-08-18)
+
+The table above times end-to-end operations (e.g. "document upload" bundles extraction +
+chunking + the embedding network call). The numbers below isolate each component by calling
+the underlying function directly (`app.services.llm_service.embed_texts`,
+`app.rag.retrieval`'s cosine-similarity loop, `app.memory.memory_service.get_context_memories`,
+raw SQLAlchemy queries) against the real running `app.db` and the real Gemini embeddings API —
+no mocking, no invented numbers. Script: ad-hoc, not checked into the repo (one-off
+measurement, not a maintained benchmark).
+
+| Metric | Method | Test conditions | Actual result | Observation |
+|---|---|---|---|---|
+| Embedding time (isolated) | `time.perf_counter()` around a single real `embed_texts()` call to `gemini-embedding-001` | One short query string, `task_type=RETRIEVAL_QUERY`, live network call | 1.70s and 2.18s across two runs | Dominated entirely by network round-trip to Gemini, not local compute; this is the true cost of "the network-bound part" referenced in the Semantic search row above |
+| Search time (isolated, pure compute) | Timed only the cosine-similarity scoring loop over chunks already loaded from the DB (embedding excluded) | Real `app.db` contents at measurement time: 12 chunks across 9 ready documents | 8.7ms and 15.4ms across two runs | This is a linear scan (`O(n)` over chunks, no vector index) — fine at this scale (12 chunks); would need profiling at a much larger corpus size before drawing conclusions about scaling, which this project's dataset does not exercise |
+| Memory retrieval (isolated) | Timed `get_context_memories()` directly against the real DB | 6 total memory rows for the test workspace/user, `limit` default (10) | 3.6ms, 3 rows returned | Plain indexed `WHERE`+`ORDER BY`+`LIMIT` query, no network call — consistent with the "sub-second" characterization above, now with an exact number |
+| Database queries (isolated) | Timed three representative real queries directly: `SELECT 1`, `SELECT COUNT(*) FROM chunks`, a filtered `documents` query | Real `app.db`, SQLite, single dev process | `SELECT 1`: 2.8-10.7ms · chunk count: 47-61ms · filtered document query: 6.1-8.6ms | All sub-50ms except the unindexed `COUNT(*)` over the join-joined `chunks` table, which is still trivial at this row count; not a bottleneck at current data volume |
+| Application startup time (precise) | Spawned `uvicorn app.main:app` as a subprocess, timed from process spawn to the `"Application startup complete"` log line appearing on stdout | Cold process start, throwaway port, SQLite already initialized | 2.47s, 2.47s, 2.51s across three runs | Tighter and more precise than the original "~1-2s" estimate in the table above, which was eyeballed from log timestamps rather than measured with a timer; this is the more trustworthy number |
+
 ## Token usage & cost (real, from the dashboard)
 
 Actual accumulated numbers from this QA session's live testing (`GET
@@ -46,6 +64,12 @@ directly blocked further live LLM testing in this session:
   confirmed persistent block on this specific API key/project**, not a transient daily
   limit — closing the remaining blocked evaluation scenarios/experiments needs a different
   API key or a paid tier, not more elapsed time.
+- **Update, 2026-08-18 (7 days later): re-tested again, still blocked.** Same `429` /
+  `GenerateRequestsPerDayPerProjectPerModel-FreeTier` error. This response happened to
+  include a `retryDelay: '35s'` hint; waited 30s and retried directly rather than assuming —
+  the identical `429` came back with a new `retryDelay`. Confirms `retryDelay` is a generic
+  per-request backoff suggestion, not a signal about when the daily quota itself clears. No
+  change to the standing conclusion.
 - **`gemini-embedding-001` (used for document/query embeddings) is not subject to the same
   cap** — document uploads and RAG retrieval kept working correctly after the chat quota was
   exhausted. This means RAG ingestion/retrieval is far more resilient to free-tier limits

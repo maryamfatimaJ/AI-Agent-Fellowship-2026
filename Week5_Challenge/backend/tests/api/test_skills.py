@@ -69,3 +69,29 @@ def test_skills_isolated_between_users(client):
 
     response = client.get(f"/api/workspaces/{workspace_id}/skills", headers=auth_headers(token_b))
     assert response.status_code == 404
+
+
+def test_run_nonexistent_skill_returns_404(client):
+    token = register_and_login(client, "skill-f@example.com")
+    workspace_id = _create_workspace(client, token)
+
+    response = client.post(
+        f"/api/workspaces/{workspace_id}/skills/does-not-exist/run",
+        json={"input": "Some text."},
+        headers=auth_headers(token),
+    )
+    assert response.status_code == 404
+
+
+def test_run_skill_blocked_for_non_owner(client):
+    token_a = register_and_login(client, "skill-g@example.com")
+    token_b = register_and_login(client, "skill-h@example.com")
+    workspace_id = _create_workspace(client, token_a)
+    skill_id = client.get(f"/api/workspaces/{workspace_id}/skills", headers=auth_headers(token_a)).json()[0]["id"]
+
+    response = client.post(
+        f"/api/workspaces/{workspace_id}/skills/{skill_id}/run",
+        json={"input": "Some text."},
+        headers=auth_headers(token_b),
+    )
+    assert response.status_code == 404

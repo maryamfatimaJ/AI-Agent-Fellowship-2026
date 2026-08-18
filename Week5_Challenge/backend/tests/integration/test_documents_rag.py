@@ -90,6 +90,29 @@ def test_deleting_document_removes_its_chunks_from_retrieval(client):
     assert list_response.json() == []
 
 
+def test_chat_with_no_relevant_documents_returns_no_citations(client):
+    token = register_and_login(client, "doc-f@example.com")
+    workspace_id = _create_workspace(client, token)
+
+    client.post(
+        f"/api/workspaces/{workspace_id}/documents",
+        files={"file": ("shipping.txt", b"Standard shipping takes 5 to 7 business days.", "text/plain")},
+        headers=auth_headers(token),
+    )
+
+    conversation_id = client.post(
+        f"/api/workspaces/{workspace_id}/conversations", json={}, headers=auth_headers(token)
+    ).json()["id"]
+
+    response = client.post(
+        f"/api/workspaces/{workspace_id}/conversations/{conversation_id}/messages",
+        json={"content": "What is the capital of France?"},
+        headers=auth_headers(token),
+    )
+    assert response.status_code == 200
+    assert not response.json()["assistant_message"]["citations"]
+
+
 def test_documents_isolated_between_workspaces(client):
     token = register_and_login(client, "doc-e@example.com")
     workspace_a = _create_workspace(client, token)

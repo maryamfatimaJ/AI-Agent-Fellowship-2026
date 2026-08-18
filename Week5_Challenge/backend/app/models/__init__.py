@@ -3,6 +3,7 @@ from app.models.conversation import Conversation, Message, MessageRole
 from app.models.document import Chunk, Document, DocumentStatus
 from app.models.memory import Memory, MemoryType
 from app.models.prompt_template import PromptTemplate
+from app.models.revoked_token import RevokedToken
 from app.models.settings import WorkspaceSettings
 from app.models.skill import Skill
 from app.models.telemetry import Log, Usage
@@ -21,6 +22,7 @@ __all__ = [
     "Message",
     "MessageRole",
     "PromptTemplate",
+    "RevokedToken",
     "Skill",
     "Usage",
     "User",

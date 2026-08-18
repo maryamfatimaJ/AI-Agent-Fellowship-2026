@@ -35,3 +35,14 @@ resolves with time.** Completing EXP-01, EXP-02, and EXP-05's missing comparison
 requires either a different (working) API key/provider or upgrading this project's Gemini
 account to a paid tier — not simply more elapsed time or more testing effort. This is
 recorded as a hard external blocker rather than re-attempted indefinitely.
+
+**Re-test attempt, 2026-08-18 (1 more day later):** re-confirmed with a direct call to
+`generate_reply()` against the real API. Still the identical `429 RESOURCE_EXHAUSTED` /
+`GenerateRequestsPerDayPerProjectPerModel-FreeTier` error. This response included a
+`retryDelay: '35s'` field, which could look like a signal that the block is about to lift —
+it was tested directly rather than assumed: waited 30s and retried, and the identical `429`
+came back with a new `retryDelay`. **This confirms `retryDelay` is Google's generic
+per-request backoff hint, unrelated to when the daily quota itself resets** — it does not
+mean the block is temporary. No change to the standing conclusion: EXP-01/02/05's missing
+arms remain blocked by the same persistent account-level quota exhaustion, now confirmed
+across three separate days (08-12, 08-17, 08-18).

@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
 from app.core.security import decode_access_token
+from app.core.token_revocation import is_token_revoked
 from app.database.deps import get_db
 from app.models.user import User
 from app.models.workspace import Workspace
@@ -17,8 +18,15 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    user_id = decode_access_token(token)
+    payload = decode_access_token(token)
+    if payload is None:
+        raise credentials_error
+
+    user_id = payload.get("sub")
+    jti = payload.get("jti")
     if user_id is None:
+        raise credentials_error
+    if jti and is_token_revoked(jti, db):
         raise credentials_error
 
     user = db.get(User, user_id)

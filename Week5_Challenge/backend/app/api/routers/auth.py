@@ -1,9 +1,12 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, oauth2_scheme
 from app.core.rate_limit import limiter
-from app.core.security import create_access_token, hash_password, verify_password
+from app.core.security import create_access_token, decode_access_token, hash_password, verify_password
+from app.core.token_revocation import revoke_token
 from app.database.deps import get_db
 from app.models.user import User
 from app.schemas.auth import LoginRequest, TokenResponse
@@ -47,3 +50,14 @@ def login(request: Request, payload: LoginRequest, db: Session = Depends(get_db)
 @router.get("/me", response_model=UserRead)
 def read_current_user(current_user: User = Depends(get_current_user)) -> User:
     return current_user
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> None:
+    """Revokes the presented token server-side so it can't be replayed after logout —
+    closes the gap flagged in the security review (previously "logout" only cleared the
+    frontend's local storage; the token itself remained valid until its natural expiry)."""
+    payload = decode_access_token(token)
+    if payload and payload.get("jti"):
+        expires_at = datetime.fromtimestamp(payload["exp"], tz=timezone.utc)
+        revoke_token(payload["jti"], expires_at, db)

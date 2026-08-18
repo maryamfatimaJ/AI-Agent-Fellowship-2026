@@ -182,6 +182,8 @@ export const api = {
 
   me: () => request<User>('/api/auth/me'),
 
+  logout: () => request<void>('/api/auth/logout', { method: 'POST' }),
+
   listWorkspaces: () => request<Workspace[]>('/api/workspaces'),
 
   createWorkspace: (name: string, description?: string) =>

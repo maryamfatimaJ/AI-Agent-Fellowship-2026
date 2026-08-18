@@ -22,9 +22,29 @@ User
  -> Database (SQLAlchemy ORM, SQLite dev / Postgres-Supabase-ready)
 ```
 
-Every layer above is implemented and covered by automated tests (46 passing,
+Every layer above is implemented and covered by automated tests (50 passing,
 `backend/tests/`) plus live testing against a real LLM during development
 (`docs/evaluation/README.md`).
+
+## Data sent to third-party providers
+
+Message content, memory entries, and uploaded-document text all leave the process
+boundary and are sent to the configured external LLM provider (Gemini by default, OpenAI
+if configured) on effectively every turn:
+
+- `chat_service.py` sends the full system prompt (assistant persona + injected memory
+  facts + RAG document snippets) and the last `conversation_history_limit` (20) raw
+  messages to `generate_reply`.
+- `memory_service.py` sends the raw text of every user/assistant turn back to the LLM
+  again for best-effort fact extraction.
+- `rag/retrieval.py` sends raw document chunk text (on ingestion) and the user's query
+  text (on retrieval) to the embedding API, same provider.
+
+This is inherent to how the app's chat/RAG/memory features work (they need the provider
+to see the content to respond to it), not a bug — but it is a real data-privacy fact worth
+stating explicitly rather than leaving implicit: nothing in this app is processed
+exclusively on-device or in this app's own infrastructure. See
+[docs/security/README.md](../security/README.md) for the full Data Privacy assessment.
 
 ## Backend module map
 

@@ -6,7 +6,7 @@ interface AuthContextValue {
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
   register: (email: string, password: string, fullName?: string) => Promise<void>
-  logout: () => void
+  logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -39,7 +39,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await login(email, password)
   }
 
-  function logout() {
+  async function logout() {
+    try {
+      await api.logout()
+    } catch {
+      // Best-effort: still clear local session state even if the revocation call fails
+      // (e.g. token already expired, network error) so the user isn't stuck logged in.
+    }
     localStorage.removeItem('access_token')
     setUser(null)
   }

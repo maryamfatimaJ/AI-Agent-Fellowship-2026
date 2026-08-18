@@ -6,6 +6,7 @@ from app.core.config import get_settings
 from app.memory.memory_service import extract_and_store_memories, format_memories_for_prompt, get_context_memories
 from app.models.assistant import Assistant
 from app.models.conversation import Conversation, Message, MessageRole
+from app.models.memory import Memory
 from app.rag.retrieval import retrieve_relevant_chunks
 from app.services.llm_service import LLMError, generate_reply, user_facing_error
 from app.services.usage_service import record_usage
@@ -15,7 +16,7 @@ logger = logging.getLogger("app.chat")
 _DEFAULT_SYSTEM_PROMPT = "You are a helpful assistant."
 
 
-def _build_system_prompt(assistant: Assistant, memories, rag_context: list[dict]) -> str:
+def _build_system_prompt(assistant: Assistant, memories: list[Memory], rag_context: list[dict]) -> str:
     parts = [assistant.system_prompt or _DEFAULT_SYSTEM_PROMPT]
 
     if assistant.role:
