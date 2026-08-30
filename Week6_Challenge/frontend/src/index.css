@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #faf9f6;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-line: #e6e2d8;
+  --color-line-soft: #eeebe3;
+  --color-ink: #23211d;
+  --color-ink-muted: #6b6759;
+  --color-ink-faint: #a19c8c;
+  --color-accent: #52705f;
+  --color-accent-hover: #435d4f;
+  --color-accent-soft: #e9efe8;
+  --color-danger: #a13a2f;
+  --color-danger-soft: #f4e6e2;
+
+  /* Chart categorical palette — fixed slot order (never cycled/reassigned by
+     filters). Validated (CVD Delta E >= 8, normal-vision >= 15 adjacent) per
+     the dataviz skill's reference palette; light steps. */
+  --chart-series-1: #2a78d6; /* blue */
+  --chart-series-2: #eb6834; /* orange */
+  --chart-series-3: #1baf7a; /* aqua */
+  --chart-series-4: #eda100; /* yellow */
+  --chart-series-5: #e87ba4; /* magenta */
+  --chart-series-6: #008300; /* green */
+  --chart-good: #0ca30c;
+  --chart-warning: #fab219;
+  --chart-serious: #ec835a;
+  --chart-critical: #d03b3b;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #c3c2b7;
+
+  --font-sans: -apple-system, 'Segoe UI', ui-sans-serif, system-ui, Roboto, sans-serif;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-canvas: #171613;
+    --color-surface: #1e1c19;
+    --color-surface-raised: #242220;
+    --color-line: #34312b;
+    --color-line-soft: #2a2824;
+    --color-ink: #eae7df;
+    --color-ink-muted: #a3a094;
+    --color-ink-faint: #6e6b60;
+    --color-accent: #7fa08e;
+    --color-accent-hover: #94b3a2;
+    --color-accent-soft: #263129;
+    --color-danger: #c9776a;
+    --color-danger-soft: #372220;
+
+    --chart-series-1: #3987e5;
+    --chart-series-2: #d95926;
+    --chart-series-3: #199e70;
+    --chart-series-4: #c98500;
+    --chart-series-5: #d55181;
+    --chart-series-6: #008300;
+    --chart-good: #0ca30c;
+    --chart-warning: #fab219;
+    --chart-serious: #ec835a;
+    --chart-critical: #d03b3b;
+    --chart-grid: #2c2c2a;
+    --chart-axis: #383835;
+  }
+}
+
+/* Manual theme toggle overrides the OS preference above — these are plain custom
+   property assignments (not @theme) so they can win by source order/specificity
+   regardless of prefers-color-scheme. */
+:root[data-theme='dark'] {
+  --color-canvas: #171613;
+  --color-surface: #1e1c19;
+  --color-surface-raised: #242220;
+  --color-line: #34312b;
+  --color-line-soft: #2a2824;
+  --color-ink: #eae7df;
+  --color-ink-muted: #a3a094;
+  --color-ink-faint: #6e6b60;
+  --color-accent: #7fa08e;
+  --color-accent-hover: #94b3a2;
+  --color-accent-soft: #263129;
+  --color-danger: #c9776a;
+  --color-danger-soft: #372220;
+}
+
+:root[data-theme='light'] {
+  --color-canvas: #faf9f6;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-line: #e6e2d8;
+  --color-line-soft: #eeebe3;
+  --color-ink: #23211d;
+  --color-ink-muted: #6b6759;
+  --color-ink-faint: #a19c8c;
+  --color-accent: #52705f;
+  --color-accent-hover: #435d4f;
+  --color-accent-soft: #e9efe8;
+  --color-danger: #a13a2f;
+  --color-danger-soft: #f4e6e2;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  scrollbar-width: thin;
+}

@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.db
+
+# Env
+.env
+
+# Node / frontend
+node_modules/
+dist/
+frontend/.vite/
+
+# Logs
+logs/
+*.log
+
+# Editors
+.vscode/
+.idea/
