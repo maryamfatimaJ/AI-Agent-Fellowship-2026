@@ -16,6 +16,15 @@ from app.services.trace_service import record_trace, timed_span
 logger = logging.getLogger("app.rag")
 
 
+class RagUnavailableError(LLMError):
+    """Raised (not silently swallowed) when the embedding backend fails during
+    retrieval, so callers can distinguish "the knowledge search backend is
+    down" from "no relevant documents exist" and surface a real user-facing
+    notice for the former — see chat_service.py and agent/tools.py, both of
+    which catch this specifically rather than treating it like an ordinary
+    empty-results case."""
+
+
 def ingest_document(document: Document, content: bytes, db: Session) -> None:
     settings = get_settings()
     document.status = DocumentStatus.PROCESSING
@@ -96,7 +105,13 @@ def retrieve_relevant_chunks(
             error_message=str(exc),
             meta={"stage": "query_embedding"},
         )
-        return []
+        # Raised (not returned as an empty list) so the caller can tell "the
+        # search backend is down" apart from "nothing relevant exists" and
+        # show the user a real notice instead of a silently ungrounded
+        # answer — see chat_service.py::send_message and
+        # agent/tools.py::_search_documents, both of which catch this
+        # specifically.
+        raise RagUnavailableError(f"Knowledge search is temporarily unavailable: {exc}") from exc
 
     scored = _rank_by_cosine_similarity(query_vector, chunks)
     relevant = [pair for pair in scored if pair[0] >= settings.rag_min_score]

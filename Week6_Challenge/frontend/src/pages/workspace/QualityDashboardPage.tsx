@@ -297,6 +297,8 @@ function PerformanceTab({ performance }: { performance: QualityPerformance }) {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatTile label="Requests" value={String(performance.n_requests)} />
         <StatTile label="Total cost" value={`$${performance.cost.total_usd.toFixed(4)}`} />
+        <StatTile label="Input cost" value={`$${performance.cost.input_usd.toFixed(4)}`} />
+        <StatTile label="Output cost" value={`$${performance.cost.output_usd.toFixed(4)}`} />
         <StatTile label="Cost / request" value={`$${performance.cost.per_request_usd.toFixed(6)}`} />
         <StatTile
           label="Cost / successful task"
@@ -349,6 +351,27 @@ function PerformanceTab({ performance }: { performance: QualityPerformance }) {
           </ul>
         </Panel>
       )}
+
+      <Panel title="Latency by pipeline stage (mean / P50 / P95)">
+        <ul className="space-y-1.5">
+          {Object.entries(performance.latency_by_stage).map(([stage, stats]) => (
+            <li
+              key={stage}
+              className={`flex items-center justify-between rounded-md border px-3 py-2 text-sm ${
+                stage === performance.bottleneck_stage ? 'border-danger' : 'border-line-soft'
+              }`}
+            >
+              <span className="text-ink">
+                {stage}
+                {stage === performance.bottleneck_stage && <span className="ml-1.5 text-xs text-danger">bottleneck</span>}
+              </span>
+              <span className="text-ink-muted">
+                {fmtNum(stats.mean)}ms mean · {fmtNum(stats.p50)}ms P50 · {fmtNum(stats.p95)}ms P95
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Panel>
     </div>
   )
 }

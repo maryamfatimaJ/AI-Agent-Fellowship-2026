@@ -76,6 +76,32 @@ def _get_openai_client():
     return OpenAI(api_key=settings.openai_api_key, timeout=settings.llm_request_timeout_seconds)
 
 
+@lru_cache
+def _get_groq_client():
+    """Groq's chat-completions API is OpenAI-compatible, so the same `OpenAI`
+    SDK class works unchanged — only the api_key and base_url differ. No
+    embeddings endpoint exists on Groq (see Settings.groq_api_key's docstring
+    in config.py), so there is no _embed_groq counterpart."""
+    from openai import OpenAI
+
+    settings = get_settings()
+    _require_key(settings.groq_api_key, "groq")
+    return OpenAI(api_key=settings.groq_api_key, base_url=settings.groq_base_url, timeout=settings.llm_request_timeout_seconds)
+
+
+def default_model_for_provider(provider: str) -> str:
+    """The model name to record on a trace/usage row when the assistant has no
+    explicit model_name override — must mirror generate_reply/generate_with_tools'
+    own `model or settings.<provider>_model` fallback exactly, or traces would
+    show the wrong model label for whatever the request actually used."""
+    settings = get_settings()
+    if provider == "openai":
+        return settings.openai_model
+    if provider == "groq":
+        return settings.groq_model
+    return settings.gemini_model
+
+
 def user_facing_error(exc: Exception) -> str:
     """Never surface raw provider error text (quota internals, URLs, model
     identifiers) to the end user — full detail is logged server-side by the caller."""
@@ -101,6 +127,8 @@ def generate_reply(
     def _dispatch() -> GenerationResult:
         if provider == "openai":
             return _generate_openai(system_prompt, history, temperature, max_tokens, model)
+        if provider == "groq":
+            return _generate_groq(system_prompt, history, temperature, max_tokens, model)
         return _generate_gemini(system_prompt, history, temperature, max_tokens, model)
 
     def _dispatch_with_timeout() -> GenerationResult:
@@ -167,6 +195,8 @@ def generate_with_tools(
     def _dispatch() -> AgentGenerationResult:
         if provider == "openai":
             return _generate_openai_with_tools(system_prompt, history, tools, temperature, max_tokens, model)
+        if provider == "groq":
+            return _generate_groq_with_tools(system_prompt, history, tools, temperature, max_tokens, model)
         return _generate_gemini_with_tools(system_prompt, history, tools, temperature, max_tokens, model)
 
     def _dispatch_with_timeout() -> AgentGenerationResult:
@@ -351,3 +381,72 @@ def _embed_openai(texts: list[str]) -> list[list[float]]:
     client = _get_openai_client()
     response = client.embeddings.create(model=settings.openai_embedding_model, input=texts)
     return [item.embedding for item in response.data]
+
+
+def _generate_groq(
+    system_prompt: str,
+    history: list[dict[str, str]],
+    temperature: float,
+    max_tokens: int,
+    model: str | None,
+) -> GenerationResult:
+    """Same request/response shape as _generate_openai — Groq's API is
+    OpenAI-compatible — duplicated rather than parameterized to avoid any
+    risk of changing the already-tested OpenAI code path."""
+    settings = get_settings()
+    client = _get_groq_client()
+    messages = [{"role": "system", "content": system_prompt}, *history]
+    response = client.chat.completions.create(
+        model=model or settings.groq_model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+    )
+    usage = getattr(response, "usage", None)
+    input_tokens = getattr(usage, "prompt_tokens", 0) or 0
+    output_tokens = getattr(usage, "completion_tokens", 0) or 0
+    return GenerationResult(
+        text=response.choices[0].message.content or "", input_tokens=input_tokens, output_tokens=output_tokens
+    )
+
+
+def _generate_groq_with_tools(
+    system_prompt: str,
+    history: list[dict[str, str]],
+    tools: list[dict],
+    temperature: float,
+    max_tokens: int,
+    model: str | None,
+) -> AgentGenerationResult:
+    import json as _json
+
+    settings = get_settings()
+    client = _get_groq_client()
+    messages = [{"role": "system", "content": system_prompt}, *history]
+    groq_tools = [
+        {"type": "function", "function": {"name": t["name"], "description": t["description"], "parameters": t["parameters"]}}
+        for t in tools
+    ]
+    response = client.chat.completions.create(
+        model=model or settings.groq_model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        tools=groq_tools or None,
+        tool_choice="auto" if groq_tools else None,
+    )
+    usage = getattr(response, "usage", None)
+    input_tokens = getattr(usage, "prompt_tokens", 0) or 0
+    output_tokens = getattr(usage, "completion_tokens", 0) or 0
+
+    message = response.choices[0].message
+    tool_calls: list[ToolCallRequest] = []
+    for call in message.tool_calls or []:
+        try:
+            arguments = _json.loads(call.function.arguments or "{}")
+        except _json.JSONDecodeError:
+            arguments = {}
+        tool_calls.append(ToolCallRequest(id=call.id, name=call.function.name, arguments=arguments))
+
+    text = None if tool_calls else (message.content or "")
+    return AgentGenerationResult(text=text, tool_calls=tool_calls, input_tokens=input_tokens, output_tokens=output_tokens)

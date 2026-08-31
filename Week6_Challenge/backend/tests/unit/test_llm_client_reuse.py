@@ -3,7 +3,7 @@ constructed once and reused, instead of once per LLM call. These tests fake
 out the SDK constructors to count how many times they're actually invoked.
 """
 
-from app.services.llm_service import _get_gemini_client, _get_openai_client
+from app.services.llm_service import _get_gemini_client, _get_groq_client, _get_openai_client
 
 
 def test_gemini_client_is_constructed_once_and_reused(monkeypatch):
@@ -47,6 +47,29 @@ def test_openai_client_is_constructed_once_and_reused(monkeypatch):
     assert client_a is client_b
     assert construction_count["n"] == 1
     _get_openai_client.cache_clear()
+
+
+def test_groq_client_is_constructed_once_and_reused(monkeypatch):
+    """Groq (added 2026-08-31) reuses the OpenAI SDK class with a different
+    base_url — same singleton-caching guarantee as the other two providers."""
+    _get_groq_client.cache_clear()
+    construction_count = {"n": 0}
+
+    class _FakeClient:
+        def __init__(self, api_key, base_url, timeout):
+            construction_count["n"] += 1
+
+    monkeypatch.setattr("openai.OpenAI", _FakeClient)
+    from app.core.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "groq_api_key", "fake-key-for-test")
+
+    client_a = _get_groq_client()
+    client_b = _get_groq_client()
+
+    assert client_a is client_b
+    assert construction_count["n"] == 1
+    _get_groq_client.cache_clear()
 
 
 def test_missing_api_key_never_gets_cached_and_keeps_failing(monkeypatch):

@@ -36,6 +36,46 @@ def test_conversation_persists_messages_and_gets_a_default_title(client):
     assert len(detail["messages"]) == 2
 
 
+def test_evaluation_run_conversations_are_hidden_from_the_conversation_list(client):
+    """Regression test for a real user-reported issue: clicking the Quality
+    Dashboard's "Run evaluation" button creates one real conversation per
+    dataset case in the CURRENT workspace (app/evaluation/runner.py::run_case),
+    which used to appear mixed into the live chat sidebar, indistinguishable
+    from conversations the user actually started. Those conversations (and
+    their traces) must stay fully intact and inspectable via the Trace Viewer/
+    evaluation endpoints — only this "my conversations" listing hides them."""
+    token = register_and_login(client, "conv-eval@example.com")
+    workspace_id = _create_workspace(client, token)
+
+    real_conversation_id = client.post(
+        f"/api/workspaces/{workspace_id}/conversations", json={}, headers=auth_headers(token)
+    ).json()["id"]
+    client.post(
+        f"/api/workspaces/{workspace_id}/conversations/{real_conversation_id}/messages",
+        json={"content": "This is a real message I typed."},
+        headers=auth_headers(token),
+    )
+
+    run_response = client.post(
+        f"/api/workspaces/{workspace_id}/evaluations/run",
+        json={"name": "dashboard-triggered run", "categories": ["normal"], "limit": 3, "run_judge": False},
+        headers=auth_headers(token),
+    )
+    assert run_response.status_code == 200
+    run_id = run_response.json()["id"]
+
+    listed = client.get(f"/api/workspaces/{workspace_id}/conversations", headers=auth_headers(token)).json()
+    assert [c["id"] for c in listed] == [real_conversation_id]
+
+    traces = client.get(
+        f"/api/workspaces/{workspace_id}/traces", params={"evaluation_run_id": run_id}, headers=auth_headers(token)
+    ).json()
+    assert traces["total"] > 0
+
+    run_detail = client.get(f"/api/workspaces/{workspace_id}/evaluations/{run_id}", headers=auth_headers(token)).json()
+    assert len(run_detail["results"]) == 3
+
+
 def test_conversation_survives_a_simulated_relogin(client):
     token = register_and_login(client, "conv-b@example.com")
     workspace_id = _create_workspace(client, token)

@@ -19,15 +19,21 @@ from app.models.guardrail_event import GuardrailAction, GuardrailDirection
 from app.models.memory import Memory
 from app.models.prompt_version import PromptVersion
 from app.models.trace import TraceStatus, TraceType
-from app.rag.retrieval import retrieve_relevant_chunks
+from app.rag.retrieval import RagUnavailableError, retrieve_relevant_chunks
 from app.services.guardrail_service import record_guardrail_event
-from app.services.llm_service import LLMError, LLMTimeoutError, generate_reply, user_facing_error
+from app.services.llm_service import LLMError, LLMTimeoutError, default_model_for_provider, generate_reply, user_facing_error
 from app.services.trace_service import SpanRecorder, record_trace, timed_span
-from app.services.usage_service import estimate_cost_usd, record_usage
+from app.services.usage_service import estimate_cost_breakdown, record_usage
 
 logger = logging.getLogger("app.chat")
 
 _DEFAULT_SYSTEM_PROMPT = "You are a helpful assistant."
+
+# Shown verbatim to the user (not model-generated) when retrieval degrades —
+# see RagUnavailableError. Distinguishes "the search backend is down" from
+# "nothing relevant was found", which otherwise look identical to the user
+# (both produce an answer with no citations).
+_RAG_UNAVAILABLE_NOTICE = "_Knowledge search is temporarily unavailable, so this answer doesn't include citations from your workspace's documents._\n\n"
 
 
 def _build_system_prompt(assistant: Assistant, memories: list[Memory], rag_context: list[dict]) -> str:
@@ -100,10 +106,14 @@ def send_message(
         triggered_patterns=input_check.triggered_patterns,
     )
 
+    db_ms_total = 0.0
+
     user_message = Message(conversation_id=conversation.id, role=MessageRole.USER, content=user_content)
     db.add(user_message)
-    db.commit()
-    db.refresh(user_message)
+    with timed_span() as db_span:
+        db.commit()
+        db.refresh(user_message)
+    db_ms_total += db_span["elapsed_ms"]
 
     if input_check.triggered_patterns:
         record_guardrail_event(
@@ -123,12 +133,18 @@ def send_message(
         db.commit()
 
     memories = get_context_memories(conversation.workspace_id, user_id, db)
+    rag_context: list[dict] = []
+    rag_degraded = False
     with timed_span() as rag_span:
-        rag_context = retrieve_relevant_chunks(conversation.workspace_id, user_content, db)
+        try:
+            rag_context = retrieve_relevant_chunks(conversation.workspace_id, user_content, db)
+        except RagUnavailableError as exc:
+            logger.warning("RAG retrieval degraded for this turn: %s", exc)
+            rag_degraded = True
     spans.add(
         "retrieval",
         rag_span["elapsed_ms"],
-        status="success",
+        status="degraded" if rag_degraded else "success",
         chunks_returned=len(rag_context),
         retrieved_document_ids=[item["document_id"] for item in rag_context],
     )
@@ -168,8 +184,7 @@ def send_message(
         if m.role in (MessageRole.USER, MessageRole.ASSISTANT)
     ]
 
-    default_model = settings.openai_model if assistant.model_provider == "openai" else settings.gemini_model
-    model_name = assistant.model_name or default_model
+    model_name = assistant.model_name or default_model_for_provider(assistant.model_provider)
     input_tokens = output_tokens = retry_count = 0
     llm_status = TraceStatus.SUCCESS
     llm_error_message: str | None = None
@@ -234,6 +249,9 @@ def send_message(
                 },
             )
 
+    if rag_degraded:
+        reply_text = _RAG_UNAVAILABLE_NOTICE + reply_text
+
     assistant_message = Message(
         conversation_id=conversation.id,
         role=MessageRole.ASSISTANT,
@@ -241,8 +259,10 @@ def send_message(
         citations=rag_context or None,
     )
     db.add(assistant_message)
-    db.commit()
-    db.refresh(assistant_message)
+    with timed_span() as db_span2:
+        db.commit()
+        db.refresh(assistant_message)
+    db_ms_total += db_span2["elapsed_ms"]
 
     active_prompt_version = (
         db.query(PromptVersion)
@@ -257,6 +277,11 @@ def send_message(
         "retrieved_document_ids": [item["document_id"] for item in rag_context],
         "prompt_version": active_prompt_version.version_label if active_prompt_version else "unversioned",
         "total_tokens": input_tokens + output_tokens,
+        "rag_degraded": rag_degraded,
+        # Cumulative time spent in the two message-persistence commits for
+        # this turn (Requirement 22's "database latency" — the one DB-timing
+        # signal this app didn't previously capture at all).
+        "db_ms": round(db_ms_total, 2),
         # Truncated, already-guardrail-sanitized previews — enough to diagnose
         # a failure without storing full chain-of-thought or unbounded text.
         "input_preview": user_content[:200],
@@ -282,6 +307,7 @@ def send_message(
     spans.add("final_response", 0.0, status="success", output_length=len(reply_text))
     meta["spans"] = spans.spans
 
+    input_cost, output_cost, total_cost = estimate_cost_breakdown(model_name, input_tokens, output_tokens)
     record_trace(
         db,
         trace_type=TraceType.CHAT,
@@ -293,7 +319,9 @@ def send_message(
         model=model_name,
         input_tokens=input_tokens,
         output_tokens=output_tokens,
-        cost_usd=estimate_cost_usd(model_name, input_tokens, output_tokens),
+        cost_usd=total_cost,
+        input_cost_usd=input_cost,
+        output_cost_usd=output_cost,
         latency_ms=llm_span["elapsed_ms"],
         status=llm_status,
         error_message=llm_error_message,

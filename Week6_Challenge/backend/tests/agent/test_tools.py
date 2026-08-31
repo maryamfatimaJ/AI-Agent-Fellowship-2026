@@ -7,6 +7,7 @@ catch-all never lets a request crash uncaught."""
 from sqlalchemy.exc import OperationalError
 
 from app.agent.tools import execute_tool
+from app.rag.retrieval import RagUnavailableError
 
 
 def test_execute_tool_catches_a_database_error_and_returns_a_safe_result(db_session, monkeypatch):
@@ -26,6 +27,30 @@ def test_execute_tool_catches_a_database_error_and_returns_a_safe_result(db_sess
     assert result.output is None
     assert result.error is not None
     assert "database is locked" in result.error
+
+
+def test_search_documents_reports_a_clear_unavailable_error_when_rag_degrades(db_session, monkeypatch):
+    """Graceful degradation (Requirement 20) at the tool boundary: a search
+    backend outage must be reported as a distinct, clear error rather than
+    silently returning {"results": []}, which would look identical to
+    "nothing matched" from the agent's/user's perspective."""
+
+    def _raises_rag_unavailable(workspace_id, query, db):
+        raise RagUnavailableError("Knowledge search is temporarily unavailable: simulated outage")
+
+    monkeypatch.setattr("app.agent.tools.retrieve_relevant_chunks", _raises_rag_unavailable)
+
+    result = execute_tool(
+        "search_documents",
+        {"query": "refund policy"},
+        workspace_id="ws-1",
+        user_id="user-1",
+        db=db_session,
+    )
+
+    assert result.output is None
+    assert result.error is not None
+    assert "temporarily unavailable" in result.error
 
 
 def test_execute_tool_returns_an_error_for_an_unregistered_tool_name(db_session):

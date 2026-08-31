@@ -78,6 +78,9 @@ def test_rag_embedding_outage_degrades_to_an_answer_without_citations(client, mo
     )
     assert response.status_code == 200
     assert response.json()["assistant_message"]["citations"] is None
+    # The user must be told search itself is down, not just silently handed
+    # an uncited answer indistinguishable from "nothing relevant was found".
+    assert "temporarily unavailable" in response.json()["assistant_message"]["content"]
 
     embedding_traces = client.get(
         f"/api/workspaces/{workspace_id}/traces",

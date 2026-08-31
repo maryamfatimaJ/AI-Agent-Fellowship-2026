@@ -35,6 +35,8 @@ _NON_RETRYABLE_MARKERS = (
     "400",
     "401",
     "403",
+    "404",
+    "not_found",
     "invalid api key",
     "no api key configured",
     "invalid_argument",

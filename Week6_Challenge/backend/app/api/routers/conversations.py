@@ -8,6 +8,7 @@ from app.core.rate_limit import limiter
 from app.database.deps import get_db
 from app.guardrails import GuardrailBlockedError
 from app.models.conversation import Conversation, Message
+from app.models.trace import Trace
 from app.models.user import User
 from app.models.workspace import Workspace
 from app.schemas.conversation import (
@@ -65,7 +66,20 @@ def list_conversations(
     workspace: Workspace = Depends(get_owned_workspace),
     db: Session = Depends(get_db),
 ) -> list[Conversation]:
-    query = db.query(Conversation).filter(Conversation.workspace_id == workspace.id)
+    # Evaluation-run conversations (app/evaluation/runner.py::run_case, triggered e.g. by
+    # the Quality Dashboard's "Run evaluation" button) are real conversations created in
+    # this same workspace, one per dataset case — but they're synthetic, not something the
+    # user actually typed, so they must not appear mixed into the live chat sidebar. They
+    # stay fully intact in the database and remain fully inspectable via the Trace Viewer
+    # (filter by evaluation_run_id/eval_case_id) and the evaluation run's own result list —
+    # this only excludes them from this specific "my conversations" listing.
+    eval_conversation_ids = db.query(Trace.conversation_id).filter(
+        Trace.workspace_id == workspace.id, Trace.eval_case_id.isnot(None)
+    )
+    query = db.query(Conversation).filter(
+        Conversation.workspace_id == workspace.id,
+        Conversation.id.notin_(eval_conversation_ids),
+    )
 
     if q:
         pattern = f"%{q}%"

@@ -25,6 +25,27 @@ def _latency_percentiles(latencies: list[float]) -> dict:
     }
 
 
+def _meta_stage_latencies(traces: list[Trace], meta_key: str) -> list[float]:
+    """Pulls one sub-stage timing (e.g. "llm_ms"/"rag_ms"/"db_ms", set by
+    chat_service.py/orchestrator.py alongside the trace's own end-to-end
+    latency_ms) out of each trace's meta JSON, skipping traces that never
+    recorded that stage (e.g. a tool_call trace has no "rag_ms")."""
+    return [t.meta[meta_key] for t in traces if isinstance((t.meta or {}).get(meta_key), (int, float))]
+
+
+def _span_stage_latencies(traces: list[Trace], span_name: str) -> list[float]:
+    """Pulls every span's duration_ms matching `span_name` out of every
+    trace's meta.spans timeline — used for stages that can occur more than
+    once per trace (a multi-step agent turn has one "tool_result" span per
+    tool call), unlike the single-value meta keys _meta_stage_latencies reads."""
+    durations = []
+    for t in traces:
+        for span in (t.meta or {}).get("spans") or []:
+            if span.get("name") == span_name and isinstance(span.get("duration_ms"), (int, float)):
+                durations.append(span["duration_ms"])
+    return durations
+
+
 def get_performance_summary(
     workspace_id: str,
     db: Session,
@@ -50,17 +71,36 @@ def get_performance_summary(
             "successful_requests": 0,
             "failed_requests": 0,
             "latency_ms": _latency_percentiles([]),
-            "cost": {"total_usd": 0.0, "per_request_usd": 0.0, "per_successful_task_usd": None},
+            "cost": {
+                "total_usd": 0.0,
+                "input_usd": 0.0,
+                "output_usd": 0.0,
+                "per_request_usd": 0.0,
+                "per_successful_task_usd": None,
+            },
             "tokens": {"total": 0, "input": 0, "output": 0},
             "by_model": {},
             "by_trace_type": {},
             "by_prompt_version": {},
             "reliability": {"retry_rate": None, "timeout_rate": None, "error_rate": None, "degraded_rate": None},
             "bottlenecks": [],
+            "latency_by_stage": {
+                "llm_ms": _latency_percentiles([]),
+                "retrieval_ms": _latency_percentiles([]),
+                "tool_ms": _latency_percentiles([]),
+                "database_ms": _latency_percentiles([]),
+                "end_to_end_ms": _latency_percentiles([]),
+            },
+            "bottleneck_stage": None,
         }
 
     latencies = [t.latency_ms for t in traces]
     total_cost = sum(t.cost_usd for t in traces)
+    # input_cost_usd/output_cost_usd are nullable (added after cost_usd existed —
+    # see app/models/trace.py) so traces recorded before this column existed
+    # contribute 0 to these sums rather than raising on a None + float add.
+    total_input_cost = sum(t.input_cost_usd or 0.0 for t in traces)
+    total_output_cost = sum(t.output_cost_usd or 0.0 for t in traces)
     successful = [t for t in traces if t.status in (TraceStatus.SUCCESS, TraceStatus.RETRIED)]
     failed = [t for t in traces if t.status in (TraceStatus.ERROR, TraceStatus.TIMEOUT)]
 
@@ -86,6 +126,10 @@ def get_performance_summary(
         bucket["avg_latency_ms"] = round(sum(bucket["avg_latency_ms"]) / len(bucket["avg_latency_ms"]), 2)
         bucket["success_rate"] = round(bucket["n_successful"] / bucket["n_requests"], 3)
 
+    # "Cost by feature" (Week 6 cost-tracking requirement) — trace_type is this
+    # app's feature axis (chat/skill/tool_call/embedding/memory_extraction);
+    # there is no separate "cost by agent" breakdown since this is a
+    # single-agent system (tool_call traces already are the one agent's cost).
     by_type: dict[str, dict] = {}
     for t in traces:
         key = t.trace_type.value
@@ -101,6 +145,26 @@ def get_performance_summary(
         bottlenecks.append({"stage": key, "avg_latency_ms": bucket["avg_latency_ms"], "n_requests": bucket["n_requests"]})
     bottlenecks.sort(key=lambda b: b["avg_latency_ms"], reverse=True)
 
+    # Latency Analysis (Week 6 requirement): full mean/median/P50/P95/P99 per
+    # pipeline stage, not just an average-per-trace-type — LLM/retrieval/tool
+    # come from meta/spans recorded by chat_service.py and orchestrator.py;
+    # database is the two message-persistence commits chat_service.py times
+    # (see Trace.meta["db_ms"]); end_to_end mirrors the top-level `latency_ms`
+    # above, included here so every stage — including the whole request — is
+    # comparable side by side for bottleneck identification.
+    latency_by_stage = {
+        "llm_ms": _latency_percentiles(_meta_stage_latencies(traces, "llm_ms")),
+        "retrieval_ms": _latency_percentiles(_meta_stage_latencies(traces, "rag_ms")),
+        "tool_ms": _latency_percentiles(_span_stage_latencies(traces, "tool_result")),
+        "database_ms": _latency_percentiles(_meta_stage_latencies(traces, "db_ms")),
+        "end_to_end_ms": _latency_percentiles(latencies),
+    }
+    bottleneck_stage = max(
+        (stage for stage, stats in latency_by_stage.items() if stage != "end_to_end_ms" and stats["mean"] is not None),
+        key=lambda stage: latency_by_stage[stage]["mean"],
+        default=None,
+    )
+
     n = len(traces)
     return {
         "n_requests": n,
@@ -109,6 +173,8 @@ def get_performance_summary(
         "latency_ms": _latency_percentiles(latencies),
         "cost": {
             "total_usd": round(total_cost, 6),
+            "input_usd": round(total_input_cost, 6),
+            "output_usd": round(total_output_cost, 6),
             "per_request_usd": round(total_cost / n, 6) if n else 0.0,
             # None (not 0.0) when there are zero successful tasks — an undefined
             # ratio must never render as "free", see docs/quality-dashboard.md.
@@ -129,4 +195,6 @@ def get_performance_summary(
             "degraded_rate": round(sum(1 for t in traces if t.status == TraceStatus.DEGRADED) / n, 3),
         },
         "bottlenecks": bottlenecks[:5],
+        "latency_by_stage": latency_by_stage,
+        "bottleneck_stage": bottleneck_stage,
     }

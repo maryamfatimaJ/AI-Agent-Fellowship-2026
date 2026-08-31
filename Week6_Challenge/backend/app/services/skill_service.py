@@ -7,9 +7,9 @@ from app.models.assistant import Assistant
 from app.models.conversation import Conversation, Message, MessageRole
 from app.models.skill import Skill
 from app.models.trace import TraceStatus, TraceType
-from app.services.llm_service import LLMError, LLMTimeoutError, generate_reply, user_facing_error
+from app.services.llm_service import LLMError, LLMTimeoutError, default_model_for_provider, generate_reply, user_facing_error
 from app.services.trace_service import record_trace, timed_span
-from app.services.usage_service import estimate_cost_usd, record_usage
+from app.services.usage_service import estimate_cost_breakdown, record_usage
 
 logger = logging.getLogger("app.skills")
 
@@ -53,8 +53,7 @@ def run_skill(
             conversation.title = f"{skill.name}: {input_text[:40]}"
             db.commit()
 
-    default_model = settings.openai_model if provider == "openai" else settings.gemini_model
-    model_name = model or default_model
+    model_name = model or default_model_for_provider(provider)
     input_tokens = output_tokens = retry_count = 0
     trace_status = TraceStatus.SUCCESS
     trace_error: str | None = None
@@ -86,6 +85,7 @@ def run_skill(
             trace_status = TraceStatus.ERROR
             trace_error = str(exc)
 
+    input_cost, output_cost, total_cost = estimate_cost_breakdown(model_name, input_tokens, output_tokens)
     record_trace(
         db,
         trace_type=TraceType.SKILL,
@@ -96,7 +96,9 @@ def run_skill(
         model=model_name,
         input_tokens=input_tokens,
         output_tokens=output_tokens,
-        cost_usd=estimate_cost_usd(model_name, input_tokens, output_tokens),
+        cost_usd=total_cost,
+        input_cost_usd=input_cost,
+        output_cost_usd=output_cost,
         latency_ms=skill_span["elapsed_ms"],
         status=trace_status,
         error_message=trace_error,

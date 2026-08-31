@@ -18,6 +18,8 @@ class TraceRead(BaseModel):
     input_tokens: int
     output_tokens: int
     cost_usd: float
+    input_cost_usd: float | None
+    output_cost_usd: float | None
     latency_ms: float
     status: TraceStatus
     error_message: str | None

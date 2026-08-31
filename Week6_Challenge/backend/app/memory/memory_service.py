@@ -7,9 +7,9 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.models.memory import Memory, MemoryType
 from app.models.trace import TraceStatus, TraceType
-from app.services.llm_service import LLMError, generate_reply
+from app.services.llm_service import LLMError, default_model_for_provider, generate_reply
 from app.services.trace_service import record_trace, timed_span
-from app.services.usage_service import estimate_cost_usd, record_usage
+from app.services.usage_service import estimate_cost_breakdown, record_usage
 
 logger = logging.getLogger("app.memory")
 
@@ -89,7 +89,7 @@ def extract_and_store_memories(
     chat turn that triggered it; instead it's recorded as a degraded trace so
     it's visible on the dashboard rather than silently swallowed."""
     settings = get_settings()
-    default_model = settings.openai_model if settings.llm_provider == "openai" else settings.gemini_model
+    default_model = default_model_for_provider(settings.llm_provider)
     trace_status = TraceStatus.SUCCESS
     trace_error: str | None = None
     input_tokens = output_tokens = 0
@@ -126,6 +126,7 @@ def extract_and_store_memories(
             trace_status = TraceStatus.DEGRADED
             trace_error = str(exc)
 
+    input_cost, output_cost, total_cost = estimate_cost_breakdown(default_model, input_tokens, output_tokens)
     record_trace(
         db,
         trace_type=TraceType.MEMORY_EXTRACTION,
@@ -136,7 +137,9 @@ def extract_and_store_memories(
         model=default_model,
         input_tokens=input_tokens,
         output_tokens=output_tokens,
-        cost_usd=estimate_cost_usd(default_model, input_tokens, output_tokens),
+        cost_usd=total_cost,
+        input_cost_usd=input_cost,
+        output_cost_usd=output_cost,
         latency_ms=span["elapsed_ms"],
         status=trace_status,
         error_message=trace_error,

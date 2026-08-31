@@ -35,3 +35,8 @@ class Usage(Base, TimestampMixin):
     input_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     output_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     cost_usd: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    # Nullable (not default=0.0/NOT NULL) so lightweight_migrations.py can add
+    # these to an already-existing `usage` table via a plain ADD COLUMN —
+    # see app/database/lightweight_migrations.py's nullable-only constraint.
+    input_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    output_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)

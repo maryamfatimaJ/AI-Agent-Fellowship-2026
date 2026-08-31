@@ -14,6 +14,10 @@ from app.core.retry import call_with_retry, is_retryable
         ("401 Unauthorized: invalid api key", False),
         ("400 Bad Request: invalid_argument", False),
         ("Unsupported file type: .exe", False),
+        # A wrong/deprecated model name (404) can never be fixed by retrying — found via a
+        # live gemini-2.5-flash retirement this phase; retrying a 404 just wastes time and
+        # delays the user-facing error for no benefit.
+        ("404 NOT_FOUND: this model is no longer available to new users", False),
     ],
 )
 def test_is_retryable_classifies_transient_vs_permanent_errors(message, expected):

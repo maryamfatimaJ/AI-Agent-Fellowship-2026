@@ -56,6 +56,11 @@ class Trace(Base, TimestampMixin):
     input_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     output_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     cost_usd: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    # Nullable so lightweight_migrations.py can ADD COLUMN these onto an
+    # already-existing `traces` table (see that module's docstring) — null on
+    # any trace recorded before this column existed, or one with 0 tokens.
+    input_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    output_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
     latency_ms: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     status: Mapped[TraceStatus] = mapped_column(
         Enum(TraceStatus), default=TraceStatus.SUCCESS, nullable=False, index=True

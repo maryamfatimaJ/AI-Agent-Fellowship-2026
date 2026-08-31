@@ -121,6 +121,7 @@ export function AssistantPage() {
             >
               <option value="gemini">Gemini</option>
               <option value="openai">OpenAI</option>
+              <option value="groq">Groq</option>
             </select>
           </Field>
 

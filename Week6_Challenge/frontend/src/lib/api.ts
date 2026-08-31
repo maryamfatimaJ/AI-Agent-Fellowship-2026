@@ -183,6 +183,8 @@ export interface Trace {
   input_tokens: number
   output_tokens: number
   cost_usd: number
+  input_cost_usd: number | null
+  output_cost_usd: number | null
   latency_ms: number
   status: TraceStatus
   error_message: string | null
@@ -337,13 +339,21 @@ export interface QualityPerformance {
   successful_requests: number
   failed_requests: number
   latency_ms: { mean: number | null; median: number | null; p50: number | null; p95: number | null; p99: number | null }
-  cost: { total_usd: number; per_request_usd: number; per_successful_task_usd: number | null }
+  cost: {
+    total_usd: number
+    input_usd: number
+    output_usd: number
+    per_request_usd: number
+    per_successful_task_usd: number | null
+  }
   tokens: { total: number; input: number; output: number }
   by_model: Record<string, { n_requests: number; total_cost_usd: number; total_tokens: number }>
   by_trace_type: Record<string, { n_requests: number; avg_latency_ms: number; total_cost_usd: number }>
   by_prompt_version: Record<string, { n_requests: number; n_successful: number; avg_latency_ms: number; success_rate: number }>
   reliability: { retry_rate: number | null; timeout_rate: number | null; error_rate: number | null; degraded_rate: number | null }
   bottlenecks: { stage: string; avg_latency_ms: number; n_requests: number }[]
+  latency_by_stage: Record<string, { mean: number | null; median: number | null; p50: number | null; p95: number | null; p99: number | null }>
+  bottleneck_stage: string | null
 }
 
 export interface QualityReliability {

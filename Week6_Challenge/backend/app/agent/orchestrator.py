@@ -28,9 +28,15 @@ from app.models.guardrail_event import GuardrailAction, GuardrailDirection, Pend
 from app.models.prompt_version import PromptVersion
 from app.models.trace import TraceStatus, TraceType
 from app.services.guardrail_service import record_guardrail_event
-from app.services.llm_service import LLMError, LLMTimeoutError, generate_with_tools, user_facing_error
+from app.services.llm_service import (
+    LLMError,
+    LLMTimeoutError,
+    default_model_for_provider,
+    generate_with_tools,
+    user_facing_error,
+)
 from app.services.trace_service import SpanRecorder, record_trace, timed_span
-from app.services.usage_service import estimate_cost_usd, record_usage
+from app.services.usage_service import estimate_cost_breakdown, record_usage
 
 logger = logging.getLogger("app.agent.orchestrator")
 
@@ -289,8 +295,7 @@ def run_agent_turn(
     db.commit()
     db.refresh(assistant_message)
 
-    default_model = settings.openai_model if assistant.model_provider == "openai" else settings.gemini_model
-    model_name = assistant.model_name or default_model
+    model_name = assistant.model_name or default_model_for_provider(assistant.model_provider)
     active_prompt_version = (
         db.query(PromptVersion)
         .filter(PromptVersion.workspace_id == conversation.workspace_id, PromptVersion.is_active.is_(True))
@@ -302,6 +307,7 @@ def run_agent_turn(
             total_input_tokens, total_output_tokens,
         )
 
+    input_cost, output_cost, total_cost = estimate_cost_breakdown(model_name, total_input_tokens, total_output_tokens)
     record_trace(
         db,
         trace_type=TraceType.TOOL_CALL,
@@ -313,7 +319,9 @@ def run_agent_turn(
         model=model_name,
         input_tokens=total_input_tokens,
         output_tokens=total_output_tokens,
-        cost_usd=estimate_cost_usd(model_name, total_input_tokens, total_output_tokens),
+        cost_usd=total_cost,
+        input_cost_usd=input_cost,
+        output_cost_usd=output_cost,
         latency_ms=agent_span["elapsed_ms"],
         status=trace_status,
         error_message=trace_error,
