@@ -36,20 +36,19 @@ page-load time.
 
 - **By model**: `by_model` breakdown always computed and rendered ("Cost by
   model" chart, Performance tab); `GET .../quality/{overview,performance,reliability}`
-  all accept an optional `?model=` query param (new this phase) to narrow the
-  whole aggregation to one model.
-- **By prompt version**: `by_prompt_version` breakdown (new this phase,
-  `stats_service.py`) computed from each trace's `meta.prompt_version` —
-  returned by the API (`overview`/`performance`) but **not yet rendered as
-  its own panel in the UI** — an implemented-with-limitation item, since
-  building a full prompt-version filter control was judged lower priority
-  than closing the other, more load-bearing gaps this phase (agent-path
-  guardrails, tool timeout, prompt-version-to-API wiring). The data is one
-  API call away from a UI panel.
-- **By date**: `?since=`/`?until=` query params (new this phase) on the same
-  three endpoints, filtering by `Trace.created_at` — implemented API-side;
-  no date-range picker exists yet in the dashboard UI (same
-  implemented-with-limitation status as prompt-version filtering).
+  all accept an optional `?model=` query param to narrow the whole
+  aggregation to one model — now a real, functional **Model dropdown** at the
+  top of the dashboard page (populated once from an unfiltered load so the
+  option list doesn't shrink once a filter is applied), wired to all three
+  endpoints via `QualityDashboardPage.tsx`'s `filters` state.
+- **By prompt version**: `by_prompt_version` breakdown (`stats_service.py`,
+  computed from each trace's `meta.prompt_version`) is rendered as its own
+  "By prompt version" panel on the Performance tab (n_requests/success
+  rate/avg latency per version) — no longer API-only.
+- **By date**: `?since=`/`?until=` query params on the same three endpoints,
+  filtering by `Trace.created_at` — now backed by real **Since/Until date
+  inputs** on the dashboard page, with a "Clear filters" action once any
+  filter is active.
 - **By test category**: available per evaluation run via
   `EvaluationRun.summary.by_category` (already rendered indirectly — the
   RAG/Agent tabs are themselves category-scoped views) and via the

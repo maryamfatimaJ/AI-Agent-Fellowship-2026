@@ -81,14 +81,31 @@ export function QualityDashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isRunning, setIsRunning] = useState(false)
 
+  // Requirement 9: model/date breakdown filters. `availableModels` is
+  // populated once from an unfiltered load so the dropdown's option list
+  // doesn't shrink to just the one selected model once a filter is applied.
+  const [sinceFilter, setSinceFilter] = useState('')
+  const [untilFilter, setUntilFilter] = useState('')
+  const [modelFilter, setModelFilter] = useState('')
+  const [availableModels, setAvailableModels] = useState<string[]>([])
+
+  const filters = useMemo(
+    () => ({
+      since: sinceFilter || undefined,
+      until: untilFilter || undefined,
+      model: modelFilter || undefined,
+    }),
+    [sinceFilter, untilFilter, modelFilter]
+  )
+
   function loadAll() {
     setIsLoading(true)
     Promise.all([
-      api.getQualityOverview(workspaceId),
+      api.getQualityOverview(workspaceId, filters),
       api.getQualityRag(workspaceId),
       api.getQualityAgent(workspaceId),
-      api.getQualityReliability(workspaceId),
-      api.getQualityPerformance(workspaceId),
+      api.getQualityReliability(workspaceId, filters),
+      api.getQualityPerformance(workspaceId, filters),
       api.listEvaluationRuns(workspaceId),
     ])
       .then(([ov, r, a, rel, perf, evalRuns]) => {
@@ -98,11 +115,14 @@ export function QualityDashboardPage() {
         setReliability(rel)
         setPerformance(perf)
         setRuns(evalRuns.items)
+        if (availableModels.length === 0) {
+          setAvailableModels(Object.keys(perf.by_model))
+        }
       })
       .finally(() => setIsLoading(false))
   }
 
-  useEffect(loadAll, [workspaceId])
+  useEffect(loadAll, [workspaceId, filters])
 
   async function handleRunEvaluation() {
     setIsRunning(true)
@@ -114,7 +134,9 @@ export function QualityDashboardPage() {
     }
   }
 
-  if (isLoading) return <EmptyState title="Loading quality dashboard…" />
+  const hasActiveFilter = Boolean(sinceFilter || untilFilter || modelFilter)
+
+  if (isLoading && !overview) return <EmptyState title="Loading quality dashboard…" />
 
   return (
     <div className="mx-auto h-full max-w-4xl overflow-y-auto px-6 py-10">
@@ -130,6 +152,54 @@ export function QualityDashboardPage() {
         >
           {isRunning ? 'Running…' : 'Run evaluation (15 cases)'}
         </button>
+      </div>
+
+      <div className="mb-4 flex flex-wrap items-end gap-3 rounded-lg border border-line bg-surface p-3">
+        <label className="text-xs">
+          <span className="mb-1 block text-ink-muted">Model</span>
+          <select
+            value={modelFilter}
+            onChange={(e) => setModelFilter(e.target.value)}
+            className="rounded-md border border-line bg-canvas px-2 py-1.5 text-sm text-ink"
+          >
+            <option value="">All models</option>
+            {availableModels.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs">
+          <span className="mb-1 block text-ink-muted">Since</span>
+          <input
+            type="date"
+            value={sinceFilter}
+            onChange={(e) => setSinceFilter(e.target.value)}
+            className="rounded-md border border-line bg-canvas px-2 py-1.5 text-sm text-ink"
+          />
+        </label>
+        <label className="text-xs">
+          <span className="mb-1 block text-ink-muted">Until</span>
+          <input
+            type="date"
+            value={untilFilter}
+            onChange={(e) => setUntilFilter(e.target.value)}
+            className="rounded-md border border-line bg-canvas px-2 py-1.5 text-sm text-ink"
+          />
+        </label>
+        {hasActiveFilter && (
+          <button
+            onClick={() => {
+              setSinceFilter('')
+              setUntilFilter('')
+              setModelFilter('')
+            }}
+            className="rounded-md border border-line px-2.5 py-1.5 text-xs text-ink-muted hover:text-ink"
+          >
+            Clear filters
+          </button>
+        )}
       </div>
 
       <div className="mb-6 flex flex-wrap gap-1 border-b border-line">
@@ -336,6 +406,21 @@ function PerformanceTab({ performance }: { performance: QualityPerformance }) {
               <Bar dataKey="cost" fill="var(--chart-series-3)" radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
+        </Panel>
+      )}
+
+      {Object.keys(performance.by_prompt_version).length > 0 && (
+        <Panel title="By prompt version">
+          <ul className="space-y-1.5">
+            {Object.entries(performance.by_prompt_version).map(([version, stats]) => (
+              <li key={version} className="flex items-center justify-between rounded-md border border-line-soft px-3 py-2 text-sm">
+                <span className="text-ink">{version}</span>
+                <span className="text-ink-muted">
+                  n={stats.n_requests} · {fmtPct(stats.success_rate)} success · {stats.avg_latency_ms}ms avg
+                </span>
+              </li>
+            ))}
+          </ul>
         </Panel>
       )}
 

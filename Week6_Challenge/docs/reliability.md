@@ -188,7 +188,7 @@ time.
 | LLM API unavailable / times out | monkeypatch `_generate_gemini`/`generate_reply` to raise/hang | Clean fallback message, `status=timeout` or `error` | Confirmed (`test_degradation.py`, `test_timeout.py`) |
 | Embedding/vector search unavailable | monkeypatch `embed_texts` to raise | Chat continues without citations, `status=degraded` | Confirmed |
 | Tool throws an exception | a nonexistent skill name / monkeypatched DB error | Fed back to the model as a tool error / caught by `execute_tool` | Confirmed |
-| Tool returns empty result | `search_documents` on an empty/unmatched corpus | Empty `results` list, no crash | Exercised implicitly by every RAG test against an unmatched query |
+| Tool returns empty result | `search_documents` against a workspace with zero documents (real `retrieve_relevant_chunks`, not monkeypatched) | `ToolResult(output={"results": []}, error=None)` — a normal outcome, never conflated with a failure | Confirmed (`test_search_documents_returns_an_explicit_empty_result_not_an_error`) |
 | Tool takes too long | monkeypatch `execute_tool` to sleep past `tool_timeout_seconds` | `ToolResult(error="...timed out...")`, agent recovers | Confirmed (`test_tool_execution_timeout_is_recovered_from`) |
 | Invalid JSON returned (tool-call arguments) | fake OpenAI response with malformed `function.arguments` | Falls back to `{}` args rather than raising | Confirmed (`test_malformed_tool_call_json_falls_back_to_empty_arguments`) |
 | Database connection/operation failure | monkeypatch a tool's DB call to raise `OperationalError` | `ToolResult(error=...)`, no uncaught 500 | Confirmed (`test_execute_tool_catches_a_database_error_and_returns_a_safe_result`) |

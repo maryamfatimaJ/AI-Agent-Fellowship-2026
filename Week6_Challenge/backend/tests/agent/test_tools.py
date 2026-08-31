@@ -53,6 +53,26 @@ def test_search_documents_reports_a_clear_unavailable_error_when_rag_degrades(db
     assert "temporarily unavailable" in result.error
 
 
+def test_search_documents_returns_an_explicit_empty_result_not_an_error(db_session):
+    """Failure injection (Requirement 16): "tool returns empty result" is a
+    dedicated, real scenario — a query against a workspace with no matching
+    (or no) documents must come back as a normal ToolResult(output={"results":
+    []}, error=None), never conflated with a tool exception/failure. Uses the
+    real retrieve_relevant_chunks (not monkeypatched) against a workspace_id
+    that owns zero documents, so this exercises the actual empty-result code
+    path, not a simulated one."""
+    result = execute_tool(
+        "search_documents",
+        {"query": "anything"},
+        workspace_id="workspace-with-no-documents",
+        user_id="user-1",
+        db=db_session,
+    )
+
+    assert result.error is None
+    assert result.output == {"results": []}
+
+
 def test_execute_tool_returns_an_error_for_an_unregistered_tool_name(db_session):
     result = execute_tool("not_a_real_tool", {}, workspace_id="ws-1", user_id="user-1", db=db_session)
     assert result.error == "Unknown tool 'not_a_real_tool'"

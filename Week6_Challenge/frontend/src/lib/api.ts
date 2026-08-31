@@ -316,6 +316,13 @@ export interface PromptVersion {
   created_at: string
 }
 
+export interface QualityFilters {
+  [key: string]: string | undefined
+  since?: string
+  until?: string
+  model?: string
+}
+
 export interface QualityOverview {
   latest_run_id: string | null
   task_success_rate: number | null
@@ -579,19 +586,19 @@ export const api = {
     }),
 
   // --- Quality dashboard ---
-  getQualityOverview: (workspaceId: string) =>
-    request<QualityOverview>(`/api/workspaces/${workspaceId}/quality/overview`),
+  getQualityOverview: (workspaceId: string, filters?: QualityFilters) =>
+    request<QualityOverview>(`/api/workspaces/${workspaceId}/quality/overview${toQuery(filters)}`),
 
   getQualityRag: (workspaceId: string) => request<Record<string, unknown>>(`/api/workspaces/${workspaceId}/quality/rag`),
 
   getQualityAgent: (workspaceId: string) =>
     request<Record<string, unknown>>(`/api/workspaces/${workspaceId}/quality/agent`),
 
-  getQualityPerformance: (workspaceId: string) =>
-    request<QualityPerformance>(`/api/workspaces/${workspaceId}/quality/performance`),
+  getQualityPerformance: (workspaceId: string, filters?: QualityFilters) =>
+    request<QualityPerformance>(`/api/workspaces/${workspaceId}/quality/performance${toQuery(filters)}`),
 
-  getQualityReliability: (workspaceId: string) =>
-    request<QualityReliability>(`/api/workspaces/${workspaceId}/quality/reliability`),
+  getQualityReliability: (workspaceId: string, filters?: QualityFilters) =>
+    request<QualityReliability>(`/api/workspaces/${workspaceId}/quality/reliability${toQuery(filters)}`),
 }
 
 function toQuery(params?: Record<string, string | number | boolean | undefined>): string {
